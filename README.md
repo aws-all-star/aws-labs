@@ -1,4 +1,4 @@
-# Applied DevOps Engineering Projects
+# Applied AWS Cloud Engineer Labs
 
 *Projects developed for the Applied DevOps Engineering Diploma at WeCloudData Toronto - 2023.*
 
