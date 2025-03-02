@@ -1,4 +1,3 @@
-![header](https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=10&height=200&section=header&text=AWS_Technical_Labs&fontSize=40>
 
 # 목차
 - 1. [준비하기](#getting-started)
@@ -67,9 +66,13 @@ AWS 서비스를 더욱 능숙하게 식별할 수 있도록 기초 지식을 �
 
 ### [LAB 2] AWS의 API 서버 및 데이터베이스 구성
   • Bash 스크립트를 개발하여 MongoDB 데이터베이스에 연결된 NodeJS API 마이크로서비스를 배포하여 HTTP 요청에 사용할 수 있는 API 엔드포인트를 노출합니다.<br/>
+  • AWS 아키텍처에는 VPC, 인터넷 게이트웨이, 두 개의 공용 서브넷, 공용 경로 테이블, 공용 EC2 인스턴스, 자동 스케일링 그룹, 애플리케이션 로드 밸런서, 보안 그룹, NAT 게이트웨이, 하나의 개인 서브넷, 개인 경로 테이블 및 개인 EC2 인스턴스가 구성되어야 합니다.
 
-
+### [LAB 3] 옵저버빌리티 시스템 환경 구축
+  • 컨테이너화된 웹 애플리케이션을 클라우드 프로덕션 쿠버네티스(EKS) 클러스터에 배포합니다.
+  • Prometheus, Loki 및 Grafana를 사용하여 클러스터 및 애플리케이션 메트릭 및 로그를 모니터링합니다.
 
 ## 4. 저작자
 
-- Kim, Dong hyun - https://www.credly.com/users/kim-donghyun0916
+- Kim, Dong hyun [Credly] https://www.credly.com/users/kim-donghyun0916
+- Kim, Dong Hyun [Linkdin] https://www.linkedin.com/in/kim-donghyun0916/
