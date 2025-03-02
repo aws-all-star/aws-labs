@@ -3,7 +3,7 @@
 - 2. [시작하기](#installation)
 - 3. [Usage](#usage)
 - 4. [Network Diagram](#network-diagram)
-- 5. [Authors](#authors)
+- 5. [저작자](#authors)
 <br/><br/>
 ## 1. 준비하기
 시작에 앞서 AWS 계정(Account), 올바른 권한을 가진 IAM(Identity and Access Management) 사용자, 비밀 액세스 키(key pair)가 필요합니다(비밀 액세스 키로 파일을 다운로드하세요, 나중에 필요합니다). 
@@ -40,9 +40,13 @@ Default output format [None]:
 ```
 
 ## 2. 시작하기
+AWS 클라우드 Technical Essentials(Basic) 과정에서는 AWS 제품, 서비스 및 일반적인 솔루션을 소개합니다. 
+이 과정에서는 AWS 서비스를 더욱 능숙하게 식별할 수 있도록 기초 지식을 제공하므로, 이 과정을 수강하면 비즈니스 요구 사항에 따라 어떤 IT 솔루션을 사용할 것인지에 대해 정보를 기반으로 한 의사 결정을 하고 AWS에서 작업을 시작할 수 있습니다.
 
+이 1일 과정에서는 AWS 기반 클라우드 컴퓨팅, 스토리지 및 네트워킹의 기본 요소에 대해 알아봅니다.
+또한, 학습에 진행되는 과정의 모든 실습 환경은 강사에 의해 제공되며 수강생은 핸즈온 실습 위주의 기본 인프라 구축 및 배포을 경험하여 다양한 기술 요소를 직접 경험할 수 있을 것입니다. 
 
 
 ## 4. 저작자
 
-- Kim, Dong hyun - 
+- Kim, Dong hyun - https://www.credly.com/users/kim-donghyun0916
