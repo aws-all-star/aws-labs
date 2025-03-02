@@ -38,6 +38,7 @@ AWS Secret Access Key [None]:
 Default region name [None]: 
 Default output format [None]:
 ```
+<br/><br/>
 
 ## 2. 설치하기
 옵션 1: 이 저장소를 복제합니다. 이 옵션을 사용하려면 먼저 터미널에 Git을 설치한 다음 저장소를 복제해야 합니다.
@@ -51,7 +52,7 @@ $ git clone https://github.com/caroldelwing/WCD-DevOps
 
 옵션 2: 스크립트를 다운로드하여 로컬 컴퓨터에 저장하십시오.
 
-
+<br/><br/>
 ## 3. 시작하기
 본 LAB 에서는 AWS 제품, 서비스 및 일반적인 솔루션을 소개합니다. 
 AWS 서비스를 더욱 능숙하게 식별할 수 있도록 기초 지식을 제공하므로, 이 과정을 수강하면 비즈니스 요구 사항에 따라 어떤 IT 솔루션을 사용할 것인지에 대해 정보를 기반으로 한 의사 결정을 하고 AWS에서 작업을 시작할 수 있습니다.
