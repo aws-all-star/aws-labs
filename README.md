@@ -48,9 +48,9 @@ AWS 서비스를 더욱 능숙하게 식별할 수 있도록 기초 지식을 �
 
 
 ### LAB 1. Bash Shell 스크립팅을 사용한 AWS 인프라 프로비저닝
-  • RHEL, Rocky Linux, Ubuntu 등 가상화 이미지(VHDK, QCOW2)를 AWS VM IMPORT기능을 이용하여 AWS 클라우드로 안전하게 전환합니다.
-  • AWS CLI 및 Bash 스크립팅을 활용하여 소프트웨어 라이브러리 최신으로 업데이트하고 개발환경에 필요한 필수 Python, Node, Java 를 설치하는 Linux EC2 인스턴스로 AWS 인프라 프로비저닝을 자동화합니다.
-  • SSH로 여러 서버에 원격으로 액세스, 구성 및 안전하게 관리합니다.
+  • RHEL, Rocky Linux, Ubuntu 등 가상화 이미지(VHDK, QCOW2)를 AWS VM IMPORT기능을 이용하여 AWS 클라우드로 안전하게 전환합니다.<br/>
+  • AWS CLI 및 Bash 스크립팅을 활용하여 소프트웨어 라이브러리 최신으로 업데이트하고 개발환경에 필요한 필수 Python, Node, Java 를 설치하는 Linux EC2 인스턴스로 AWS 인프라 프로비저닝을 자동화합니다.<br/>
+  • SSH로 여러 서버에 원격으로 액세스, 구성 및 안전하게 관리합니다.<br/>
 
 ### LAB 2. AWS의 API 서버 및 데이터베이스 구성
 
