@@ -1,3 +1,5 @@
+![header]("https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=10&height=200&section=header&text=AWS Technical Labs&fontSize=40"/>
+
 # 목차
 - 1. [준비하기](#getting-started)
 - 2. [설치하기](#installation)
