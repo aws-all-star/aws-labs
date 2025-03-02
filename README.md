@@ -38,7 +38,7 @@ Default region name [None]:
 Default output format [None]:
 ```
 
-## 3. 설치하기
+## 2. 설치하기
 옵션 1: 이 저장소를 복제합니다. 이 옵션을 사용하려면 먼저 터미널에 Git을 설치한 다음 저장소를 복제해야 합니다.
 Git을 설치하려면 이 링크로 이동하여 단계를 따르십시오: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 
@@ -48,6 +48,7 @@ $ git clone https://github.com/caroldelwing/WCD-DevOps
 ```
 
 옵션 2: 스크립트를 다운로드하여 로컬 컴퓨터에 저장하십시오.
+<br/><br/>
 
 ## 3. 시작하기
 본 LAB 에서는 AWS 제품, 서비스 및 일반적인 솔루션을 소개합니다. 
