@@ -1,11 +1,11 @@
 # 목차
-- 1. [시작하기](#getting-started)
-- 2. [설치](#installation)
+- 1. [준비하기](#getting-started)
+- 2. [시작하기](#installation)
 - 3. [Usage](#usage)
 - 4. [Network Diagram](#network-diagram)
 - 5. [Authors](#authors)
-<br/><br/><br/>
-## 1. 시작하기
+<br/><br/>
+## 1. 준비하기
 시작에 앞서 AWS 계정(Account), 올바른 권한을 가진 IAM(Identity and Access Management) 사용자, 비밀 액세스 키(key pair)가 필요합니다(비밀 액세스 키로 파일을 다운로드하세요, 나중에 필요합니다). 
 아래 예제는 'AdministratorAcess' 정책이 적용된 사용자를 사용했습니다. IAM 사용자 및 비밀 액세스 키에 대한 자세한 내용은 아래 사이트로 이동하십시오.:
 
@@ -38,4 +38,11 @@ AWS Secret Access Key [None]:
 Default region name [None]: 
 Default output format [None]:
 ```
-<br/>
+
+## 2. 시작하기
+
+
+
+## 4. 저작자
+
+- Kim, Dong hyun - 
