@@ -35,6 +35,7 @@ aws --version
 AWS CLI 설치 방법에 대한 자세한 내용은 다음 링크를 방문하십시오.
 https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
 
+
 AWS 계정에 액세스하려면 터미널에서 다음 명령을 실행하십시오.
 ```sh
 $ aws configure
