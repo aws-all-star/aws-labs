@@ -21,6 +21,7 @@ AWS CLI를 설치하려면 다음 명령을 사용하십시오.
 $ curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 $ unzip awscliv2.zip
 $ sudo ./aws/install
+```
 
 설치가 정상적으로 완료되었다면 아래 명령어로 설치된 버전을 확인할 수 있습니다.
 
@@ -28,9 +29,7 @@ $ sudo ./aws/install
 aws --version
 ```
 
-
 AWS CLI 설치 방법에 대한 자세한 내용은 다음 링크를 방문하십시오.
-
 https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
 
 
