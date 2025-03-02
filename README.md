@@ -82,8 +82,8 @@ AWS 서비스를 더욱 능숙하게 식별할 수 있도록 기초 지식을 �
   • 컨테이너화된 웹 애플리케이션을 클라우드 프로덕션 쿠버네티스(EKS) 클러스터에 배포합니다. <br/>
   • 클러스터는 공용 인터넷에서 사용자가 소비할 수 있었고, 컨테이너의 오케스트레이션은 쿠버네티스 스택을 사용하여 이루어졌다.<br/>
 
-  
-## 4. 저작자
+<br/><br/>
 
+## 4. 저작자
 - Kim, Dong hyun [Credly] https://www.credly.com/users/kim-donghyun0916
 - Kim, Dong Hyun [Linkdin] https://www.linkedin.com/in/kim-donghyun0916/
