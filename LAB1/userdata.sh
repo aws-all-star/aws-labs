@@ -1,30 +1,19 @@
 #!/bin/bash
 
 #Update and upgrade packages
-sudo apt update -y
-sudo apt upgrade -y
+sudo dnf -y update
 
-#Install Python3.10
-sudo add-apt-repository --yes ppa:deadsnakes/ppa
-sudo apt update -y
-sudo apt install -y python3.10
+#Install SSM Agents
+sudo dnf install -y https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm
+sudo systemctl enable amazon-ssm-agent
+
+#Download and install CloudWatch Agents
+sudo dnf install -y https://amazoncloudwatch-agent.s3.amazonaws.com/amazon_linux/amd64/latest/amazon-cloudwatch-agent.rpm
+systemctl start amazon-cloudwatch-agent
+systemctl enable amazon-cloudwatch-agent
 
 #Download and install Nodejs 18, install npm
-curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-sudo apt install -y nodejs
-sudo apt install -y npm
 
 #Install Java
-sudo apt install -y openjdk-11-jre-headless
 
 #Install Docker
-sudo apt-get install -y ca-certificates curl gnupg
-sudo install -m 0755 -d /etc/apt/keyrings
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-sudo chmod a+r /etc/apt/keyrings/docker.gpg
-echo \
-  "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
-sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo apt-get update
-sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
