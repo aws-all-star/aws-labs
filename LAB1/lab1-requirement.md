@@ -7,8 +7,14 @@ AWS CLI 도구를 활용하여 다음과 예시를 참고하여 클라우드 아
 리전(REGION)은 ap-northeast-2(Seoul) 에 있는 자원만 활용하고 가용 영역(Availability Zones) 은 'ap-northeast-2a' 반드시 존재해야 합니다.
 
 ## 1. 요구사항
+1. 리전(REGION)은 ap-northeast-2(Seoul) 에 있는 자원만 활용하고 가용 영역(Availability Zones) 은 'ap-northeast-2a' 반드시 존재해야 합니다.
+```sh
+REGION="ap-northeast-2"
+SUBNET_PUBLIC_AZ="ap-northeast-2a"
+```
+<br/>
 
-1. '10.0.0.0/16' CIDR 블록을 가진, VPC를 생성합니다. tag는 `key=Name ,value=vpc_lab1` 설정합니다.
+2. '10.0.0.0/16' CIDR 블록을 가진, VPC를 생성합니다. tag는 `key=Name ,value=vpc_lab1` 설정합니다.
 ```sh
 VPC_ID=$(aws ec2 create-vpc \
 --cidr-block 10.0.0.0/16 \
@@ -19,7 +25,7 @@ VPC_ID=$(aws ec2 create-vpc \
 ```
 <br/>
    
-2. VPC에 인터넷 게이트웨이 연결되어야 합니다. tag는 `key=Name ,value=igw_lab1` 설정합니다.
+3. VPC에 인터넷 게이트웨이 연결되어야 합니다. tag는 `key=Name ,value=igw_lab1` 설정합니다.
 ```sh
 IGW_ID=$(aws ec2 create-internet-gateway \
 --tag-specifications 'ResourceType=internet-gateway,Tags=[{Key=Name,Value=igw-lab1}, {Key=project,Value=labs}]' \
@@ -28,13 +34,13 @@ IGW_ID=$(aws ec2 create-internet-gateway \
 ```
 <br/>
    
-3. Public subnet 에서 Public IP 자동 할당하도록 되어야 합니다.
+4. Public subnet 에서 Public IP 자동 할당하도록 되어야 합니다.
 ```sh
 aws ec2 attach-internet-gateway --internet-gateway-id $IGW_ID --vpc-id $VPC_ID
 ```
 <br/>
    
-4. 특정 `10.0.0.0/24` 서브넷을 가진, Public Subnet 를 생성합니다. tag는 `key=Name ,value=subnet_lab1` 설정합니다.
+5. `10.0.0.0/24` 서브넷을 가진, Public Subnet 를 생성합니다. tag는 `key=Name ,value=subnet_lab1` 설정합니다.
 ```sh
 SUBNET_ID=$(aws ec2 create-subnet \
 --vpc-id $VPC_ID \
@@ -47,13 +53,13 @@ SUBNET_ID=$(aws ec2 create-subnet \
 ```
 <br/>
 
-5. Public IP가 자동으로 서브넷에 할당되도록 합니다.
+6. Public IP가 자동으로 서브넷에 할당되도록 합니다.
 ```sh
 aws ec2 modify-subnet-attribute --subnet-id $SUBNET_ID --map-public-ip-on-launch
 ```
 <br/>
 
-6. 경로 테이블(route table)을 생성합니다. 그리고 인터넷 게이트웨이에 추가합니다.
+7. 경로 테이블(route table)을 생성합니다. 그리고 인터넷 게이트웨이에 추가합니다.
 ```sh
 RT_ID=$(aws ec2 create-route-table --vpc-id $VPC_ID --output text --query 'RouteTable.RouteTableId' \
 --tag-specifications 'ResourceType=route-table,Tags=[{Key=Name,Value=rt_lab1}, {Key=project,Value=labs}]')
@@ -64,13 +70,13 @@ aws ec2 create-route --route-table-id $RT_ID --destination-cidr-block 0.0.0.0/0 
 ```
 <br/>
 
-7. Public subnet을 Public 경로 테이블(route table)과 연결해야 합니다.
+8. Public subnet을 Public 경로 테이블(route table)과 연결해야 합니다.
 ```sh
 aws ec2 associate-route-table --subnet-id $SUBNET_ID --route-table-id $RT_ID
 ```
 <br/>
 
-8. `lab1_sg` 이름을 가진 보안 그룹(Security Group)을 생성합니다. 이 보안 그룹은 SSH(Secure Shell) 가능해야 합니다.
+9. `lab1_sg` 이름을 가진 보안 그룹(Security Group)을 생성합니다. 이 보안 그룹은 SSH(Secure Shell) 가능해야 합니다.
 ```sh
 SG_ID=$(aws ec2 create-security-group \
     --group-name lab1_sg \
@@ -82,14 +88,14 @@ SG_ID=$(aws ec2 create-security-group \
 ```
 <br/>
 
-9. 이 보안 그룹은 SSH(Secure Shell) 가능해야 합니다.
+10. 이 보안 그룹은 SSH(Secure Shell) 가능해야 합니다.
 ```sh
 aws ec2 authorize-security-group-ingress --group-id <SG_ID> --protocol tcp --port 22 --cidr 0.0.0.0/0
 aws ec2 authorize-security-group-ingress --group-id <SG_ID> --protocol icmp --port -1 --source-group $SG_ID
 ```
 <br/>
 
-8. EC2 인스턴스 접근하기 위한 `lab1_key` 이름을 가진 key-pair(키 페어)를 생성합니다.
+11. EC2 인스턴스 접근하기 위한 `lab1_key` 이름을 가진 key-pair(키 페어)를 생성합니다.
 ```sh
 aws ec2 create-key-pair --key-name lab1_key \
 --key-type rsa \
@@ -99,44 +105,37 @@ aws ec2 create-key-pair --key-name lab1_key \
 ```
 <br/>
 
-9. EC2 인스턴스
-   1. Master node 1
-      1. 크기 : t2.small
-         2. 이미지 : Rocky Linux 9.5
-         3. 설치 소프트웨어
-            1. Python 3.10
-            2. Node 18.0
-            3. Java 11.0
-            4. Docker engine
-         4. 태그 `key=Name ,value=master-node-01`
-      2. Worker node 1
-         1. 크기 : t2.micro
-         2. 이미지 : Rocky Linux 9.5
-         3. 설치 소프트웨어
-            1. Python 3.10
-            2. Node 18.0
-            3. Java 11.0
-            4. Docker engine
-         4. Tag `key=Name ,value=worker-node-01`
-      3. Worker node 2
-         1. 크기 : t2.micro
-         2. 이미지 : Rocky Linux 9.5
-         3. 설치 소프트웨어
-            1. Python 3.10
-            2. Node 18.0
-            3. Java 11.0
-            4. Docker engine
-         4. Tag `key=Name ,value=worker-node-02`
-   10. 3개의 모든 인스턴스는,
-      1. 모든 Linux 서버는 최신 버전의 커널과 라이브러리를 유지해야 한다.
-      2. 동일한 Public 서브넷과 VPC에서,
-      3. 서로 간 통신할 수 있습니다. - 예를 들어 ping 명령을 통해
-      4. SSH로 원격으로 접근할 수 있고,
-      5. 생성된 모든 리소스는 태그가 지정되어야 합니다.: `key=labs ,value=awscloud`
-<br/><br/>
+12. server1과 station1 이름을 가진 EC2 인스턴스 2개를 생성합니다. 해당 인스턴스는 임의로 가공된 AMI(rocky linux 9 update 5)를 사용해야 합니다.
+```sh
+SERVER_NODE1=$(aws ec2 run-instances \
+    --image-id <ami-사용자 임의 AMI ID> \
+    --count 1 \
+    --instance-type t2.small \
+    --key-name lab1_key \
+    --subnet-id $SUBNET_ID \
+    --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=server1}, {Key=project,Value=labs}]' \
+    --security-group-ids $SG_ID \
+    --output text \
+    --query 'Instances[0].InstanceId')
+```
+<br/>
+
+```sh
+STATION_NODE1=$(aws ec2 run-instances \
+    --image-id <ami-사용자 임의 AMI ID> \
+    --count 1 \
+    --instance-type t2.micro \
+    --key-name lab1_key \
+    --subnet-id $SUBNET_ID \
+    --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=station1}, {Key=project,Value=labs}]' \
+    --security-group-ids $SG_ID \
+    --output text \
+    --query 'Instances[0].InstanceId')
+```
+<br/>
 
 ## 2. 네트워크 다이어그램
-<img width="721" alt="image" src="https://github.com/user-attachments/assets/704d2fb5-179f-48e4-9865-94b08e246a24" />
+<img width="900" alt="image" src="https://github.com/user-attachments/assets/a442b5e7-329a-476c-b7a9-a984118ccbb8" />
 <br/><br/>
 
 ## 3. 제출 지침
