@@ -1,4 +1,4 @@
-# LAB 1. AWS 인프라 기본 구성 및 최적화
+# 1. 준비하기
 이 LAB 에서 AWS CLI 명령줄 도구와 Bash Shell 스크립트를 사용하여 AWS 클라우드 인프라를 배포합니다. AWS 클라우드 환경에는 VPC, 인터넷 게이트웨이, 공용 서브넷, 공용 경로 테이블 및 세 개의 EC2 인스턴스가 있습니다. 
 EC2 인스턴스는 동일한 공용 서브넷과 VPC에 있어야 하며, 서로 연결할 수 있어야 하며, SSH로 원격으로 액세스할 수 있어야 합니다. 또한 인스턴스에는 Python 3.10, Node 18.0, Java 11.0 및 Docker 엔진이 설치되어 있어야 합니다.
 <br/><br/>
@@ -6,7 +6,7 @@ EC2 인스턴스는 동일한 공용 서브넷과 VPC에 있어야 하며, 서�
 AWS CLI 도구를 활용하여 다음과 예시를 참고하여 클라우드 아키텍처를 생성하고 설정하는 명령어를 실행합니다.<br/>
 리전(REGION)은 ap-northeast-2(Seoul) 에 있는 자원만 활용하고 가용 영역(Availability Zones) 은 'ap-northeast-2a' 반드시 존재해야 합니다.
 
-## 1. 요구사항
+## 2. 시작하기
 1. 리전(REGION)은 ap-northeast-2(Seoul) 에 있는 자원만 활용하고 가용 영역(Availability Zones) 은 'ap-northeast-2a' 반드시 존재해야 합니다.
 ```sh
 REGION="ap-northeast-2"
@@ -134,12 +134,3 @@ STATION_NODE1=$(aws ec2 run-instances \
 ```
 <br/>
 
-## 2. 네트워크 다이어그램
-<img width="900" alt="image" src="https://github.com/user-attachments/assets/a442b5e7-329a-476c-b7a9-a984118ccbb8" />
-<br/><br/>
-
-## 3. 제출 지침
-- 완성된 GitHub 저장소의 zip을 다운로드하세요.
-- 학습 포털 프로젝트 페이지에서 인계 탭을 클릭하고 과제 업로드를 클릭하고 zip 파일을 업로드하세요.
-
-<br/><br/>
