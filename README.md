@@ -5,6 +5,7 @@
 - 3. [시작하기](#usage)
 - 4. [저작자](#authors)
 <br/><br/>
+
 ## 1. 준비하기
 시작에 앞서 AWS 계정(Account), 올바른 권한을 가진 IAM(Identity and Access Management) 사용자, 비밀 액세스 키(key pair)가 필요합니다(비밀 액세스 키로 파일을 다운로드하세요, 나중에 필요합니다). 
 아래 예제는 'AdministratorAcess' 정책이 적용된 사용자를 사용했습니다. IAM 사용자 및 비밀 액세스 키에 대한 자세한 내용은 아래 사이트로 이동하십시오.:
@@ -46,13 +47,12 @@ Git을 설치하려면 이 링크로 이동하여 단계를 따르십시오: htt
 
 저장소 복제:
 ```sh
-$ git clone https://github.com/caroldelwing/WCD-DevOps
+git clone https://github.com/aws-all-star/aws-labs
 ```
 
-
 옵션 2: 스크립트를 다운로드하여 로컬 컴퓨터에 저장하십시오.
-
 <br/><br/>
+
 ## 3. 시작하기
 본 LAB 에서는 AWS 제품, 서비스 및 일반적인 솔루션을 소개합니다. 
 AWS 서비스를 더욱 능숙하게 식별할 수 있도록 기초 지식을 제공하므로, 이 과정을 수강하면 비즈니스 요구 사항에 따라 어떤 IT 솔루션을 사용할 것인지에 대해 정보를 기반으로 한 의사 결정을 하고 AWS에서 작업을 시작할 수 있습니다.
