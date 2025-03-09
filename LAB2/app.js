@@ -10,7 +10,7 @@ const { DB_HOST, DB_PORT, DB_NAME } = process.env;
   const { db } = await createConnection(DB_HOST, DB_PORT, DB_NAME);
   if (db) {
     //ensure that the players collection exists
-    const players = db.collection("nhl_stats_2022");
+    const players = db.collection("KBL_Pitcher_2024");
 
     //error if there are no documents in the collection
     if ((await players.countDocuments({})) === 0) {
@@ -18,7 +18,7 @@ const { DB_HOST, DB_PORT, DB_NAME } = process.env;
       process.exit(1);
     }
 
-    //return all documents in the nhl_stats_2022 collection
+    //return all documents in the KBL_Pitcher_2024 collection
     app.get("/", async (req, res) => {
       const cursor = await players.find({});
       const results = await cursor.toArray();
