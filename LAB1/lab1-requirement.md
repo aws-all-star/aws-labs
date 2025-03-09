@@ -4,17 +4,33 @@ EC2 인스턴스는 동일한 공용 서브넷과 VPC에 있어야 하며, 서�
 <br/><br/>
 
 ## 1. 요구사항
-1. AWS CLI 도구를 활용하여 다음과 같은 클라우드 아키텍처를 생성하고 설정하는 bash 셸 스크립트를 만듭니다.
-   1. 특정 리전에 위치한 'ap-northeast-2a'에 있는 자원만 활용하고, '10.0.0.0/16' 서브넷을 가지고, VPC를 생성합니다. tag는 `key=Name ,value=vpc_lab1` 설정합니다.
-   ```sh
-   $ aws ec2 create-vpc --cidr-block 10.0.0.0/16 --tag-specification 'ResourceType=vpc,Tags=[{Key=Name,Value=vpc_lab1}, {Key=project,Value=labs}]' --region $REGION --output text --query 'Vpc.VpcId'
-   ```
+1. AWS CLI 도구를 활용하여 다음과 예시를 참고하여 클라우드 아키텍처를 생성하고 설정하는 명령어를 실행합니다.
+   1. 특정 리전에 위치한 'ap-northeast-2a'에 있는 자원만 활용하고, '10.0.0.0/16' 서브넷을 가진, VPC를 생성합니다. tag는 `key=Name ,value=vpc_lab1` 설정합니다.
+   <br/>
    
-      1. VPC에 인터넷 게이트웨이 연결되어야 한다.
-   5. Public subnet
-   6. Public subnet 에서 Public IP 자동 할당하도록 되어야 한다.
-   7. Pubilc subnet 에 대한 Public 경로 테이블(Route Table)
-      1. 경로 테이블(Route Table)에는 인터넷 게이트웨이에 대한 라우팅 규칙이 있다.
+   ```sh
+   aws ec2 create-vpc --cidr-block 10.0.0.0/16 --tag-specification 'ResourceType=vpc,Tags=[{Key=Name,Value=vpc_lab1}, {Key=project,Value=labs}]' --region ap-northeast-2a --output text --query 'Vpc.VpcId'
+   ```
+   <br/>
+   
+   2. VPC에 인터넷 게이트웨이 연결되어야 합니다. tag는 `key=Name ,value=igw_lab1` 설정합니다.
+   ```sh
+   aws ec2 create-internet-gateway --tag-specifications 'ResourceType=internet-gateway,Tags=[{Key=Name,Value=igw-lab1}, {Key=project,Value=labs}]' --output text --query 'InternetGateway.InternetGatewayId')
+   ```
+   <br/>
+   
+   3. Public subnet 에서 Public IP 자동 할당하도록 되어야 합니다. 사전에 `IGW_ID` 와 `VPC_ID` 를 확인하고 명령어를 수행해야 합니다.
+   ```sh
+   aws ec2 attach-internet-gateway --internet-gateway-id <IGW_ID> --vpc-id <VPC_ID>
+   ```
+   <br/>
+   
+   4. 특정 '10.0.0.0/16' 서브넷을 가진, Public Subnet 를 생성합니다. tag는 `key=Name ,value=subnet_lab1` 설정합니다.
+   ```sh
+   aws ec2 create-subnet --vpc-id $VPC_ID --cidr-block 10.0.0.0/24 --tag-specifications 'ResourceType=subnet,Tags=[{Key=Name,Value=subnet_lab1}, {Key=project,Value=labs}]' --availability-zone $SUBNET_PUBLIC_AZ --region $REGION --output text --query 'Subnet.SubnetId')
+   ```
+   <br/>
+   
    8. Public subnet을 Public 경로 테이블(route table)과 연결해야 한다.
    9. EC2 인스턴스
       1. Master node 1
