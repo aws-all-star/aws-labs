@@ -1,4 +1,7 @@
 #!/bin/bash
+#lab-2 application scripts
+#created by Donghyun, Kim
+#KT DS, Cloud Consulting Team, Team Manager
 
 #Update packages
 sudo dnf -y update
