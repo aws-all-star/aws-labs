@@ -1,7 +1,7 @@
 #!/bin/bash
 #linux-ec2-server
 #created by Donghyun, Kim
-#
+#KT DS, Cloud Consulting Team, Team Manager
 
 REGION="ap-northeast-2"
 SUBNET_PUBLIC_AZ="ap-northeast-2a"
