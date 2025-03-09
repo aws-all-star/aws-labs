@@ -10,43 +10,43 @@ https://docs.aws.amazon.com/ko_kr/vm-import/latest/userguide/prerequisites.html
 
 1. QCOW2를 RAW 이미지로 변환합니다.
 ```sh
-qemu-img convert rhel-guest-image-6.8-20160425.0.x86_64.qcow2 rhel-guest-image-6.8-20160425.0.x86_64.raw
+$ qemu-img convert rhel-guest-image-6.8-20160425.0.x86_64.qcow2 rhel-guest-image-6.8-20160425.0.x86_64.raw
 ```
 <br/>
 
 2. AWS S3 버킷 생성한 후, RAW이미지를 s3 버킷으로 업로드
 ```sh
-aws s3api create-bucket --bucket my-ktds --region ap-northeast-2 --create-bucket-configuration LocationConstraint=ap-northeast-2
+$ aws s3api create-bucket --bucket my-ktds --region ap-northeast-2 --create-bucket-configuration LocationConstraint=ap-northeast-2
 ```
 <br/>
 
 ```sh
-aws s3 cp rhel-guest-image-6.8-20160425.0.x86_64.raw s3://my-ktds 
+$ aws s3 cp rhel-guest-image-6.8-20160425.0.x86_64.raw s3://my-ktds 
 ```
 <br/>
 
 3. AWS S3 권한 부여합니다.
 ```sh
-aws iam create-role --role-name vmimport --assume-role-policy-document "file://trust-policy.json"
-aws iam put-role-policy --role-name vmimport --policy-name vmimport --policy-document "file://role-policy.json"
-aws s3api put-bucket-policy --bucket my-rhel9-img --policy "file://bucket-policy.json"
+$ aws iam create-role --role-name vmimport --assume-role-policy-document "file://trust-policy.json"
+$ aws iam put-role-policy --role-name vmimport --policy-name vmimport --policy-document "file://role-policy.json"
+$ aws s3api put-bucket-policy --bucket my-rhel9-img --policy "file://bucket-policy.json"
 ```
 <br/>
 
 4. AWS EC2 스냅샷 생성한 후 정상적으로 생성되면 정보를 확인합니다.
 ```sh
-aws ec2 import-snapshot --description "Red Hat Enterprise Linux 6 Update 8 KVM Guest Image" --disk-container "file://container.json"
+$ aws ec2 import-snapshot --description "Red Hat Enterprise Linux 6 Update 8 KVM Guest Image" --disk-container "file://container.json"
 ```
 <br/>
                           
 ```sh
-aws ec2 describe-import-snapshot-tasks --import-task-ids import-snap-b32277d46bfc9e23t
+$ aws ec2 describe-import-snapshot-tasks --import-task-ids import-snap-b32277d46bfc9e23t
 ```
 <br/>
 
 5. EC2 이미지 등록합니다.
 ```sh
-aws ec2 register-image --name RHEL6.8-baseos-x86_64 --architecture x86_64 --virtualization-type hvm --ena-support --root-device-name /dev/xvda --block-device-mappings DeviceName=/dev/xvda,Ebs={SnapshotId=snap-05792dbe0b9b13f12}
+$ aws ec2 register-image --name RHEL6.8-baseos-x86_64 --architecture x86_64 --virtualization-type hvm --ena-support --root-device-name /dev/xvda --block-device-mappings DeviceName=/dev/xvda,Ebs={SnapshotId=snap-05792dbe0b9b13f12}
 ```
 <br/>
 
