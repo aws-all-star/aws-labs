@@ -28,14 +28,14 @@ const { DB_HOST, DB_PORT, DB_NAME } = process.env;
     app.get("/players/top/:number", async (req, res) => {
       //convert the number to an integer
       const number = parseInt(req.params.number);
-      const cursor = await players.find({}).sort({ Pts: -1 }).limit(number).project({ _id: 0, "Player Name": 1, Team: 1, Pts: 1 });
+      const cursor = await players.find({}).sort({ Pts: -1 }).limit(number).project({ _id: 0, "Player Name": 1, Team: 1, ERA: 1 });
       const results = await cursor.toArray();
       res.json(results);
     });
     //returns all players with teamName
     app.get("/players/team/:teamName", async (req, res) => {
       const cursor = await players.find({ Team: req.params.teamName });
-      const results = await cursor.project({ _id: 0, "Player Name": 1, Team: 1, Pts: 1 }).toArray();
+      const results = await cursor.project({ _id: 0, "Player Name": 1, Team: 1, ERA: 1 }).toArray();
       res.json(results);
     });
     //list all team names
