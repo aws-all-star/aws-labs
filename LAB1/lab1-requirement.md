@@ -1,12 +1,58 @@
-# 1. 준비하기
-이 LAB 에서 AWS CLI 명령줄 도구와 Bash Shell 스크립트를 사용하여 AWS 클라우드 인프라를 배포합니다. AWS 클라우드 환경에는 VPC, 인터넷 게이트웨이, 공용 서브넷, 공용 경로 테이블 및 세 개의 EC2 인스턴스가 있습니다. 
-EC2 인스턴스는 동일한 공용 서브넷과 VPC에 있어야 하며, 서로 연결할 수 있어야 하며, SSH로 원격으로 액세스할 수 있어야 합니다. 또한 인스턴스에는 Python 3.10, Node 18.0, Java 11.0 및 Docker 엔진이 설치되어 있어야 합니다.
-<br/><br/>
+## 1. 준비하기
+수강생은 강사의 지시에 따라 가공된 클라우드 이미지(Rocky Linux)를 제공받을 수 있습니다.
+제공된 QCOW2 이미지를 RAW 이미지로 변환하기 위해서는 각 클라이언트 환경에 맞게 설치할 수 있어야 합니다.<br/>
+https://www.qemu.org/download/#macos
 
-AWS CLI 도구를 활용하여 다음과 예시를 참고하여 클라우드 아키텍처를 생성하고 설정하는 명령어를 실행합니다.<br/>
-리전(REGION)은 ap-northeast-2(Seoul) 에 있는 자원만 활용하고 가용 영역(Availability Zones) 은 'ap-northeast-2a' 반드시 존재해야 합니다.
+설치가 정상적으로 완료되면 AWS에서 제공되는 VM IMPORT 기능을 통해 전환할 수 있습니다.<br/>
+다만, VM Import/Export로 가져오는 리소스에 대한 요구 사항을 사전에 파악하고 지원하는 이미지 형식 또는 운영체제인지를 확인해야 합니다.<br/>
+https://docs.aws.amazon.com/ko_kr/vm-import/latest/userguide/prerequisites.html
+<br/>
+
+1. QCOW2를 RAW 이미지로 변환합니다.
+```sh
+qemu-img convert rhel-guest-image-6.8-20160425.0.x86_64.qcow2 rhel-guest-image-6.8-20160425.0.x86_64.raw
+```
+<br/>
+
+2. AWS S3 버킷 생성한 후, RAW이미지를 s3 버킷으로 업로드
+```sh
+aws s3api create-bucket --bucket my-ktds --region ap-northeast-2 --create-bucket-configuration LocationConstraint=ap-northeast-2
+```
+<br/>
+
+```sh
+aws s3 cp rhel-guest-image-6.8-20160425.0.x86_64.raw s3://my-ktds 
+```
+<br/>
+
+3. AWS S3 권한 부여합니다.
+```sh
+aws iam create-role --role-name vmimport --assume-role-policy-document "file://trust-policy.json"
+aws iam put-role-policy --role-name vmimport --policy-name vmimport --policy-document "file://role-policy.json"
+aws s3api put-bucket-policy --bucket my-rhel9-img --policy "file://bucket-policy.json"
+```
+<br/>
+
+4. AWS EC2 스냅샷 생성한 후 정상적으로 생성되면 정보를 확인합니다.
+```sh
+aws ec2 import-snapshot --description "Red Hat Enterprise Linux 6 Update 8 KVM Guest Image" --disk-container "file://container.json"
+```
+<br/>
+                          
+```sh
+aws ec2 describe-import-snapshot-tasks --import-task-ids import-snap-b32277d46bfc9e23t
+```
+<br/>
+
+5. EC2 이미지 등록합니다.
+```sh
+aws ec2 register-image --name RHEL6.8-baseos-x86_64 --architecture x86_64 --virtualization-type hvm --ena-support --root-device-name /dev/xvda --block-device-mappings DeviceName=/dev/xvda,Ebs={SnapshotId=snap-05792dbe0b9b13f12}
+```
+<br/>
 
 ## 2. 시작하기
+AWS CLI 도구를 활용하여 다음과 예시를 참고하여 클라우드 아키텍처를 생성하고 설정하는 명령어를 실행합니다.<br/>
+
 1. 리전(REGION)은 ap-northeast-2(Seoul) 에 있는 자원만 활용하고 가용 영역(Availability Zones) 은 'ap-northeast-2a' 반드시 존재해야 합니다.
 ```sh
 REGION="ap-northeast-2"
@@ -136,4 +182,5 @@ STATION_NODE1=$(aws ec2 run-instances \
 
 ## 3. 제출 지침
 - 학습 포털 프로젝트 페이지에서 인계 탭을 클릭하고 과제 업로드를 클릭하고 zip 파일을 업로드하세요.
-<br/>
+<br/><br/>
+
