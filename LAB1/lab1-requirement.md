@@ -5,16 +5,18 @@ EC2 인스턴스는 동일한 공용 서브넷과 VPC에 있어야 하며, 서�
 
 ## 1. 요구사항
 1. AWS CLI 도구를 활용하여 다음과 같은 클라우드 아키텍처를 생성하고 설정하는 bash 셸 스크립트를 만듭니다.
-   1. ap-northeast-1에 있는 자원만 활용한다.
-   2. VPC
-   3. Internet gateway
+   1. 특정 리전에 위치한 'ap-northeast-2a'에 있는 자원만 활용하고, '10.0.0.0/16' 서브넷을 가지고, VPC를 생성합니다. tag는 `key=Name ,value=vpc_lab1` 설정합니다.
+   ```sh
+   $ aws ec2 create-vpc --cidr-block 10.0.0.0/16 --tag-specification 'ResourceType=vpc,Tags=[{Key=Name,Value=vpc_lab1}, {Key=project,Value=labs}]' --region $REGION --output text --query 'Vpc.VpcId'
+   ```
+   
       1. VPC에 인터넷 게이트웨이 연결되어야 한다.
-   4. Public subnet
-   5. Public subnet 에서 Public IP 자동 할당하도록 되어야 한다.
-   6. Pubilc subnet 에 대한 Public 경로 테이블(Route Table)
+   5. Public subnet
+   6. Public subnet 에서 Public IP 자동 할당하도록 되어야 한다.
+   7. Pubilc subnet 에 대한 Public 경로 테이블(Route Table)
       1. 경로 테이블(Route Table)에는 인터넷 게이트웨이에 대한 라우팅 규칙이 있다.
-   7. Public subnet을 Public 경로 테이블(route table)과 연결해야 한다.
-   8. EC2 인스턴스
+   8. Public subnet을 Public 경로 테이블(route table)과 연결해야 한다.
+   9. EC2 인스턴스
       1. Master node 1
          1. 크기 : t2.small
          2. 이미지 : Rocky Linux 9.5
@@ -42,7 +44,7 @@ EC2 인스턴스는 동일한 공용 서브넷과 VPC에 있어야 하며, 서�
             3. Java 11.0
             4. Docker engine
          4. Tag `key=Name ,value=worker-node-02`
-   9. 3개의 모든 인스턴스는,
+   10. 3개의 모든 인스턴스는,
       1. 모든 Linux 서버는 최신 버전의 커널과 라이브러리를 유지해야 한다.
       2. 동일한 Public 서브넷과 VPC에서,
       3. 서로 간 통신할 수 있습니다. - 예를 들어 ping 명령을 통해
