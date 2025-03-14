@@ -2,11 +2,11 @@
 수강생은 강사의 지시에 따라 가공된 클라우드 이미지(Rocky Linux)를 제공받을 수 있습니다.
 제공된 QCOW2 이미지를 RAW 이미지로 변환하기 위해서는 각 클라이언트 환경에 맞게 설치할 수 있어야 합니다.<br/>
 https://www.qemu.org/download/#macos
-
+<br/>
 설치가 정상적으로 완료되면 AWS에서 제공되는 VM IMPORT 기능을 통해 전환할 수 있습니다.<br/>
 다만, VM Import/Export로 가져오는 리소스에 대한 요구 사항을 사전에 파악하고 지원하는 이미지 형식 또는 운영체제인지를 확인해야 합니다.<br/>
 https://docs.aws.amazon.com/ko_kr/vm-import/latest/userguide/prerequisites.html
-<br/>
+<br/><br/>
 
 1. QCOW2를 RAW 이미지로 변환합니다.
 ```sh
@@ -111,6 +111,7 @@ RT_ID=$(aws ec2 create-route-table --vpc-id $VPC_ID --output text --query 'Route
 --tag-specifications 'ResourceType=route-table,Tags=[{Key=Name,Value=rt_lab1}, {Key=project,Value=labs}]')
 ```
 <br/>
+
 ```sh
 aws ec2 create-route --route-table-id $RT_ID --destination-cidr-block 0.0.0.0/0 --gateway-id $IGW_ID
 ```
@@ -150,6 +151,9 @@ aws ec2 create-key-pair --key-name lab1_key \
 > lab1_key.pem
 ```
 <br/>
+
+인스턴스를 생성하기 전에 `aws ec2 describe-images --owners self` 명령어로 현재 생성되어 있는 AMI(Amazon Machine Image)를 확인하여 선택합니다.
+<br/><br/>
 
 12. server1과 station1 이름을 가진 EC2 인스턴스 2개를 생성합니다. 해당 인스턴스는 임의로 가공된 AMI(rocky linux 9 update 5)를 사용해야 합니다.
 ```sh
