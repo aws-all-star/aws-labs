@@ -15,5 +15,11 @@
 
 메인 스크립트를 실행한 후 AWS 인프라를 시작한 지역의 콘솔에서 AWS 계정으로 이동하여 EC2 대시보드를 클릭한 다음 로드 밸런서를 클릭합니다. lab2-load-balancer 로드 밸런서를 선택하고 DNS 이름을 복사한 다음 원하는 경로를 따라 웹 브라우저에 붙여넣습니다.
 
-경로 "/" -> KBL-Pitcher-2024 문서를 모든 내용을 출력합니다.</br>
-경로 "/teams" -> 모든 팀의 목록을 출력합니다.
+1. 경로 "/" -> KBL-Pitcher-2024 문서를 모든 내용을 출력합니다.</br>
+2. 경로 "/teams" -> 모든 팀의 목록을 출력합니다.
+</br></br>
+
+## 저작자
+- Kim, Dong Hyun (티스토리) [https://www.linkedin.com/in/kim-donghyun0916/](https://rhlinux.tistory.com)
+- Kim, Dong Hyun (Credly) https://www.credly.com/users/kim-donghyun0916
+<br/><br/>
