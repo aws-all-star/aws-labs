@@ -122,7 +122,7 @@ aws ec2 associate-route-table --subnet-id $SUBNET_ID --route-table-id $RT_ID
 ```
 <br/>
 
-9. `lab1_sg` 이름을 가진 보안 그룹(Security Group)을 생성합니다. 이 보안 그룹은 SSH(Secure Shell) 가능해야 합니다.
+9. `lab1_sg` 이름을 가진 보안 그룹(Security Group)을 생성합니다. 이 보안 그룹은 SSH(Secure Shell)로 접근이 가능해야 합니다.
 ```sh
 SG_ID=$(aws ec2 create-security-group \
     --group-name lab1_sg \
@@ -134,8 +134,7 @@ SG_ID=$(aws ec2 create-security-group \
 ```
 <br/>
 
-10. 이 보안 그룹은 SSH(Secure Shell) 가능해야 합니다.
-```sh
+10. 이 보안 그룹은 22포트와 ICMP 통신을 할 수 있어야 합니다.
 aws ec2 authorize-security-group-ingress --group-id <SG_ID> --protocol tcp --port 22 --cidr 0.0.0.0/0
 aws ec2 authorize-security-group-ingress --group-id <SG_ID> --protocol icmp --port -1 --source-group $SG_ID
 ```
