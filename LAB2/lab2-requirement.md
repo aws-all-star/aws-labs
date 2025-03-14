@@ -13,11 +13,14 @@ EC2 인스턴스는 동일한 공용 서브넷과 VPC에 있어야 하며, 서�
    2.1. Fast API
    2.2. Node + Express
    2.3. Java Springboot
+<br/><br/>
 
 ## 테스트 결과
 "KBL-Pitcher-2024.csv"라는 csv 파일에는 KBL 투수 선수, 평균 자책점, 경기 승리 수에 대한 데이터가 있습니다. 메인 스크립트를 실행한 후 AWS 인프라를 시작한 지역의 콘솔에서 AWS 계정으로 이동하여 EC2 대시보드를 클릭한 다음 로드 밸런서를 클릭합니다. lab_2 로드 밸런서를 선택하고 DNS 이름을 복사한 다음 원하는 경로를 따라 웹 브라우저에 붙여넣습니다.
 
 경로 "/" -> KBL-Pitcher-2024.csv 모든 문서 내용를 반환합니다.<br/>
-경로 "/players/top/:number" -> 상위 플레이어를 반환합니다. 예를 들어, /players/top/10은 점수에서 상위 10명의 선수를 반환합니다.<br/>
-경로 "/players/team/:teamName" ->은 팀의 모든 선수를 반환합니다. 예를 들어, /players/team/TOR는 Tornto Maple Leafs의 모든 선수를 반환합니다. 
 경로 "/teams" ->는 모든 팀의 목록을 반환합니다.
+
+## 목표 구성도
+
+<br/><br/>
