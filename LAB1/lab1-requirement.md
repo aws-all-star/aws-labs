@@ -135,8 +135,9 @@ SG_ID=$(aws ec2 create-security-group \
 <br/>
 
 10. 이 보안 그룹은 22포트와 ICMP 통신을 할 수 있어야 합니다.
-aws ec2 authorize-security-group-ingress --group-id <SG_ID> --protocol tcp --port 22 --cidr 0.0.0.0/0
-aws ec2 authorize-security-group-ingress --group-id <SG_ID> --protocol icmp --port -1 --source-group $SG_ID
+```sh
+aws ec2 authorize-security-group-ingress --group-id $SG_ID --protocol tcp --port 22 --cidr 0.0.0.0/0
+aws ec2 authorize-security-group-ingress --group-id $SG_ID --protocol icmp --port -1 --source-group $SG_ID
 ```
 <br/>
 
