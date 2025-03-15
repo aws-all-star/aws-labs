@@ -191,9 +191,16 @@ STATION_NODE1=$(aws ec2 run-instances \
     --output text \
     --query 'Instances[0].InstanceId')
 ```
-<br/><br/>
+<br/>
+
+13. 아래 명령어를 통해 EC2 인스턴스의 Public IP 를 확인할 수 있고, ssh 명령어로 서버에 접속할 수 있어야 합니다.
+
+```sh
+aws ec2 describe-instances --query 'Reservations[*].Instances[*].[InstanceId, PublicIpAddress]' --output table
+```
+<br/>
 
 ## 3. 제출 지침
-- aws ec2 describe-instances --query 'Reservations[*].Instances[*].[InstanceId, PublicIpAddress]' --output table 명령어를 통해 인스턴스 ID 및 Public IP를 확인할 수 있습니다.
-- ssh 명령어로 인스턴스에 접속할 수 있어야 합니다.
+- Linux 운영체제를 최신 버전으로 유지해야 합니다. 최신 버전의 커널은 무엇입니까? Z-Stream 버전까지 확인할 수 있어야 합니다.
+- AWS 클라우드 환경에 최적화된 성능을 유지하려면 tuned 명령어를 통해 손쉽게 적용할 수 있습니다. 적용 후, 어떠한 차이점이 있는지 확인해야 합니다.
 <br/><br/>
