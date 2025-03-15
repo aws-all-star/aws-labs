@@ -244,10 +244,13 @@ aws ec2 authorize-security-group-ingress --group-id $SG_APP_ID --protocol tcp --
 ```
 <br/>
 
+인스턴스를 생성하기 전에 `aws ec2 describe-images --owners self` 명령어로 현재 생성되어 있는 AMI(Amazon Machine Image)를 확인하여 선택합니다.
+<br/><br/>
+
 27.
 ```sh
 DB_EC2=$(aws ec2 run-instances \
-    --image-id ami-0b39b65eacb043ba3 \
+    --image-id <ami-사용자 임의 AMI ID> \
     --count 1 \
     --instance-type t2.micro \
     --key-name lab2_key \
