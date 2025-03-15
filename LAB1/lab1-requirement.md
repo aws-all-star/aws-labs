@@ -1,6 +1,11 @@
 ## 1. 준비하기
-수강생은 강사의 지시에 따라 가공된 클라우드 이미지(Rocky Linux)를 제공받을 수 있습니다.
-제공된 QCOW2 이미지를 RAW 이미지로 변환하기 위해서는 각 클라이언트 환경에 맞게 설치할 수 있어야 합니다.<br/>
+VM Import/Export를 사용해 손쉽게 기존 환경의 가상 머신 이미지를 Amazon EC2 인스턴스로 가져오고 다시 온프레미스 환경으로 내보낼 수 있습니다. VM Import/Export를 사용하면 IT 보안, 구성 관리, 규정 준수 요구 사항을 충족하기 위해 구축한 가상 머신을 Amazon EC2로 가져와 인스턴스로 즉시 사용할 수 있어 가상 머신에 대한 기존 투자를 활용할 수 있습니다. 또한 가져온 인스턴스를 다시 온프레미스 가상화 인프라로 다시 내보낼 수 있으므로 IT 인프라 전반에 워크로드를 배포할 수 있습니다.
+
+VM Import/Export는 Amazon EC2 및 Amazon S3의 표준 사용 요금 외에 추가 비용 없이 이용할 수 있습니다.
+
+이미지를 가져오려면, AWS CLI, 다른 개발자 도구 또는 콘솔 기반 Migration Hub Orchestrator 템플릿을 사용하여 VMware 환경에서 가상 머신 이미지를 가져옵니다. VMware vSphere 가상화 플랫폼을 사용하는 경우에는 vCenter용 AWS Management Portal을 통해 VM을 가져올 수도 있습니다. 가져오기 프로세스의 일부로서, VM Import에서 VM을 Amazon EC2 인스턴스를 실행하는 데 사용할 수 있는 Amazon EC2 AMI로 변환합니다. VM을 가져오면, Auto Scaling, Elastic Load Balancing, CloudWatch 등의 서비스를 통한 Amazon의 탄력성, 확장성 및 모니터링 기능을 활용해 가져온 이미지를 지원할 수 있습니다.
+
+수강생은 강사의 지시에 따라 가공된 클라우드 이미지(Rocky Linux)를 제공받을 수 있습니다. 제공된 QCOW2 이미지를 RAW 이미지로 변환하기 위해서는 각 클라이언트 환경에 맞게 설치할 수 있어야 합니다.<br/>
 https://www.qemu.org/download/#macos
 <br/>
 설치가 정상적으로 완료되면 AWS에서 제공되는 VM IMPORT 기능을 통해 전환할 수 있습니다.<br/>
