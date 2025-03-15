@@ -10,5 +10,5 @@
 4. 문제 예방 및 최적화: 옵저버빌리티를 사용하면 시스템의 성능을 지속적으로 모니터링하고 문제를 예방할 수 있습니다. 또한 시스템의 최적화를 위해 데이터를 분석하고 개선할 수 있습니다.<br/>
 <br/>
 
-<img width="800" alt="image" src="https://github.com/user-attachments/assets/c22353d1-1075-4d8b-b1fd-61395fbff9ae" />
+<img width="800" alt="image" src="https://github.com/user-attachments/assets/c22353d1-1075-4d8b-b1fd-61395fbff9ae" /> <br/>
 유명한 오픈소스 시스템 모니터링 및 경고 솔루션으로 프로메테우스(Prometheus)가 있습니다. 데이터의 모니터링을 위해 다양한 기능 및 쿼리 언어를 제공합니다. Grafana는 데이터를 시각화 하여 분석 및 모니터링을 용이하게 해주는 오픈소스 분석 플랫폼입니다.
