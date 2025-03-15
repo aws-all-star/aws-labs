@@ -203,6 +203,11 @@ aws ec2 describe-instances \
 ```
 <br/>
 
+```sh
+aws ec2 describe-instances --query 'Reservations[*].Instances[*].[InstanceId, PublicIpAddress]' --output table
+```
+<br/><br/>
+
 ## 3. 제출 지침
 - 사용자의 운영체제는 보안취약점에 노출되어 있습니다. 수강생은 Linux 운영체제를 최신 버전으로 업데이트해야 합니다. 최신 버전의 커널은 무엇입니까? (Z-Stream 버전 포함)
 - AWS 클라우드 환경에 최적화된 성능을 유지하려면 tuned 명령어를 통해 손쉽게 적용할 수 있습니다. 적용 후, 어떠한 차이점이 있는지 확인해야 합니다.
