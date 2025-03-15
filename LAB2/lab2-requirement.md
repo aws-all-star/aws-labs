@@ -9,12 +9,11 @@
 옵션 1: 이 저장소를 복제합니다. 이 옵션을 사용하려면 먼저 터미널에 Git을 설치한 다음 저장소를 복제해야 합니다.<br/>
 Git을 설치하려면 이 링크로 이동하여 단계를 따르십시오: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 ```sh
-$ git clone
+$ git clone https://github.com/aws-all-star/aws-labs
 ```
-<br/>
 저장소 복제:<br/>
-옵션 2: 스크립트를 다운로드하여 로컬 컴퓨터에 저장하십시오. https://github.com/aws-all-star/aws-labs
-<br/>
+옵션 2: 스크립트를 다운로드하여 로컬 컴퓨터에 저장하십시오.
+<br/><br/>
 
 ## 시작하기
 1. 리전(REGION)은 ap-northeast-2(Seoul) 에 있는 자원만 활용하고 가용 영역(Availability Zones) 은 'ap-northeast-2a' 와 'ap-northeast-2b' 존재하도록 합니다.
@@ -53,7 +52,7 @@ aws ec2 attach-internet-gateway \
 ```
 <br/>
 
-5. `10.0.0.0/24` 서브넷을 가진, `Public Subnet 1` 를 생성합니다. tag는 `key=Name ,value=subnet_lab1` 설정합니다.
+5. `10.0.0.0/24` 을 가진, `Public Subnet 1` 서브넷을 생성합니다. tag는 `key=Name ,value=subnet_lab1` 설정합니다.
 ```sh
 SUBNET1_PUBLIC=$(aws ec2 create-subnet \
     --vpc-id $VPC_ID \
@@ -79,18 +78,19 @@ RT_PUBLIC=$(aws ec2 create-route-table --vpc-id $VPC_ID --output text --query 'R
 ```
 <br/>
 
-8. 퍼블릿 
+8. 라우팅 테이블에 모든 IPv4 트래픽(0.0.0.0/0)을 IGW로 보내는 라우팅 경로를 생성합니다/
 ```sh
 aws ec2 create-route --route-table-id $RT_PUBLIC --destination-cidr-block 0.0.0.0/0 --gateway-id $IGW_ID
 ```
 <br/>
 
+9. 지정된 라우팅 테이블을 퍼블릿 서브넷 1 과 연결합니다.
 ```sh
 aws ec2 associate-route-table --subnet-id $SUBNET1_PUBLIC --route-table-id $RT_PUBLIC
 ```
 <br/>
 
-9. `10.0.9.0/24` 서브넷을 가진, `Public Subnet 2` 를 생성합니다. tag는 `key=Name ,value=public_subnet2_lab2` 설정합니다.
+10. `10.0.9.0/24` 서브넷을 가진, `Public Subnet 2` 를 생성합니다. tag는 `key=Name ,value=public_subnet2_lab2` 설정합니다.
 ```sh
 SUBNET2_PUBLIC=$(aws ec2 create-subnet \
     --vpc-id $VPC_ID \
@@ -103,13 +103,13 @@ SUBNET2_PUBLIC=$(aws ec2 create-subnet \
 ```
 <br/>
 
-10. Public IP가 자동으로 `Public Subnet 2` 에 할당되도록 합니다.
+11. `Public Subnet 2`을 수정하여 이 서브넷으로 시작된 모든 인스턴스에 공용 IPv4 주소가 할당되도록 지정합니다.
 ```sh
 aws ec2 modify-subnet-attribute --subnet-id $SUBNET2_PUBLIC --map-public-ip-on-launch
 ```
 <br/>
 
-11. 
+12. 지정된 라우팅 테이블을 퍼블릿 서브넷 2 과 연결합니다.
 ```sh
 aws ec2 associate-route-table --subnet-id $SUBNET2_PUBLIC --route-table-id $RT_PUBLIC
 ```
@@ -128,20 +128,20 @@ SUBNET_PRIVATE=$(aws ec2 create-subnet \
 ```
 <br/>
 
-13. 
+13. 지정된 VPC에 대한 라우팅 테이블을 생성합니다
 ```sh
 RT_PRIVATE=$(aws ec2 create-route-table --vpc-id $VPC_ID --output text --query 'RouteTable.RouteTableId' \
     --tag-specifications 'ResourceType=route-table,Tags=[{Key=Name,Value=private_rt_lab2}, {Key=project,Value=labs}]')
 ```
 <br/>
 
-14.
+14. 지정된 라우팅 테이블을 지정된 서브넷과 연결합니다.
 ```sh
 aws ec2 associate-route-table --subnet-id $SUBNET_PRIVATE --route-table-id $RT_PRIVATE
 ```
 <br/>
 
-15. `lab2_key` 이름을 가진 key-pair(키 페어)를 생성합니다.
+15. `lab2_key` 이름을 가진 key-pair(키 페어)를 생성합니다. 키 페어를 생성하려면 aws ec2 create-key-pair 명령과 함께 --query 옵션 및 --output text 옵션을 사용하여 프라이빗 키를 직접 파일에 파이프합니다.
 ```sh
 aws ec2 create-key-pair \
     --key-name lab2_key \
@@ -152,7 +152,7 @@ aws ec2 create-key-pair \
 ```
 <br/>
 
-16.
+16. Virtual Private Cloud(VPC)와 관련된 보안 그룹을 생성할 수 있습니다. 지정된 VPC에 대한 `lab2_alb_sg` 이름을 가진 보안 그룹을 생성합니다.
 ```sh
 SG_ALB_ID=$(aws ec2 create-security-group \
     --group-name lab2_alb_sg \
@@ -164,7 +164,7 @@ SG_ALB_ID=$(aws ec2 create-security-group \
 ```
 <br/>
 
-17. 
+17. 기본적으로 방화벽 역할을 하는 Amazon Elastic Compute Cloud(Amazon EC2) 인스턴스에 대한 보안 그룹과 함께, 들어오고 나가는 네트워크 트래픽을 결정하는 규칙을 생성할 수 있습니다. 지정된 VPC에 대한 보안 보안 그룹의 인스턴스에 80 포트와 443 포트 규칙을 추가합니다.
 ```sh
 aws ec2 authorize-security-group-ingress --group-id $SG_ALB_ID --protocol tcp --port 80 --cidr 0.0.0.0/0
 aws ec2 authorize-security-group-ingress --group-id $SG_ALB_ID --protocol tcp --port 443 --cidr 0.0.0.0/0
@@ -191,7 +191,7 @@ aws ec2 authorize-security-group-ingress --group-id $SG_APP_ID --protocol tcp --
 ```
 <br/>
 
-20.
+20. 탄력적 IP 주소를 할당합니다. Amazon EC2는 Amazon 주소 풀에서 주소를 선택하게 됩니다.
 ```sh
 EIP_ALLOC_ID=$(aws ec2 allocate-address \
     --query 'AllocationId' --output text)
