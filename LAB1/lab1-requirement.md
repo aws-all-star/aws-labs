@@ -1,26 +1,29 @@
 ## 1. 준비하기
 VM Import/Export를 사용해 손쉽게 기존 환경의 가상 머신 이미지를 Amazon EC2 인스턴스로 가져오고 다시 온프레미스 환경으로 내보낼 수 있습니다. VM Import/Export를 사용하면 IT 보안, 구성 관리, 규정 준수 요구 사항을 충족하기 위해 구축한 가상 머신을 Amazon EC2로 가져와 인스턴스로 즉시 사용할 수 있어 가상 머신에 대한 기존 투자를 활용할 수 있습니다. 또한 가져온 인스턴스를 다시 온프레미스 가상화 인프라로 다시 내보낼 수 있으므로 IT 인프라 전반에 워크로드를 배포할 수 있습니다.
 
-VM Import/Export는 Amazon EC2 및 Amazon S3의 표준 사용 요금 외에 추가 비용 없이 이용할 수 있습니다.
+<img width="700" alt="image" src="https://github.com/user-attachments/assets/16277ed4-50f6-48b5-918c-33845a486c5e" />
 
+이미지를 가져오려면, AWS CLI, 다른 개발자 도구 또는 콘솔 기반 Migration Hub Orchestrator 템플릿을 사용하여 기존 온프레미스 또는 가상화 그리고 이기종 클라우드 환경에서 가상 머신 이미지를 가져옵니다. VMware 또는 Openstack 가상화 플랫폼을 사용하는 경우에는 AWS Management Portal을 통해 VM을 가져올 수도 있습니다. 가져오기 프로세스의 일부로서, VM Import에서 VM을 Amazon EC2 인스턴스를 실행하는 데 사용할 수 있는 Amazon EC2 AMI로 변환합니다. VM을 가져오면, Auto Scaling, Elastic Load Balancing, CloudWatch 등의 서비스를 통한 Amazon의 탄력성, 확장성 및 모니터링 기능을 활용해 가져온 이미지를 지원할 수 있습니다.
 
-이미지를 가져오려면, AWS CLI, 다른 개발자 도구 또는 콘솔 기반 Migration Hub Orchestrator 템플릿을 사용하여 VMware 환경에서 가상 머신 이미지를 가져옵니다. VMware vSphere 가상화 플랫폼을 사용하는 경우에는 vCenter용 AWS Management Portal을 통해 VM을 가져올 수도 있습니다. 가져오기 프로세스의 일부로서, VM Import에서 VM을 Amazon EC2 인스턴스를 실행하는 데 사용할 수 있는 Amazon EC2 AMI로 변환합니다. VM을 가져오면, Auto Scaling, Elastic Load Balancing, CloudWatch 등의 서비스를 통한 Amazon의 탄력성, 확장성 및 모니터링 기능을 활용해 가져온 이미지를 지원할 수 있습니다.
-
-수강생은 강사의 지시에 따라 가공된 클라우드 이미지(QCOW2)를 제공받을 수 있습니다. 제공된 클라우드 이미지를 RAW 이미지로 변환하기 위해서는 각 클라이언트 환경에 맞게 설치할 수 있어야 합니다.<br/>
+수강생은 강사의 지시에 따라 가공된 클라우드 이미지(QCOW2)를 제공받게 됩니다. 제공된 클라우드 이미지를 RAW 이미지로 변환하기 위해서는 아래 예시를 통해 각 클라이언트 환경에 맞게 설치할 수 있어야 합니다.<br/>
+아래 사이트 제공되는 툴을 설치하여 기존 가상화 이미지를 AWS Cloud로 전환할 수 있도록 변환해야만 합니다.<br/>
 https://www.qemu.org/download/#macos
-<br/>
+<br/><br/>
 설치가 정상적으로 완료되면 AWS에서 제공되는 VM IMPORT 기능을 통해 전환할 수 있습니다.<br/>
 다만, VM Import/Export로 가져오는 리소스에 대한 요구 사항을 사전에 파악하고 지원하는 이미지 형식 또는 운영체제인지를 확인해야 합니다.<br/>
 https://docs.aws.amazon.com/ko_kr/vm-import/latest/userguide/prerequisites.html
 <br/><br/>
 
-1. QCOW2를 RAW 이미지로 변환합니다.
+아래 예제를 참고하여 순서대로 s3 생성하고 권한을 부여하여 AWS EC2 인스턴스를 생성할 수 있도록 명령어를 실행해야 합니다.
+<br/>
+
+1. 강사에게 제공받은 QCOW2 이미지를 RAW 이미지로 변환합니다.
 ```sh
 $ qemu-img convert rhel-guest-image-6.8-20160425.0.x86_64.qcow2 rhel-guest-image-6.8-20160425.0.x86_64.raw
 ```
 <br/>
 
-2. AWS S3 버킷 생성한 후, RAW이미지를 s3 버킷으로 업로드
+2. my-ktds 라는 이름의 AWS S3 버킷 생성한 후, 변환된 RAW이미지를 s3 버킷으로 업로드합니다.
 ```sh
 $ aws s3api create-bucket --bucket my-ktds --region ap-northeast-2 --create-bucket-configuration LocationConstraint=ap-northeast-2
 ```
@@ -31,7 +34,7 @@ $ aws s3 cp rhel-guest-image-6.8-20160425.0.x86_64.raw s3://my-ktds
 ```
 <br/>
 
-3. AWS S3 권한 부여합니다.
+3. AWS S3 권한 부여합니다.trust-policy, role-policy.json, bucket-policy.json 파일은 강사에게 제공받게 됩니다.
 ```sh
 $ aws iam create-role --role-name vmimport --assume-role-policy-document "file://trust-policy.json"
 $ aws iam put-role-policy --role-name vmimport --policy-name vmimport --policy-document "file://role-policy.json"
@@ -54,7 +57,7 @@ $ aws ec2 describe-import-snapshot-tasks --import-task-ids import-snap-b32277d46
 ```sh
 $ aws ec2 register-image --name RHEL6.8-baseos-x86_64 --architecture x86_64 --virtualization-type hvm --ena-support --root-device-name /dev/xvda --block-device-mappings DeviceName=/dev/xvda,Ebs={SnapshotId=snap-05792dbe0b9b13f12}
 ```
-<br/>
+<br/><br/>
 
 ## 2. 시작하기
 AWS CLI 도구를 활용하여 다음과 예시를 참고하여 클라우드 아키텍처를 생성하고 설정하는 명령어를 실행합니다.<br/>
@@ -161,7 +164,7 @@ aws ec2 create-key-pair --key-name lab1_key \
 인스턴스를 생성하기 전에 `aws ec2 describe-images --owners self` 명령어로 현재 생성되어 있는 AMI(Amazon Machine Image)를 확인하여 선택합니다.
 <br/><br/>
 
-12. server1과 station1 이름을 가진 EC2 인스턴스 2개를 생성합니다. 해당 인스턴스는 임의로 가공된 AMI(rocky linux 9 update 5)를 사용해야 합니다.
+12. server1과 station1 이름을 가진 EC2 인스턴스 2개를 생성합니다. 해당 인스턴스는 임의로 가공된 AMI를 사용합니다. AMI는 사용자가 생성한 인스턴스를 의미합니다.
 ```sh
 SERVER_NODE1=$(aws ec2 run-instances \
     --image-id <ami-사용자 임의 AMI ID> \
