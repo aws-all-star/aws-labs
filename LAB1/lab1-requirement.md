@@ -191,9 +191,9 @@ STATION_NODE1=$(aws ec2 run-instances \
     --output text \
     --query 'Instances[0].InstanceId')
 ```
-<br/>
-
-## 3. 제출 지침
-- 학습 포털 프로젝트 페이지에서 인계 탭을 클릭하고 과제 업로드를 클릭하고 zip 파일을 업로드하세요.
 <br/><br/>
 
+## 3. 제출 지침
+- aws ec2 describe-instances --query 'Reservations[*].Instances[*].[InstanceId, PublicIpAddress]' --output table 명령어를 통해 인스턴스 ID 및 Public IP를 확인할 수 있습니다.
+- ssh 명령어로 인스턴스에 접속할 수 있어야 합니다.
+<br/><br/>
