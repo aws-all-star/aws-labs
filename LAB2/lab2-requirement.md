@@ -3,12 +3,12 @@
 
 이 프로젝트는 메인 스크립트(api_server_db.sh)와 보조 스크립트로 구성되어 있습니다. 메인 스크립트는 AWS CLI를 사용하여 AWS 클라우드 인프라를 배포하는 역할을 합니다. 특히, AWS 아키텍처에는 VPC, 인터넷 게이트웨이, 두 개의 공용 서브넷, 공용 경로 테이블, 공용 EC2 인스턴스, 자동 스케일링 그룹, 애플리케이션 로드 밸런서, 보안 그룹, NAT 게이트웨이, 하나의 개인 서브넷, 개인 경로 테이블 및 개인 EC2 인스턴스가 있습니다.
 <br/><br/>
+선택한 데이터와 선택한 데이터베이스 서버를 사용하여 간단한 데이터를 저장하는 데이터베이스를 만듭니다. 예를 들어 2024년도 KBL 등록된 투수 선수 중에 그들의 ERA(평균 자책점), G(경기 수) 및 W(승리 수) 등에 대한 데이터가 있는 첨부된 KBL 데이터를 사용할 수 있습니다.
+https://www.koreabaseball.com/Record/Player/PitcherBasic/Basic1.aspx
+<br/><br/>
 
 ## 시작하기
-1. 선택한 데이터와 선택한 데이터베이스 서버를 사용하여 간단한 데이터를 저장하는 데이터베이스를 만듭니다.
-   예를 들어 2024년도 KBL 등록된 투수 선수 중에 그들의 ERA(평균 자책점), G(경기 수) 및 W(승리 수) 등에 대한 데이터가 있는 첨부된 KBL 데이터를 사용할 수 있습니다.
-   https://www.koreabaseball.com/Record/Player/PitcherBasic/Basic1.aspx
-   
+1. 리전(REGION)은 ap-northeast-2(Seoul) 에 있는 자원만 활용하고 가용 영역(Availability Zones) 은 'ap-northeast-2a' 와 'ap-northeast-2b' 존재하도록 합니다.
 ```sh
 REGION="ap-northeast-2"
 SUBNET1_PUBLIC_AZ="ap-northeast-2a"
@@ -16,6 +16,7 @@ SUBNET2_PUBLIC_AZ="ap-northeast-2b"
 ```
 <br/>
 
+2. '10.0.0.0/16' CIDR 블록을 가진, VPC를 생성합니다. tag는 `key=Name ,value=vpc_lab2` 설정합니다.
 ```sh
 VPC_ID=$(aws ec2 create-vpc \
     --cidr-block 10.0.0.0/16 \
@@ -26,6 +27,7 @@ VPC_ID=$(aws ec2 create-vpc \
 ```
 <br/>
 
+3. 인터넷 게이트웨이를 생성합니다. tag는 `key=Name ,value=igw_lab2` 설정합니다.
 ```sh
 IGW_ID=$(aws ec2 create-internet-gateway \
     --tag-specifications 'ResourceType=internet-gateway,Tags=[{Key=Name,Value=igw-lab2}, {Key=project,Value=labs}]' \
@@ -34,6 +36,7 @@ IGW_ID=$(aws ec2 create-internet-gateway \
 ```
 <br/>
 
+4. VPC에 인터넷 게이트웨이 연결되어야 합니다.
 ```sh
 aws ec2 attach-internet-gateway \
     --internet-gateway-id $IGW_ID \
@@ -41,6 +44,7 @@ aws ec2 attach-internet-gateway \
 ```
 <br/>
 
+5. `10.0.0.0/24` 서브넷을 가진, Public Subnet 를 생성합니다. tag는 `key=Name ,value=subnet_lab1` 설정합니다.
 ```sh
 SUBNET1_PUBLIC=$(aws ec2 create-subnet \
     --vpc-id $VPC_ID \
