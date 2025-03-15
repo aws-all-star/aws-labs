@@ -44,7 +44,7 @@ aws ec2 attach-internet-gateway \
 ```
 <br/>
 
-5. `10.0.0.0/24` 서브넷을 가진, Public Subnet 를 생성합니다. tag는 `key=Name ,value=subnet_lab1` 설정합니다.
+5. `10.0.0.0/24` 서브넷을 가진, `Public Subnet 1` 를 생성합니다. tag는 `key=Name ,value=subnet_lab1` 설정합니다.
 ```sh
 SUBNET1_PUBLIC=$(aws ec2 create-subnet \
     --vpc-id $VPC_ID \
@@ -57,11 +57,13 @@ SUBNET1_PUBLIC=$(aws ec2 create-subnet \
 ```
 <br/>
 
+6. Public IP가 자동으로 `Public Subnet 1` 에 할당되도록 합니다.
 ```sh
 aws ec2 modify-subnet-attribute --subnet-id $SUBNET1_PUBLIC --map-public-ip-on-launch
 ```
 <br/>
 
+7. 경로 테이블(route table)을 생성합니다.
 ```sh
 RT_PUBLIC=$(aws ec2 create-route-table --vpc-id $VPC_ID --output text --query 'RouteTable.RouteTableId' \
     --tag-specifications 'ResourceType=route-table,Tags=[{Key=Name,Value=public_rt_lab2}, {Key=project,Value=labs}]')
@@ -78,6 +80,7 @@ aws ec2 associate-route-table --subnet-id $SUBNET1_PUBLIC --route-table-id $RT_P
 ```
 <br/>
 
+8. `10.0.9.0/24` 서브넷을 가진, `Public Subnet 2` 를 생성합니다. tag는 `key=Name ,value=public_subnet2_lab2` 설정합니다.
 ```sh
 SUBNET2_PUBLIC=$(aws ec2 create-subnet \
     --vpc-id $VPC_ID \
@@ -90,6 +93,7 @@ SUBNET2_PUBLIC=$(aws ec2 create-subnet \
 ```
 <br/>
 
+9. Public IP가 자동으로 `Public Subnet 2` 에 할당되도록 합니다.
 ```sh
 aws ec2 modify-subnet-attribute --subnet-id $SUBNET2_PUBLIC --map-public-ip-on-launch
 ```
