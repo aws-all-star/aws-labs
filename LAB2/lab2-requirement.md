@@ -24,6 +24,7 @@ VPC_ID=$(aws ec2 create-vpc \
     --query 'Vpc.VpcId')
 ```
 <br/>
+
 ```sh
 IGW_ID=$(aws ec2 create-internet-gateway \
     --tag-specifications 'ResourceType=internet-gateway,Tags=[{Key=Name,Value=igw-lab2}, {Key=project,Value=labs}]' \
@@ -31,12 +32,14 @@ IGW_ID=$(aws ec2 create-internet-gateway \
     --query 'InternetGateway.InternetGatewayId')
 ```
 <br/>
+
 ```sh
 aws ec2 attach-internet-gateway \
     --internet-gateway-id $IGW_ID \
     --vpc-id $VPC_ID
 ```
 <br/>
+
 ```sh
 SUBNET1_PUBLIC=$(aws ec2 create-subnet \
     --vpc-id $VPC_ID \
@@ -48,23 +51,28 @@ SUBNET1_PUBLIC=$(aws ec2 create-subnet \
     --query 'Subnet.SubnetId')
 ```
 <br/>
+
 ```sh
 aws ec2 modify-subnet-attribute --subnet-id $SUBNET1_PUBLIC --map-public-ip-on-launch
 ```
 <br/>
+
 ```sh
 RT_PUBLIC=$(aws ec2 create-route-table --vpc-id $VPC_ID --output text --query 'RouteTable.RouteTableId' \
     --tag-specifications 'ResourceType=route-table,Tags=[{Key=Name,Value=public_rt_lab2}, {Key=project,Value=labs}]')
 ```
 <br/>
+
 ```sh
 aws ec2 create-route --route-table-id $RT_PUBLIC --destination-cidr-block 0.0.0.0/0 --gateway-id $IGW_ID
 ```
 <br/>
+
 ```sh
 aws ec2 associate-route-table --subnet-id $SUBNET1_PUBLIC --route-table-id $RT_PUBLIC
 ```
 <br/>
+
 ```sh
 SUBNET2_PUBLIC=$(aws ec2 create-subnet \
     --vpc-id $VPC_ID \
