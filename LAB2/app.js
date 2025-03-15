@@ -28,7 +28,7 @@ const { DB_HOST, DB_PORT, DB_NAME } = process.env;
     app.get("/players/top/:number", async (req, res) => {
       //convert the number to an integer
       const number = parseInt(req.params.number);
-      const cursor = await players.find({}).sort({ Pts: -1 }).limit(number).project({ _id: 0, "Player Name": 1, Team: 1, ERA: 1 });
+      const cursor = await players.find({}).sort({ ERA: 1 }).limit(number).project({ _id: 0, "Player Name": 1, Team: 1, ERA: 1 });
       const results = await cursor.toArray();
       res.json(results);
     });
