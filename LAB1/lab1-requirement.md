@@ -196,7 +196,10 @@ STATION_NODE1=$(aws ec2 run-instances \
 13. 아래 명령어를 통해 EC2 인스턴스의 Public IP 를 확인할 수 있고, ssh 명령어로 서버에 접속할 수 있어야 합니다.
 
 ```sh
-aws ec2 describe-instances --query 'Reservations[*].Instances[*].[InstanceId, PublicIpAddress]' --output table
+aws ec2 describe-instances \
+--query "Reservations[*].Instances[*].{PublicIP:PublicIpAddress,Type:InstanceType,Name:Tags[?Key=='Name']|[0].Value,Status:State.Name}"  \
+--filters "Name=instance-state-name,Values=running" "Name=tag:Name,Values='*'"  \
+--output table
 ```
 <br/>
 
