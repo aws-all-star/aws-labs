@@ -4,7 +4,6 @@
 이 프로젝트는 메인 스크립트(api_server_db.sh)와 보조 스크립트로 구성되어 있습니다. 메인 스크립트는 AWS CLI를 사용하여 AWS 클라우드 인프라를 배포하는 역할을 합니다. 특히, AWS 아키텍처에는 VPC, 인터넷 게이트웨이, 두 개의 공용 서브넷, 공용 경로 테이블, 공용 EC2 인스턴스, 자동 스케일링 그룹, 애플리케이션 로드 밸런서, 보안 그룹, NAT 게이트웨이, 하나의 개인 서브넷, 개인 경로 테이블 및 개인 EC2 인스턴스가 있습니다.
 <br/><br/>
 선택한 데이터와 선택한 데이터베이스 서버를 사용하여 간단한 데이터를 저장하는 데이터베이스를 만듭니다. 예를 들어 2024년도 KBL 등록된 투수 선수 중에 그들의 ERA(평균 자책점), G(경기 수) 및 W(승리 수) 등에 대한 데이터가 있는 첨부된 KBL 데이터를 사용할 수 있습니다.
-https://www.koreabaseball.com/Record/Player/PitcherBasic/Basic1.aspx
 <br/><br/>
 
 ## 시작하기
@@ -27,7 +26,7 @@ VPC_ID=$(aws ec2 create-vpc \
 ```
 <br/>
 
-3. 인터넷 게이트웨이를 생성합니다. tag는 `key=Name ,value=igw_lab2` 설정합니다.
+3. 인터넷 게이트웨이를 생성합니다. tag는 `key=Name ,value=igw_lab2` 설정합니다. tag는 `key=Name ,value=igw-lab2` 설정합니다.
 ```sh
 IGW_ID=$(aws ec2 create-internet-gateway \
     --tag-specifications 'ResourceType=internet-gateway,Tags=[{Key=Name,Value=igw-lab2}, {Key=project,Value=labs}]' \
@@ -63,13 +62,14 @@ aws ec2 modify-subnet-attribute --subnet-id $SUBNET1_PUBLIC --map-public-ip-on-l
 ```
 <br/>
 
-7. 경로 테이블(route table)을 생성합니다.
+7. 퍼블릭 서브넷 1 에 대한 경로 테이블(route table)을 생성합니다. tag는 `key=Name ,value=public_rt_lab2` 설정합니다.
 ```sh
 RT_PUBLIC=$(aws ec2 create-route-table --vpc-id $VPC_ID --output text --query 'RouteTable.RouteTableId' \
     --tag-specifications 'ResourceType=route-table,Tags=[{Key=Name,Value=public_rt_lab2}, {Key=project,Value=labs}]')
 ```
 <br/>
 
+8. 퍼블릿 
 ```sh
 aws ec2 create-route --route-table-id $RT_PUBLIC --destination-cidr-block 0.0.0.0/0 --gateway-id $IGW_ID
 ```
@@ -80,7 +80,7 @@ aws ec2 associate-route-table --subnet-id $SUBNET1_PUBLIC --route-table-id $RT_P
 ```
 <br/>
 
-8. `10.0.9.0/24` 서브넷을 가진, `Public Subnet 2` 를 생성합니다. tag는 `key=Name ,value=public_subnet2_lab2` 설정합니다.
+9. `10.0.9.0/24` 서브넷을 가진, `Public Subnet 2` 를 생성합니다. tag는 `key=Name ,value=public_subnet2_lab2` 설정합니다.
 ```sh
 SUBNET2_PUBLIC=$(aws ec2 create-subnet \
     --vpc-id $VPC_ID \
@@ -93,17 +93,19 @@ SUBNET2_PUBLIC=$(aws ec2 create-subnet \
 ```
 <br/>
 
-9. Public IP가 자동으로 `Public Subnet 2` 에 할당되도록 합니다.
+10. Public IP가 자동으로 `Public Subnet 2` 에 할당되도록 합니다.
 ```sh
 aws ec2 modify-subnet-attribute --subnet-id $SUBNET2_PUBLIC --map-public-ip-on-launch
 ```
 <br/>
 
+11. 
 ```sh
 aws ec2 associate-route-table --subnet-id $SUBNET2_PUBLIC --route-table-id $RT_PUBLIC
 ```
 <br/>
 
+12. `10.0.10.0/24` 서브넷을 가진, `Private Subnet` 를 생성합니다. tag는 `key=Name ,value=private_subnet_lab2` 설정합니다.
 ```sh
 SUBNET_PRIVATE=$(aws ec2 create-subnet \
     --vpc-id $VPC_ID \
@@ -116,17 +118,20 @@ SUBNET_PRIVATE=$(aws ec2 create-subnet \
 ```
 <br/>
 
+13. 
 ```sh
 RT_PRIVATE=$(aws ec2 create-route-table --vpc-id $VPC_ID --output text --query 'RouteTable.RouteTableId' \
     --tag-specifications 'ResourceType=route-table,Tags=[{Key=Name,Value=private_rt_lab2}, {Key=project,Value=labs}]')
 ```
 <br/>
 
+14.
 ```sh
 aws ec2 associate-route-table --subnet-id $SUBNET_PRIVATE --route-table-id $RT_PRIVATE
 ```
 <br/>
 
+15. `lab2_key` 이름을 가진 key-pair(키 페어)를 생성합니다.
 ```sh
 aws ec2 create-key-pair \
     --key-name lab2_key \
@@ -137,6 +142,7 @@ aws ec2 create-key-pair \
 ```
 <br/>
 
+16.
 ```sh
 SG_ALB_ID=$(aws ec2 create-security-group \
     --group-name lab2_alb_sg \
@@ -148,12 +154,14 @@ SG_ALB_ID=$(aws ec2 create-security-group \
 ```
 <br/>
 
+17. 
 ```sh
 aws ec2 authorize-security-group-ingress --group-id $SG_ALB_ID --protocol tcp --port 80 --cidr 0.0.0.0/0
 aws ec2 authorize-security-group-ingress --group-id $SG_ALB_ID --protocol tcp --port 443 --cidr 0.0.0.0/0
 ```
 <br/>
 
+18. 
 ```sh
 SG_APP_ID=$(aws ec2 create-security-group \
     --group-name lab2_app_sg \
@@ -165,6 +173,7 @@ SG_APP_ID=$(aws ec2 create-security-group \
 ```
 <br/>
 
+19.
 ```sh
 aws ec2 authorize-security-group-ingress --group-id $SG_APP_ID --protocol tcp --port 80 --source-group $SG_ALB_ID
 aws ec2 authorize-security-group-ingress --group-id $SG_APP_ID --protocol tcp --port 443 --source-group $SG_ALB_ID
@@ -172,12 +181,14 @@ aws ec2 authorize-security-group-ingress --group-id $SG_APP_ID --protocol tcp --
 ```
 <br/>
 
+20.
 ```sh
 EIP_ALLOC_ID=$(aws ec2 allocate-address \
     --query 'AllocationId' --output text)
 ```
 <br/>
 
+21.
 ```sh
 NAT_GW_ID=$(aws ec2 create-nat-gateway \
     --subnet-id $SUBNET1_PUBLIC \
@@ -187,16 +198,19 @@ NAT_GW_ID=$(aws ec2 create-nat-gateway \
 ```
 <br/>
 
+22.
 ```sh
 aws ec2 wait nat-gateway-available --nat-gateway-ids $NAT_GW_ID
 ```
 <br/>
 
+23.
 ```sh
 aws ec2 create-route --route-table-id $RT_PRIVATE --destination-cidr-block 0.0.0.0/0 --gateway-id $NAT_GW_ID
 ```
 <br/>
 
+24.
 ```sh
 SG_DB_ID=$(aws ec2 create-security-group \
     --group-name lab2_db_sg \
@@ -208,16 +222,19 @@ SG_DB_ID=$(aws ec2 create-security-group \
 ```
 <br/>
 
+25.
 ```sh
 aws ec2 authorize-security-group-ingress --group-id $SG_DB_ID --protocol tcp --port 27017 --source-group $SG_APP_ID
 ```
 <br/>
 
+26.
 ```sh
 aws ec2 authorize-security-group-ingress --group-id $SG_APP_ID --protocol tcp --port 27017 --source-group $SG_DB_ID
 ```
 <br/>
 
+27.
 ```sh
 DB_EC2=$(aws ec2 run-instances \
     --image-id ami-0b39b65eacb043ba3 \
@@ -234,6 +251,7 @@ DB_EC2=$(aws ec2 run-instances \
 ```
 <br/>
 
+28.
 ```sh
 TG_ARN=$(aws elbv2 create-target-group --name lab2-target-group \
     --protocol HTTP \
@@ -245,6 +263,7 @@ TG_ARN=$(aws elbv2 create-target-group --name lab2-target-group \
 ```
 <br/>
 
+29.
 ```sh
 ALB_ARN=$(aws elbv2 create-load-balancer --name lab2-load-balancer \
     --subnets $SUBNET1_PUBLIC $SUBNET2_PUBLIC \
@@ -256,6 +275,7 @@ ALB_ARN=$(aws elbv2 create-load-balancer --name lab2-load-balancer \
 ```
 <br/>
 
+30. 
 ```sh
 aws elbv2 create-listener --load-balancer-arn $ALB_ARN \
     --protocol HTTP \
@@ -265,6 +285,7 @@ aws elbv2 create-listener --load-balancer-arn $ALB_ARN \
 ```
 <br/>
 
+31. 
 ```sh
 LAUNCH_TEMPLATE_ID=$(aws ec2 create-launch-template --launch-template-name lab2-launch-template \
     --launch-template-data "ImageId=ami-0b39b65eacb043ba3,InstanceType=t2.micro,SecurityGroupIds=$SG_APP_ID,KeyName=lab2_key,UserData=$(base64 userdata_app.sh)" \
@@ -274,6 +295,7 @@ LAUNCH_TEMPLATE_ID=$(aws ec2 create-launch-template --launch-template-name lab2-
 ```
 <br/>
 
+32.
 ```sh
 aws autoscaling create-auto-scaling-group --auto-scaling-group-name lab2-scaling-group \
     --launch-template "LaunchTemplateId=$LAUNCH_TEMPLATE_ID,Version=1" \
@@ -287,6 +309,7 @@ aws autoscaling create-auto-scaling-group --auto-scaling-group-name lab2-scaling
 ```
 <br/>
 
+33. 
 ```sh
 aws autoscaling put-scaling-policy --policy-name cpu-scaling-policy \
     --auto-scaling-group-name lab2-scaling-group \
@@ -303,5 +326,6 @@ aws autoscaling put-scaling-policy --policy-name cpu-scaling-policy \
 <br/><br/>
 
 ## 제출 지침
-
+- 2024년도 ERA(평균 자책점) 가장 낮은 투수 선수는 누구인가요?
+- TOP 20위 중, 가장 승리 수(W) 높은 투수는 누구인가요?
 <br/><br/>
