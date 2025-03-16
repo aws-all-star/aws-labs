@@ -5,7 +5,7 @@ FROM mongo:latest
 WORKDIR /data
 
 #Copy the CSV file and entrypoint script from host to container
-COPY nhl-stats-2022.csv ./
+COPY KBL-Pitcher-2024.csv ./
 COPY entrypoint.sh ./
 
 #Make the entrypoint script executable
