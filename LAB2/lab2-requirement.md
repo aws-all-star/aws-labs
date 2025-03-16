@@ -1,4 +1,4 @@
-## 준비하기
+# 준비하기
 이 프로젝트는 Bash Script를 사용하여 MongoDB 데이터베이스에 연결된 Nodejs API 마이크로서비스를 배포합니다. 이 API는 사용자가 HTTP 요청을 보내고 JSON 페이로드로 응답을 받을 수 있는 노출된 엔드포인트를 가질 것이다.
 
 이 프로젝트는 메인 스크립트(api_server_db.sh)와 보조 스크립트로 구성되어 있습니다. 메인 스크립트는 AWS CLI를 사용하여 AWS 클라우드 인프라를 배포하는 역할을 합니다. 특히, AWS 아키텍처에는 VPC, 인터넷 게이트웨이, 두 개의 공용 서브넷, 공용 경로 테이블, 공용 EC2 인스턴스, 자동 스케일링 그룹, 애플리케이션 로드 밸런서, 보안 그룹, NAT 게이트웨이, 하나의 개인 서브넷, 개인 경로 테이블 및 개인 EC2 인스턴스가 있습니다.
@@ -15,7 +15,7 @@ $ git clone https://github.com/aws-all-star/aws-labs
 옵션 2: 스크립트를 다운로드하여 로컬 컴퓨터에 저장하십시오.
 <br/><br/>
 
-## 시작하기
+# 시작하기
 1. 리전(REGION)은 ap-northeast-2(Seoul) 에 있는 자원만 활용하고 가용 영역(Availability Zones) 은 'ap-northeast-2a' 와 'ap-northeast-2b' 존재하도록 합니다.
 ```sh
 REGION="ap-northeast-2"
@@ -171,7 +171,7 @@ aws ec2 authorize-security-group-ingress --group-id $SG_ALB_ID --protocol tcp --
 ```
 <br/>
 
-18. 
+18. 지정된 VPC에 대한 `lab2_app_sg` 이름을 가진 보안 그룹을 생성합니다.
 ```sh
 SG_APP_ID=$(aws ec2 create-security-group \
     --group-name lab2_app_sg \
@@ -183,7 +183,7 @@ SG_APP_ID=$(aws ec2 create-security-group \
 ```
 <br/>
 
-19.
+19. 지정된 VPC에 대한 보안 보안 그룹의 인스턴스에 80 포트와 443, 3000 포트 규칙을 추가합니다.
 ```sh
 aws ec2 authorize-security-group-ingress --group-id $SG_APP_ID --protocol tcp --port 80 --source-group $SG_ALB_ID
 aws ec2 authorize-security-group-ingress --group-id $SG_APP_ID --protocol tcp --port 443 --source-group $SG_ALB_ID
@@ -198,7 +198,7 @@ EIP_ALLOC_ID=$(aws ec2 allocate-address \
 ```
 <br/>
 
-21.
+21. NAT 게이트웨이는 NAT(네트워크 주소 변환) 서비스입니다. 지정된 서브넷에 NAT 게이트웨이를 생성합니다. 이 작업은 지정된 서브넷에 서브넷의 IP 주소 범위에서 개인 IP 주소를 가진 네트워크 인터페이스를 만듭니다. 공용 NAT 게이트웨이 또는 개인 NAT 게이트웨이를 생성할 수 있습니다.
 ```sh
 NAT_GW_ID=$(aws ec2 create-nat-gateway \
     --subnet-id $SUBNET1_PUBLIC \
@@ -208,7 +208,7 @@ NAT_GW_ID=$(aws ec2 create-nat-gateway \
 ```
 <br/>
 
-22.
+22. JMESPath가 NatGateways[]를 쿼리할 때까지 기다립니다. ``describe-nat-gateways``로 폴링할 때 모든 요소에 대해 사용할 수 있는 상태 반환. 성공적인 상태에 도달할 때까지 15초마다 투표할 것입니다. 이것은 40개의 실패한 검사 후에 255의 반환 코드로 종료됩니다.
 ```sh
 aws ec2 wait nat-gateway-available --nat-gateway-ids $NAT_GW_ID
 ```
@@ -332,7 +332,7 @@ aws autoscaling put-scaling-policy --policy-name cpu-scaling-policy \
 <br/><br/>
 
 
-## 3. 제출 지침
+# 제출 지침
 - 2024년도 ERA(평균 자책점) 가장 낮은 투수 선수는 누구인가요?
 - TOP 20위 중, 가장 승리 수(W) 높은 투수는 누구인가요?
 <br/><br/>
