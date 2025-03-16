@@ -7,11 +7,11 @@
 sudo dnf -y update
 
 #Download the app.js and package.json from the GitHub repo
-curl -o app.js https://raw.github.com/aws-all-star/aws-labs/blob/main/LAB2/app.js
-curl -o package.json https://raw.github.com/aws-all-star/aws-labs/blob/main/LAB2/package.json
+curl -o app.js https://raw.github.com/aws-all-star/aws-labs/main/LAB2/app.js
+curl -o package.json https://raw.github.com/aws-all-star/aws-labs/main/LAB2/package.json
 
 #Install dependencies
-dnf install https://download.rockylinux.org/pub/rocky/8.10/devel/x86_64/os/Packages/r/redhat-lsb-4.1-47.el8.x86_64.rpm -y
+dnf install https://download.rockylinux.org/pub/rocky/9.5/devel/x86_64/os/Packages/r/redhat-lsb-4.1-56.el9.x86_64.rpm -y
 sudo dnf install -y dirmngr ca-certificates
 
 #Add the NodeSource repository's signing key
