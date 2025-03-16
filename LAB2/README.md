@@ -3,6 +3,7 @@
 이 LAB에서는 Bash Script를 사용하여 MongoDB 데이터베이스에 연결된 Nodejs API 마이크로서비스를 배포합니다. 이 API는 사용자가 HTTP 요청을 보내고 JSON 페이로드로 응답을 받을 수 있는 노출된 엔드포인트를 가질 것입이다.
 
 LAB2에서는 메인 스크립트(api-server-db.sh)와 추가 스크립트로 구성되어 있습니다. 메인 스크립트는 AWS CLI를 사용하여 AWS 클라우드 인프라를 배포하는 역할을 합니다. 특히, AWS 아키텍처에는 VPC, 인터넷 게이트웨이, 두 개의 공용 서브넷, 공용 경로 테이블, 공용 EC2 인스턴스, 자동 스케일링 그룹, 애플리케이션 로드 밸런서, 보안 그룹, NAT 게이트웨이, 하나의 개인 서브넷, 개인 경로 테이블 및 개인 EC2 인스턴스가 있습니다.
+![Uploading 이미지 3.jpg…]()
 
 공개 GitHub repo의 URL : https://github.com/aws-all-star/aws-labs/tree/main/LAB2
 </br></br>
