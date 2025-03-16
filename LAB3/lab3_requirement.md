@@ -29,14 +29,8 @@ aws iam create-role \
 3. 필요한 Amazon EKS 관리형 IAM 정책을 역할에 연결합니다.
 ```sh
 aws iam attach-role-policy \
-  --policy-arn arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy \
-  --role-name myAmazonEKSNodeRole
-aws iam attach-role-policy \
-  --policy-arn arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly \
-  --role-name myAmazonEKSNodeRole
-aws iam attach-role-policy \
-  --policy-arn arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy \
-  --role-name myAmazonEKSNodeRole
+  --policy-arn arn:aws:iam::aws:policy/AmazonEKSClusterPolicy \
+  --role-name myAmazonEKSClusterRole
 ```
 <br/>
 
@@ -70,6 +64,7 @@ $ aws eks update-kubeconfig --region ap-northeast-2 --name my-ktds
 기본적으로 config 파일이 ~/.kube에 생성되거나 새 클러스터의 구성이 ~/.kube의 기존 config 파일에 추가됩니다.
   - 마지막으로, kubectl cluster-info를 실행하여 연결이 성공했는지 확인하십시오.
 <br/>
+
 2. 구성을 테스트합니다.
 ```sh
 $ kubectl get svc
@@ -77,7 +72,40 @@ $ kubectl get svc
 <br/><br/>
 
 **3단계: 클러스터 노드 구성**
+1. 노드 IAM 역할을 생성하고 필요한 Amazon EKS IAM 관리형 정책을 연결합니다. Amazon EKS 노드 kubelet 데몬은 사용자를 대신하여 AWS API를 호출합니다. 노드는 IAM 인스턴스 프로필 및 연결 정책을 통해 이 API 호출에 대한 권한을 수신합니다. 노드 IAM 역할을 생성합니다.
+```sh
+$ aws iam create-role \
+  --role-name myAmazonEKSNodeRole \
+  --assume-role-policy-document file://"node-role-trust-policy.json"
+```
+<br/>
 
+2. 필요한 Amazon EKS 관리형 IAM 정책을 역할에 연결합니다.
+```sh
+aws iam attach-role-policy \
+  --policy-arn arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy \
+  --role-name myAmazonEKSNodeRole
+aws iam attach-role-policy \
+  --policy-arn arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly \
+  --role-name myAmazonEKSNodeRole
+aws iam attach-role-policy \
+  --policy-arn arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy \
+  --role-name myAmazonEKSNodeRole
+```
+<br/>
+3. https://console.aws.amazon.com/eks/home#/clusters에서 Amazon EKS 콘솔을 엽니다.
+4. 1단계: Amazon EKS 클러스터 만들기에서 생성한 클러스터의 이름(예: my-ktds)을 선택합니다.
+5. my-cluster 페이지에서 다음을 수행합니다.
+6. 컴퓨팅 탭을 선택합니다.
+7. 노드 그룹 추가를 선택합니다.
+8. 노드 그룹 구성 페이지에서 다음을 수행합니다.
+- 이름에 관리형 노드 그룹(예: my-nodegroup)의 고유한 이름을 입력합니다. 노드 그룹 이름은 63자를 초과할 수 없습니다. 문자나 숫자로 시작하되, 나머지 문자의 경우 하이픈과 밑줄을 포함할 수 있습니다.
+- 노드 IAM 역할 이름에서 이전 단계에서 생성한 myAmazonEKSNodeRole 역할을 선택합니다. 각 노드 그룹은 고유한 IAM 역할을 사용하는 것이 좋습니다.
+- 다음을 선택합니다.
+- 컴퓨팅 및 크기 조정 구성 설정 페이지에서 기본값으로 두고 다음을 선택합니다.
+- 네트워킹 지정 페이지에서 기본값을 수락하고 다음을 선택합니다.
+- 검토 및 생성 페이지에서 관리형 노드 그룹 구성을 검토하고 생성을 선택합니다.
+- 몇 분 후 노드 그룹 구성 섹션의 상태가 생성 중에서 활성으로 바뀝니다. 상태가 활성이 되면 다음 단계를 진행합니다.
 
 ## 시작하기
 
