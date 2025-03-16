@@ -7,7 +7,18 @@ https://docs.aws.amazon.com/eks/latest/userguide/creating-a-vpc.html
 https://docs.aws.amazon.com/eks/latest/userguide/getting-started-console.html#eks-launch-workers
 <br/><br/>
 
-1. 클러스터 IAM 역할을 생성하고 필요한 Amazon EKS IAM 관리 정책을 첨부합니다.
+**1단계: Amazon EKS(Elastic Kubermetes Cluster) 생성
+1. Amazon EKS 요구 사항을 충족하는 퍼블릭 및 프라이빗 서브넷이 있는 Amazon VPC PC를 생성합니다. region-code를 Amazon EKS에서 지원하는 AWS 리전으로 바꿉니다. AWS 리전 목록은 AWS General Reference 가이드의 Amazon EKS endpoints and quotas를 참조하세요. 선택하는 이름으로 my-eks-vpc-stack을 바꿀 수 있습니다.<br/>
+```sh
+aws cloudformation create-stack \
+  --region ap-northeast-2 \
+  --stack-name my-eks-vpc-stack \
+  --template-url https://s3.us-west-2.amazonaws.com/amazon-eks/cloudformation/2020-10-29/amazon-eks-vpc-private-subnets.yaml
+```
+<br/>
+
+2. 클러스터 IAM 역할 생성 및 관리 정책 연결
+클러스터 IAM 역할을 생성하고 필요한 Amazon EKS IAM 관리형 정책을 연결합니다. Amazon EKS에서 관리하는 Kubernetes 클러스터는 사용자 대신 다른 AWS 서비스를 호출하여 서비스에 사용하는 리소스를 관리합니다.
 ```sh
 aws iam create-role \
   --role-name myAmazonEKSNodeRole \
@@ -15,7 +26,7 @@ aws iam create-role \
 ```
 <br/>
 
-필수 관리되는 IAM 정책을 역할에 첨부합니다.
+3. 필요한 Amazon EKS 관리형 IAM 정책을 역할에 연결합니다.
 ```sh
 aws iam attach-role-policy \
   --policy-arn arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy \
@@ -29,39 +40,44 @@ aws iam attach-role-policy \
 ```
 <br/>
 
-3. EKS 클러스터 생성:
-  - 이름을 지정하고 최신 버전을 선택한 다음 방금 생성한 EKS IAM 역할을 선택합니다.
-  - CloudFormation 템플릿으로 생성된 VPC, 서브넷 및 보안 그룹을 선택합니다.
-  - 클러스터 엔드포인트 액세스를 공개 및 비공개로 설정
-  - 다른 옵션을 기본값으로 남겨두고 클러스터를 만듭니다 (약 15분 소요)
-3. Kubectl을 EKS 클러스터와 연결하세요
-  - 터미널에서 aws configure를 실행하고(콘솔에서 EKS 클러스터를 생성한 동일한 사용자를 사용), kubectl을 설치하세요(설치 섹션 확인)
-  - 그런 다음 클러스터 이름과 올바른 지역으로 다음 명령을 실행하십시오.
-  
-```sh
-$ aws eks update-kubeconfig --name EKS-Lab --region us-east-1
-```
-  - 마지막으로, kubectl cluster-info를 실행하여 연결이 성공했는지 확인하십시오.
-<br/>
+4. https://console.aws.amazon.com/eks/home#/clusters에서 Amazon EKS 콘솔을 엽니다. 콘솔의 오른쪽 상단에 표시된 AWS 리전이 클러스터를 생성하려는 AWS 리전인지 확인합니다. 수강생은 ap-northeast-2 사용해야 합니다.
+5. 클러스터 생성을 선택합니다. 먼저 왼쪽 검색 창에서 클러스터를 선택합니다.
+6. 클러스터 구성 페이지에서 다음을 수행합니다.
+- 사용자 지정 구성(Custom Configuration) 을 선택하고 EKS 자율 모드(EKS Auto Mode) 사용을 비활성화하세요.
+- 클러스터 이름을 입력하세요(예: 'my-ktds'). 이름에는 영숫자(대소문자 구분)와 하이픈만 사용할 수 있습니다. 영숫자로 시작해야 하며 100자 이하여야 합니다. 이름은 클러스터를 생성하는 AWS 리전과 AWS 계정 내에서 고유해야 합니다.
+- 클러스터 서비스 역할(Cluster IAM role)에서 myAmazonEKSClusterRole을 선택합니다.
+- 나머지 설정을 기본값으로 두고 다음을 선택합니다.
+7. 네트워킹 지정 페이지에서 다음을 수행합니다.
+- VPC 드롭다운 목록에서 이전 단계에서 생성한 VPC의 ID를 선택합니다. vpc-00x0000x000x0x000 | my-eks-vpc-stack-VPC를 예로 들 수 있습니다.
+- 나머지 설정을 기본값으로 두고 다음을 선택합니다.
+- 관찰성(Observability) 구성 페이지에서 다음을 선택합니다.
+8. 추가 기능 선택 페이지에서 다음을 선택합니다.
+9. 추가 기능에 대한 자세한 내용은 Amazon EKS 추가 기능 섹션을 참조하세요.
+10. 선택한 추가 기능 설정 구성 페이지에서 다음을 선택합니다.
+11. 검토 및 생성 페이지에서 생성을 선택합니다. 클러스터 이름 오른쪽에 있는 클러스터 상태는 클러스터 프로비저닝 프로세스가 완료될 때까지 몇 분 동안 생성 중Creating으로 표시됩니다. 상태가 활성이 되면 다음 단계를 진행합니다.
 
 오류가 발생하면 여기에서 답을 찾을 수 있습니다.
 https://docs.aws.amazon.com/eks/latest/userguide/troubleshooting.html#unauthorized
 <br/>
 
-4. 노드 그룹에 대한 EC2 IAM 역할 생성
-5. 노드 그룹 생성
-  - EKS 클러스터 페이지에서 클러스터를 선택한 다음 Compute를 클릭하고 노드 그룹을 추가합니다.
-  - 이름을 지정하고 노드 그룹 IAM 역할을 선택한 다음 다음을 클릭합니다.
-  - Amazon Linux 2 AMI, 주문형 용량, t2.micro 크기, 20GiB 디스크 크기를 선택하고 다음을 클릭하십시오.
-  - 원격 액세스를 활성화하고, SSH 키 쌍을 선택하고(문제 해결에 유용할 수 있음), 모든 곳에서 SSH 원격 액세스를 허용하세요.
-  - 다음을 클릭하고, 검토하고, 생성하세요(몇 분 소요)
+**2단계: 클러스터와 통신하도록 노드 구성**
+이 부분에서는 클러스터에 대해 kubeconfig 파일을 생성합니다. 이 파일의 설정을 사용하면 kubectl CLI를 사용하여 클러스터와 통신할 수 있습니다.
+진행하기 전에 1단계에서 클러스터 생성이 성공적으로 완료되었는지 확인합니다.
+1. 클러스터에 대해 kubeconfig 파일을 생성 또는 업데이트합니다. region-code를 클러스터를 생성한 AWS 리전으로 바꿉니다. my-cluster를 해당 클러스터의 이름으로 바꿉니다.
+```sh
+$ aws eks update-kubeconfig --region ap-northeast-2 --name my-ktds
+```
+기본적으로 config 파일이 ~/.kube에 생성되거나 새 클러스터의 구성이 ~/.kube의 기존 config 파일에 추가됩니다.
+  - 마지막으로, kubectl cluster-info를 실행하여 연결이 성공했는지 확인하십시오.
 <br/>
-
-필요한 도구를 설치하려면 아래 링크의 단계를 따르십시오.
-- AWS CLI: https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
-- Git: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
-- Kubectl: https://kubernetes.io/docs/tasks/tools/
+2. 구성을 테스트합니다.
+```sh
+$ kubectl get svc
+```
 <br/><br/>
+
+**3단계: 클러스터 노드 구성**
+
 
 ## 시작하기
 
