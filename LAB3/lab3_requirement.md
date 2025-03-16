@@ -1,6 +1,5 @@
 # 준비하기
-AWS EKS 인프라 설정:
-- CloudFormation 템플릿을 사용하여 작업자 노드에 대한 VPC 생성(개인 및 공용 서브넷 옵션 선택)
+AWS EKS 인프라 설정: CloudFormation 템플릿을 사용하여 작업자 노드에 대한 VPC 생성(개인 및 공용 서브넷 옵션 선택)
 https://docs.aws.amazon.com/eks/latest/userguide/creating-a-vpc.html
 <br/>
 
