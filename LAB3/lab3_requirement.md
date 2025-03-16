@@ -1,11 +1,11 @@
 # 준비하기
 AWS EKS 인프라 설정: CloudFormation 템플릿을 사용하여 작업자 노드에 대한 VPC 생성(개인 및 공용 서브넷 옵션 선택)
 https://docs.aws.amazon.com/eks/latest/userguide/creating-a-vpc.html
-<br/>
+<br/><br/>
 
 다음 단계를 위해 AWS 문서를 확인하여 더 자세한 설명을 확인할 수 있습니다:<br/>
 https://docs.aws.amazon.com/eks/latest/userguide/getting-started-console.html#eks-launch-workers
-<br/>
+<br/><br/>
 
 1. 클러스터 IAM 역할을 생성하고 필요한 Amazon EKS IAM 관리 정책을 첨부합니다.
 ```sh
@@ -15,7 +15,7 @@ aws iam create-role \
 ```
 <br/>
 
-****
+필수 관리되는 IAM 정책을 역할에 첨부합니다.
 ```sh
 aws iam attach-role-policy \
   --policy-arn arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy \
