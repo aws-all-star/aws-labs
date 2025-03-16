@@ -8,7 +8,28 @@ https://docs.aws.amazon.com/eks/latest/userguide/getting-started-console.html#ek
 <br/>
 
 1. 클러스터 IAM 역할을 생성하고 필요한 Amazon EKS IAM 관리 정책을 첨부합니다.
-2. EKS 클러스터 생성:
+```sh
+aws iam create-role \
+  --role-name myAmazonEKSNodeRole \
+  --assume-role-policy-document file://"node-role-trust-policy.json"
+```
+<br/>
+
+****
+```sh
+aws iam attach-role-policy \
+  --policy-arn arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy \
+  --role-name myAmazonEKSNodeRole
+aws iam attach-role-policy \
+  --policy-arn arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly \
+  --role-name myAmazonEKSNodeRole
+aws iam attach-role-policy \
+  --policy-arn arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy \
+  --role-name myAmazonEKSNodeRole
+```
+<br/>
+
+3. EKS 클러스터 생성:
   - 이름을 지정하고 최신 버전을 선택한 다음 방금 생성한 EKS IAM 역할을 선택합니다.
   - CloudFormation 템플릿으로 생성된 VPC, 서브넷 및 보안 그룹을 선택합니다.
   - 클러스터 엔드포인트 액세스를 공개 및 비공개로 설정
