@@ -19,7 +19,7 @@ services:
     environment:
       - DB_HOST=db
       - DB_PORT=27017
-      - DB_NAME=WCD_project2
+      - DB_NAME=LAB2
     ports:
       - 3000:3000
 volumes:
