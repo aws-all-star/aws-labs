@@ -1,4 +1,4 @@
-# LAB 3 - AWS EKS(Elastic Kubernetes Service)에서 웹 어플리케이션 배포
+# LAB 4 - AWS EKS(Elastic Kubernetes Service)에서 웹 어플리케이션 배포
 **Amazon EKS 기능 개요**<br/>
 Amazon Elastic Kubernetes Service(Amazon EKS)는 AWS와 온프레미스에서 손쉽게 Kubernetes를 실행할 수 있는 관리형 Kubernetes 서비스입니다. Kubernetes는 컨테이너식 애플리케이션의 배포, 확장 및 관리를 자동화하기 위한 오픈 소스 시스템입니다. Amazon EKS는 Kubernetes 인증 서비스이므로 업스트림 Kubernetes에서 실행되는 기존 애플리케이션과 호환됩니다.
 Amazon EKS는 컨테이너 예약, 애플리케이션 가용성 관리, 클러스터 데이터 저장 및 다른 주요 태스크를 담당하는 Kubernetes 제어 영역의 가용성과 확장성을 관리합니다.
