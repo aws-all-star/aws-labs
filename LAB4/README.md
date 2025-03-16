@@ -12,3 +12,17 @@
 
 <img width="800" alt="image" src="https://github.com/user-attachments/assets/c22353d1-1075-4d8b-b1fd-61395fbff9ae" /> <br/>
 유명한 오픈소스 시스템 모니터링 및 경고 솔루션으로 프로메테우스(Prometheus)가 있습니다. 데이터의 모니터링을 위해 다양한 기능 및 쿼리 언어를 제공합니다. Grafana는 데이터를 시각화 하여 분석 및 모니터링을 용이하게 해주는 오픈소스 분석 플랫폼입니다.
+</br></br>
+
+## 목표 아키텍처
+
+</br></br>
+
+## 테스트 결과
+
+</br></br>
+
+## 저작자
+- Kim, Dong Hyun (티스토리) [https://www.linkedin.com/in/kim-donghyun0916/](https://rhlinux.tistory.com)
+- Kim, Dong Hyun (Credly) https://www.credly.com/users/kim-donghyun0916
+<br/><br/>
