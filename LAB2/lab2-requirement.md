@@ -214,13 +214,13 @@ aws ec2 wait nat-gateway-available --nat-gateway-ids $NAT_GW_ID
 ```
 <br/>
 
-23.
+23. 지정된 라우팅 테이블을 지정된 서브넷과 연결합니다.
 ```sh
 aws ec2 create-route --route-table-id $RT_PRIVATE --destination-cidr-block 0.0.0.0/0 --gateway-id $NAT_GW_ID
 ```
 <br/>
 
-24.
+24. 지정된 VPC에 대한 `lab2_db_sg` 이름을 가진 보안 그룹을 생성합니다.
 ```sh
 SG_DB_ID=$(aws ec2 create-security-group \
     --group-name lab2_db_sg \
@@ -232,13 +232,13 @@ SG_DB_ID=$(aws ec2 create-security-group \
 ```
 <br/>
 
-25.
+25. 지정된 VPC에 대한 `lab2_db_sg` 보안 그룹의 27017 포트 규칙을 추가합니다.
 ```sh
 aws ec2 authorize-security-group-ingress --group-id $SG_DB_ID --protocol tcp --port 27017 --source-group $SG_APP_ID
 ```
 <br/>
 
-26.
+26. 지정된 VPC에 대한 `lab2_app_sg` 보안 그룹의 27017 포트 규칙을 추가합니다.
 ```sh
 aws ec2 authorize-security-group-ingress --group-id $SG_APP_ID --protocol tcp --port 27017 --source-group $SG_DB_ID
 ```
@@ -247,7 +247,7 @@ aws ec2 authorize-security-group-ingress --group-id $SG_APP_ID --protocol tcp --
 인스턴스를 생성하기 전에 `aws ec2 describe-images --owners self` 명령어로 현재 생성되어 있는 AMI(Amazon Machine Image)를 확인하여 선택합니다.
 <br/><br/>
 
-27.
+17. db-ec2 이름을 가진 EC2 인스턴스를 생성합니다. 해당 인스턴스는 임의로 가공된 AMI를 사용합니다. AMI는 사용자가 생성한 인스턴스를 의미합니다.
 ```sh
 DB_EC2=$(aws ec2 run-instances \
     --image-id <ami-사용자 임의 AMI ID> \
@@ -264,7 +264,7 @@ DB_EC2=$(aws ec2 run-instances \
 ```
 <br/>
 
-28.
+28. create-target-group 명령을 사용하여 EC2 인스턴스에 사용한 VPC와 동일한 VPC를 지정해서 대상 그룹을 생성합니다.
 ```sh
 TG_ARN=$(aws elbv2 create-target-group --name lab2-target-group \
     --protocol HTTP \
@@ -276,7 +276,7 @@ TG_ARN=$(aws elbv2 create-target-group --name lab2-target-group \
 ```
 <br/>
 
-29.
+29. create-load-balancer 명령을 사용하여 dualstack 로드 밸런서를 생성합니다. 
 ```sh
 ALB_ARN=$(aws elbv2 create-load-balancer --name lab2-load-balancer \
     --subnets $SUBNET1_PUBLIC $SUBNET2_PUBLIC \
