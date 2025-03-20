@@ -11,9 +11,3 @@ sudo systemctl enable amazon-ssm-agent
 sudo dnf install -y https://amazoncloudwatch-agent.s3.amazonaws.com/amazon_linux/amd64/latest/amazon-cloudwatch-agent.rpm
 systemctl start amazon-cloudwatch-agent
 systemctl enable amazon-cloudwatch-agent
-
-#Download and install Nodejs 18, install npm
-
-#Install Java
-
-#Install Docker
