@@ -1,5 +1,6 @@
 # 준비하기
 이 LAB에서는 퍼블릭 인터넷에서 사용자가 소비할 수 있는 두 개의 작업자 노드 클라우드 프로덕션 쿠버네티스 클러스터(EKS)에 컨테이너화된 웹 앱을 배포합니다. 컨테이너의 오케스트레이션은 쿠버네티스 스택을 사용하여 이루어집니다.
+<br/>
 이 저장소는 두 개의 배포 YAML 파일(app-deployment.yaml, mongo-deployment.yaml)과 두 개의 서비스 YAML 파일(app-service.yaml, mongo-service.yaml)로 구성되어 있습니다. 배포 manifests는 nodejs 애플리케이션과 mongoDB 데이터베이스를 다른 포드에 배포하는 역할을 하는 반면, 서비스 manifests는 네트워크를 통해 파드를 노출하고 해당 파드에 액세스하는 방법에 대한 정책과 함께 논리적 엔드포인트 세트를 정의하는 역할을 합니다.
 
 AWS EKS 인프라 설정: CloudFormation 템플릿을 사용하여 작업자 노드에 대한 VPC 생성(개인 및 공용 서브넷 옵션 선택)
@@ -127,7 +128,7 @@ aws iam attach-role-policy \
 - 노드 IAM 역할 이름에서 이전 단계에서 생성한 myAmazonEKSNodeRole 역할을 선택합니다. 각 노드 그룹은 고유한 IAM 역할을 사용하는 것이 좋습니다.<br/>
 - 다음을 선택합니다.<br/>
 
-9. 컴퓨팅 및 크기 조정 구성 설정 페이지에서 기본값으로 두고 다음을 선택합니다.<br/>
+9. 컴퓨팅 및 크기 조정 구성 설정 페이지에서 Amazon Linux 2 AMI, 주문형 용량, t2.micro 크기, 20GiB 디스크 크기를 선택하고 다음을 클릭하십시오.<br/>
 
 10. 네트워킹 지정 페이지에서 기본값을 수락하고 다음을 선택합니다.<br/>
 
@@ -145,4 +146,4 @@ kubectl apply -f app-deployment.yaml
 <br/><br/>
 
 
-## 제출 지침
+# 제출 지침
