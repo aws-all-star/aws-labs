@@ -28,6 +28,12 @@ Amazon EKS는 업스트림 Kubernetes를 실행하며 Kubernetes 적합성 인�
 <br/><br/>
 
 ## 테스트 결과
+터미널에서 다음 명령을 사용하여 로드 밸런서의 외부 IP를 가져오도록 합니다.
+```sh
+kubectl get services
+```
+
+브라우저에 로드 밸런서 외부 IP(로드 밸런서 주소)를 붙여넣고 아래 원하는 경로를 추가하십시오.
 <br/><br/>
 
 
