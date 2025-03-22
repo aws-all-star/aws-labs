@@ -8,8 +8,12 @@ LAB2에서는 AWS CLI를 사용하여 AWS 클라우드 인프라를 배포하는
 
 로드 밸런서가 정상적인 대상에만 요청을 보낼 수 있도록 등록된 대상의 상태를 모니터링하는 데 사용되는 상태 확인을 구성할 수 있습니다.
 ![이미지 3](https://github.com/user-attachments/assets/5b159842-7eaa-452c-bc9c-0292d19e34d6)
+</br></br>
 
-공개 GitHub repo의 URL : https://github.com/aws-all-star/aws-labs/tree/main/LAB2
+## 전제조건
+- Cloud 인프라 기본 지식
+- AWS 아키텍처에 대한 이해
+- API와 마이크로서비스 설계 정의
 </br></br>
 
 ## 목표 아키텍처
@@ -17,7 +21,6 @@ LAB2에서는 AWS CLI를 사용하여 AWS 클라우드 인프라를 배포하는
 </br></br>
 
 ## 테스트 결과
-
 "KBL-Pitcher-2024.csv"라는 csv 파일에는 KBL등록된 투수들 중 정규시즌에 20위 순위권 선수, 평균 자책점 , 경기 승리 수에 대한 데이터가 있습니다.
 
 메인 스크립트를 실행한 후 AWS 인프라를 시작한 지역의 콘솔에서 AWS 계정으로 이동하여 EC2 대시보드를 클릭한 다음 로드 밸런서를 클릭합니다. lab2-load-balancer 로드 밸런서를 선택하고 DNS 이름을 복사한 다음 원하는 경로를 따라 웹 브라우저에 붙여넣습니다.
