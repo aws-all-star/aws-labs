@@ -10,6 +10,13 @@ https://docs.aws.amazon.com/eks/latest/userguide/creating-a-vpc.html
 https://docs.aws.amazon.com/eks/latest/userguide/getting-started-console.html#eks-launch-workers
 <br/><br/>
 
+필요한 도구를 설치하려면 아래 링크의 단계를 따르십시오.:<br/>
+- Git: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
+- Kubectl: https://kubernetes.io/docs/tasks/tools/
+<br/><br/>
+
+# 시작하기
+
 **1단계: Amazon EKS(Elastic Kubermetes Cluster) 생성**<br/>
 1. Amazon EKS 요구 사항을 충족하는 퍼블릭 및 프라이빗 서브넷이 있는 Amazon VPC PC를 생성합니다. region-code를 Amazon EKS에서 지원하는 AWS 리전으로 바꿉니다. AWS 리전 목록은 AWS General Reference 가이드의 Amazon EKS endpoints and quotas를 참조하세요. 선택하는 이름으로 my-eks-vpc-stack을 바꿀 수 있습니다.<br/>
 ```sh
@@ -42,7 +49,7 @@ aws iam attach-role-policy \
 
 6. 클러스터 구성 페이지에서 다음을 수행합니다.<br/>
 - 사용자 지정 구성(Custom Configuration) 을 선택하고 EKS 자율 모드(EKS Auto Mode) 사용을 비활성화하세요.<br/>
-- 클러스터 이름을 입력하세요(예: 'my-ktds'). 이름에는 영숫자(대소문자 구분)와 하이픈만 사용할 수 있습니다. 영숫자로 시작해야 하며 100자 이하여야 합니다. 이름은 클러스터를 생성하는 AWS 리전과 AWS 계정 내에서 고유해야 합니다.<br/>
+- 클러스터 이름을 입력하세요(예: `my-ktds`). 이름에는 영숫자(대소문자 구분)와 하이픈만 사용할 수 있습니다. 영숫자로 시작해야 하며 100자 이하여야 합니다. 이름은 클러스터를 생성하는 AWS 리전과 AWS 계정 내에서 고유해야 합니다.<br/>
 - 클러스터 서비스 역할(Cluster IAM role)에서 myAmazonEKSClusterRole을 선택합니다.<br/>
 - 나머지 설정을 기본값으로 두고 다음을 선택합니다.<br/>
 
@@ -71,7 +78,7 @@ https://docs.aws.amazon.com/eks/latest/userguide/troubleshooting.html#unauthoriz
 
 1. 클러스터에 대해 kubeconfig 파일을 생성 또는 업데이트합니다. region-code를 클러스터를 생성한 AWS 리전으로 바꿉니다. my-cluster를 해당 클러스터의 이름으로 바꿉니다.
 ```sh
-$ aws eks update-kubeconfig --region ap-northeast-2 --name my-ktds
+$ aws eks update-kubeconfig --region ap-northeast-2 --name <my-ktds>
 ```
 기본적으로 config 파일이 ~/.kube에 생성되거나 새 클러스터의 구성이 ~/.kube의 기존 config 파일에 추가됩니다.
   - 마지막으로, kubectl cluster-info를 실행하여 연결이 성공했는지 확인하십시오.
@@ -79,14 +86,14 @@ $ aws eks update-kubeconfig --region ap-northeast-2 --name my-ktds
 
 2. 구성을 테스트합니다.
 ```sh
-$ kubectl get svc
+kubectl get svc
 ```
 <br/>
 
 **3단계: 클러스터 노드 구성**<br/>
 1. 노드 IAM 역할을 생성하고 필요한 Amazon EKS IAM 관리형 정책을 연결합니다. Amazon EKS 노드 kubelet 데몬은 사용자를 대신하여 AWS API를 호출합니다. 노드는 IAM 인스턴스 프로필 및 연결 정책을 통해 이 API 호출에 대한 권한을 수신합니다. 노드 IAM 역할을 생성합니다.<br/>
 ```sh
-$ aws iam create-role \
+aws iam create-role \
   --role-name myAmazonEKSNodeRole \
   --assume-role-policy-document file://"node-role-trust-policy.json"
 ```
@@ -127,16 +134,15 @@ aws iam attach-role-policy \
 11. 검토 및 생성 페이지에서 관리형 노드 그룹 구성을 검토하고 생성을 선택합니다.<br/>
 
 12. 몇 분 후 노드 그룹 구성 섹션의 상태가 생성 중에서 활성으로 바뀝니다. 상태가 활성이 되면 다음 단계를 진행합니다.<br/>
-<br/><br/>
 
-## 시작하기
-1. Kubectl을 EKS 클러스터와 연결하세요. 터미널에서 aws configure(콘솔에서 EKS 클러스터를 생성한 동일한 사용자 사용)를 실행하고 kubectl을 설치합니다(설치 섹션 확인) 그런 다음 클러스터 이름과 올바른 영역으로 다음 명령을 실행하십시오.
-
+13. LAB 5 폴더로 이동하면 manifests 를 찾을 수 있습니다. 다음 명령을 실행하여 응용 프로그램을 배포합니다.<br/>
 ```sh
-aws eks update-kubeconfig --name LAB4 --region ap-northeast-2a
+kubectl apply -f mongo-service.yaml
+kubectl apply -f mongo-deployment.yaml
+kubectl apply -f app-service.yaml
+kubectl apply -f app-deployment.yaml
 ```
-<br/>
-
 <br/><br/>
+
 
 ## 제출 지침
