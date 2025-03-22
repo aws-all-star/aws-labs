@@ -10,6 +10,12 @@ AWS는 세계 최초의 글로벌 클라우드 공급업체이자 가장 높은 
 AWS는 Linux OS인 Amazon Linux 2023(AL2023) 최신 버전도 제공합니다. AWS 클라우드에서 애플리케이션을 실행하기 위한 OS로 AL2023을 선택하면 경우에 따라 AWS 무료 티어를 통해 일정 기간 무료로 OS를 이용할 수도 있습니다.
 <br/><br/>
 
+## 전제조건
+- Linux 서버에 대한 기초 지식
+- AWS Cloud 인프라에 대한 이해
+- 기본 IT인프라 운영 및 관리 지식
+</br></br>
+
 ## 목표 구성도
 <img width="900" alt="image" src="https://github.com/user-attachments/assets/a442b5e7-329a-476c-b7a9-a984118ccbb8" />
 <br/><br/>
