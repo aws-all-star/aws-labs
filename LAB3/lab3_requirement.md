@@ -1,4 +1,5 @@
 
+git clone https://github.com/aws-all-star/aws-labs.git
 
 dnf install dnf-utils
 
