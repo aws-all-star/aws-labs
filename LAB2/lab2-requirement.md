@@ -24,7 +24,7 @@ SUBNET2_PUBLIC_AZ="ap-northeast-2b"
 ```
 <br/>
 
-2. '10.0.0.0/16' CIDR 블록을 가진, VPC를 생성합니다. tag는 `key=Name ,value=vpc_lab2` 설정합니다.
+2. 다음 절차에 따라 Virtual Private Cloud(VPC)를 생성합니다. VPC에서 AWS 리소스를 생성하려면 먼저 VPC에 서브넷, 라우팅 테이블, 게이트웨이와 같은 추가 리소스가 있어야 합니다. '10.0.0.0/16' CIDR 블록을 가진, VPC를 생성합니다. tag는 `key=Name ,value=vpc_lab2` 설정합니다.
 ```sh
 VPC_ID=$(aws ec2 create-vpc \
     --cidr-block 10.0.0.0/16 \
@@ -35,7 +35,7 @@ VPC_ID=$(aws ec2 create-vpc \
 ```
 <br/>
 
-3. 인터넷 게이트웨이를 생성합니다. tag는 `key=Name ,value=igw_lab2` 설정합니다. tag는 `key=Name ,value=igw-lab2` 설정합니다.
+3. 인터넷 게이트웨이는 VPC 라우팅 테이블에서 인터넷 라우팅 가능 트래픽에 대한 대상을 제공합니다. IPv4 통신의 경우 인터넷 게이트웨이는 Network Address Translation(NAT)도 수행합니다. 아래 명령어를 참고하여 인터넷 게이트웨이를 생성합니다.
 ```sh
 IGW_ID=$(aws ec2 create-internet-gateway \
     --tag-specifications 'ResourceType=internet-gateway,Tags=[{Key=Name,Value=igw-lab2}, {Key=project,Value=labs}]' \
@@ -52,7 +52,7 @@ aws ec2 attach-internet-gateway \
 ```
 <br/>
 
-5. `10.0.0.0/24` 을 가진, `Public Subnet 1` 서브넷을 생성합니다. tag는 `key=Name ,value=subnet_lab1` 설정합니다.
+5. 지정된 VPC에 서브넷을 생성합니다. IPv4 전용 서브넷의 경우 IPv4 CIDR 블록을 지정합니다. VPC에 IPv6 CIDR 블록이 있는 경우 대신 IPv6 전용 서브넷 또는 듀얼 스택 서브넷을 생성할 수 있습니다. 다음 create-subnet 예제에서는 지정된 IPv4 CIDR 블록을 사용하여 지정된 VPC에서 서브넷을 생성합니다.
 ```sh
 SUBNET1_PUBLIC=$(aws ec2 create-subnet \
     --vpc-id $VPC_ID \
@@ -78,7 +78,7 @@ RT_PUBLIC=$(aws ec2 create-route-table --vpc-id $VPC_ID --output text --query 'R
 ```
 <br/>
 
-8. 라우팅 테이블에 모든 IPv4 트래픽(0.0.0.0/0)을 IGW로 보내는 라우팅 경로를 생성합니다/
+8. 라우팅 테이블에 모든 IPv4 트래픽(0.0.0.0/0)을 IGW로 보내는 라우팅 경로를 생성합니다.
 ```sh
 aws ec2 create-route --route-table-id $RT_PUBLIC --destination-cidr-block 0.0.0.0/0 --gateway-id $IGW_ID
 ```
@@ -288,7 +288,7 @@ ALB_ARN=$(aws elbv2 create-load-balancer --name lab2-load-balancer \
 ```
 <br/>
 
-30. 
+30. create-listener 명령을 사용하여 요청을 대상 그룹에 전달하는 기본 규칙을 적용해서 로드 밸런서에 대한 리스너를 생성합니다. 
 ```sh
 aws elbv2 create-listener --load-balancer-arn $ALB_ARN \
     --protocol HTTP \
@@ -298,7 +298,7 @@ aws elbv2 create-listener --load-balancer-arn $ALB_ARN \
 ```
 <br/>
 
-31. 
+31. Launch Template은 EC2 인스턴스를 생성할 때 각 단계를 일일이 지정할 필요가 없도록 각 파라미터를 저장할 수 있고 재활용하여 EC2 인스턴스 생성을 간단히 해줍니다.
 ```sh
 LAUNCH_TEMPLATE_ID=$(aws ec2 create-launch-template --launch-template-name lab2-launch-template \
     --launch-template-data "ImageId=ami-0b39b65eacb043ba3,InstanceType=t2.micro,SecurityGroupIds=$SG_APP_ID,KeyName=lab2_key,UserData=$(base64 userdata_app.sh)" \
@@ -308,7 +308,8 @@ LAUNCH_TEMPLATE_ID=$(aws ec2 create-launch-template --launch-template-name lab2-
 ```
 <br/>
 
-32.
+32. 자동 확장 그룹을 생성할 때 Amazon EC2 인스턴스, 인스턴스에 대한 가용성 영역 및 VPC 서브넷, 원하는 용량, 최소 및 최대 용량 제한을 구성하는 데 필요한 정보를 지정해야 합니다.
+자동 스케일링 그룹에 의해 실행되는 Amazon EC2 인스턴스를 구성하려면 실행 템플릿 또는 실행 구성을 지정할 수 있습니다. 다음 절차에서는 실행 템플릿을 사용하여 자동 확장 그룹을 생성하는 방법을 안내합니다.
 ```sh
 aws autoscaling create-auto-scaling-group --auto-scaling-group-name lab2-scaling-group \
     --launch-template "LaunchTemplateId=$LAUNCH_TEMPLATE_ID,Version=1" \
@@ -322,7 +323,7 @@ aws autoscaling create-auto-scaling-group --auto-scaling-group-name lab2-scaling
 ```
 <br/>
 
-33. 
+33. 자동 스케일링 그룹에 대한 스케일링 정책을 생성하거나 업데이트합니다. 확장 정책은 구성 가능한 메트릭을 기반으로 자동 확장 그룹을 확장하는 데 사용됩니다. 정책이 정의되지 않으면 동적 스케일링 및 예측 스케일링 기능이 사용되지 않습니다.
 ```sh
 aws autoscaling put-scaling-policy --policy-name cpu-scaling-policy \
     --auto-scaling-group-name lab2-scaling-group \
