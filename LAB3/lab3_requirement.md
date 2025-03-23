@@ -4,11 +4,11 @@
 이 저장소는 두 개의 Dockerfiles(Dockerfile.app 및 Dockerfile.mongodb), 하나의 docker-compose 파일(docker-compose.yml), 하나의 종속성 파일(package.json), 데이터베이스 콘텐츠 파일(KBL-Pitcher-2024.csv, KBL등록 선수 목록 및 통계), nodejs 애플리케이션 코드(app.js) 및 mongobd 컬렉션을 만들고 설정하기 위한 파일들로 구성되어 있습니다.
 ![이미지](https://github.com/user-attachments/assets/162645b3-e01f-4205-9c40-fa542fb98721)
 <br/>
-
 공개 GitHub 저장소의 URL저장소를 복제합니다.
 ```sh
 git clone https://github.com/aws-all-star/aws-labs.git
 ```
+<br/>
 필요한 도구를 설치하려면 아래 링크의 단계를 따르십시오.:<br/>
 - Docker: https://docs.docker.com/engine/install/
 <br/><br/>
