@@ -9,7 +9,9 @@
 ```sh
 git clone https://github.com/aws-all-star/aws-labs.git
 ```
-<br/><br/>
+<br/>
+필요한 도구를 설치하려면 아래 링크의 단계를 따르십시오.:<br/>
+- Docker: https://docs.docker.com/engine/install/
 
 ## 2. 시작하기
 1. 개인 터미널에서 SSH를 통해 EC2 인스턴스로 접근합니다. 인스턴스는 LAB1 에서 생성한 인스턴스 중 하나를 활용합니다.
