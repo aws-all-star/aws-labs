@@ -136,7 +136,7 @@ aws iam attach-role-policy \
 
 12. 몇 분 후 노드 그룹 구성 섹션의 상태가 생성 중에서 활성으로 바뀝니다. 상태가 활성이 되면 다음 단계를 진행합니다.<br/>
 
-13. LAB 5 폴더로 이동하면 manifests 를 찾을 수 있습니다. 다음 명령을 실행하여 응용 프로그램을 배포합니다.<br/>
+13. 아래 제공된 manifests 를 찾을 수 있습니다. 다음 명령을 실행하여 응용 프로그램을 배포합니다.<br/>
 ```sh
 kubectl apply -f mongo-service.yaml
 kubectl apply -f mongo-deployment.yaml
