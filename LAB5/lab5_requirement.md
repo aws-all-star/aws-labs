@@ -16,7 +16,7 @@
 <br/><br/>
 
 # 시작하기
-모니터링 네임스페이스를 만들고 클러스터에 프로메테우스와 그라파나를 설치하는 역할을 하는 쿠베-프로메테우스 스택을 설치하세요.<br/>
+1. 모니터링 네임스페이스를 만들고 클러스터에 Promethus와 Grafana를 설치하는 역할을 하는 쿠베-프로메테우스 스택을 설치하세요.<br/>
 ```sh
 kubectl create namespace monitoring
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
