@@ -51,7 +51,7 @@ Default output format [None]:
 <br/>
 
 ## 2. 설치하기
-이 저장소를 복제합니다. 이 옵션을 사용하려면 먼저 터미널에 Git을 설치한 다음 저장소를 복제해야 합니다.
+이 저장소를 복제합니다. 이 옵션을 사용하려면 먼저 터미널에 Git을 설치한 다음 저장소를 복제해야 합니다.<br/>
 Git을 설치하려면 이 링크로 이동하여 단계를 따르십시오: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 
 ```sh
