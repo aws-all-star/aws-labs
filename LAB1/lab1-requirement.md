@@ -6,12 +6,15 @@ VM Import/Export를 사용해 손쉽게 기존 환경의 가상 머신 이미지
 이미지를 가져오려면, AWS CLI, 다른 개발자 도구 또는 콘솔 기반 Migration Hub Orchestrator 템플릿을 사용하여 기존 온프레미스 또는 가상화 그리고 이기종 클라우드 환경에서 가상 머신 이미지를 가져옵니다. VMware 또는 Openstack 가상화 플랫폼을 사용하는 경우에는 AWS Management Portal을 통해 VM을 가져올 수도 있습니다. 가져오기 프로세스의 일부로서, VM Import에서 VM을 Amazon EC2 인스턴스를 실행하는 데 사용할 수 있는 Amazon EC2 AMI로 변환합니다. VM을 가져오면, Auto Scaling, Elastic Load Balancing, CloudWatch 등의 서비스를 통한 Amazon의 탄력성, 확장성 및 모니터링 기능을 활용해 가져온 이미지를 지원할 수 있습니다.
 
 수강생은 강사의 지시에 따라 가공된 클라우드 이미지(QCOW2)를 제공받게 됩니다. 제공된 클라우드 이미지를 RAW 이미지로 변환하기 위해서는 아래 예시를 통해 각 클라이언트 환경에 맞게 설치할 수 있어야 합니다.<br/>
-아래 사이트 제공되는 툴을 설치하여 기존 가상화 이미지를 AWS Cloud로 전환할 수 있도록 변환해야만 합니다.<br/>
-https://www.qemu.org/download/
-<br/><br/>
+<br/>
 설치가 정상적으로 완료되면 AWS에서 제공되는 VM IMPORT 기능을 통해 전환할 수 있습니다.<br/>
 다만, VM Import/Export로 가져오는 리소스에 대한 요구 사항을 사전에 파악하고 지원하는 이미지 형식 또는 운영체제인지를 확인해야 합니다.<br/>
 https://docs.aws.amazon.com/ko_kr/vm-import/latest/userguide/prerequisites.html
+<br/>
+
+필요한 도구를 설치하려면 아래 링크의 단계를 따르십시오.:<br/>
+- AWS CLI: https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+- QEMU: https://www.qemu.org/download/
 <br/><br/>
 
 아래 예제를 참고하여 순서대로 s3 생성하고 권한을 부여하여 AWS EC2 인스턴스를 생성할 수 있도록 명령어를 실행해야 합니다.
