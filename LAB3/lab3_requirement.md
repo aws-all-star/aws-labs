@@ -5,6 +5,11 @@
 ![이미지](https://github.com/user-attachments/assets/162645b3-e01f-4205-9c40-fa542fb98721)
 <br/>
 
+공개 GitHub 저장소의 URL저장소를 복제합니다.
+```sh
+git clone https://github.com/aws-all-star/aws-labs.git
+```
+<br/><br/>
 
 ## 2. 시작하기
 1. 개인 터미널에서 SSH를 통해 EC2 인스턴스로 접근합니다. 인스턴스는 LAB1 에서 생성한 인스턴스 중 하나를 활용합니다.
@@ -13,43 +18,37 @@ ssh -i <YOUR_KEY_PAIR> rocky@<YOUR_EC2_PUBLIC_IP>
 ```
 <br/>
 
-2. 공개 GitHub 저장소의 URL저장소를 복제합니다.
-```sh
-git clone https://github.com/aws-all-star/aws-labs.git
-```
-<br/><br/>
-
-3. duf-utils는 yum-utils CLI 호환성 계층으로서, DNF를 사용하여 새로운 구현을 사용하는 debuginfo-install, groups-manager, repograph, package-cleanup, repoclosure, repomanage, repoquery, reposync, repotrack, builddep, config-manager, debug 및 다운로드를 위한 CLI 공급합니다.
+2. duf-utils는 yum-utils CLI 호환성 계층으로서, DNF를 사용하여 새로운 구현을 사용하는 debuginfo-install, groups-manager, repograph, package-cleanup, repoclosure, repomanage, repoquery, reposync, repotrack, builddep, config-manager, debug 및 다운로드를 위한 CLI 공급합니다.
 ```sh
 dnf install dnf-utils
 ```
 <br/>
 
-4. Docker-CE는 Community Edition으로 소규모 프로젝트를 위해 제공되는 오픈된 도커엔진입니다. Containerd는 컨테이너를 실행하고 노드에서 이미지를 관리하는 데 사용되는 오픈소스 컨테이너 런타임입니다. Docker에서 개발되었으며, Kubernetes에서 지원되는 업계 표준 컨테이너 런타임입니다. dnf명령어를 통해 패키지를 설치합니다.
+3. Docker-CE는 Community Edition으로 소규모 프로젝트를 위해 제공되는 오픈된 도커엔진입니다. Containerd는 컨테이너를 실행하고 노드에서 이미지를 관리하는 데 사용되는 오픈소스 컨테이너 런타임입니다. Docker에서 개발되었으며, Kubernetes에서 지원되는 업계 표준 컨테이너 런타임입니다. dnf명령어를 통해 패키지를 설치합니다.
 ```sh
 dnf install docker-ce docker-ce-cli containerd.io
 ```
 <br/>
 
-5. Docker 및 docker-compose 설치의 경우, 다음 링크를 확인하고 제공된 단계를 진행하십시오.
+4. Docker 및 docker-compose 설치의 경우, 다음 링크를 확인하고 제공된 단계를 진행하십시오.
 ```sh
 curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 ```
 <br/>
 
-6. docker-compose 명령어를 실행하도록 권한을 할당합니다.
+5. docker-compose 명령어를 실행하도록 권한을 할당합니다.
 ```sh
 chmod +x /usr/local/bin/docker-compose
 ```
 <br/>
 
-7. 절대경로로 docker-compose 명령어를 실행하도록 합니다.
+6. 절대경로로 docker-compose 명령어를 실행하도록 합니다.
 ```sh
 ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 ```
 <br/>
 
-8. docker와 docker-compose 버전을 확인합니다. 최신버전을 설치하는 것이 여러 오류를 해결할 수 있습니다.
+7. docker와 docker-compose 버전을 확인합니다. 최신버전을 설치하는 것이 여러 오류를 해결할 수 있습니다.
 ```sh
 docker-compose -v
 ```
@@ -60,7 +59,7 @@ docker -v
 ```
 <br/>
 
-9. docker 엔진을 실행 후, 정상적으로 기동되었는지 확인합니다.
+8. docker 엔진을 실행 후, 정상적으로 기동되었는지 확인합니다.
 ```sh
 systemctl start docker
 ```
