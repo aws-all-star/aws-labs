@@ -37,7 +37,7 @@ AWS Cloud 교육의 가장 기초적인 내용으로, AWS 사용을 시작하는
 https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html
 https://docs.aws.amazon.com/powershell/latest/userguide/pstools-appendix-sign-up.html
 
-AWS 콘솔에서 사용자가 생성되면 컴퓨터에서 새 Linux 터미널을 열고 AWS CLI를 설치합니다.
+AWS 콘솔에서 사용자가 생성되면 컴퓨터에서 새 Linux 터미널을 열고 AWS CLI를 설치합니다. 
 AWS CLI를 설치하려면 다음 명령을 사용하십시오.
 ```sh
 $ curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
