@@ -44,12 +44,12 @@ $ aws s3api put-bucket-policy --bucket my-rhel9-img --policy "file://bucket-poli
 
 4. AWS EC2 스냅샷 생성한 후 정상적으로 생성되면 정보를 확인합니다.
 ```sh
-$ aws ec2 import-snapshot --description "Red Hat Enterprise Linux 6 Update 8 KVM Guest Image" --disk-container "file://container.json"
+$ aws ec2 import-snapshot --description <"Rocky Linux 9 Update 5 Cloud Image" --disk-container "file://container.json"
 ```
 <br/>
                           
 ```sh
-$ aws ec2 describe-import-snapshot-tasks --import-task-ids import-snap-b32277d46bfc9e23t
+$ aws ec2 describe-import-snapshot-tasks --import-task-ids <import-snap-b32277d46bfc9e23t>
 ```
 <br/>
 
@@ -209,7 +209,7 @@ aws ec2 describe-instances --query 'Reservations[*].Instances[*].[InstanceId, Pu
 <br/><br/>
 
 ## 3. 제출 지침
-- 사용자의 운영체제는 보안취약점에 노출되어 있습니다. 수강생은 Linux 운영체제를 최신 버전으로 업데이트해야 합니다. 최신 버전의 커널은 무엇입니까? (Z-Stream 버전 포함)
+- 현재 사용자의 Linux 서버는 보안취약점에 노출되어 있습니다. 수강생은 Linux 운영체제를 최신 버전으로 업데이트해야 합니다. 최신 버전의 커널은 무엇입니까? (Z-Stream 버전 포함)
 - AWS 클라우드 환경에 최적화된 성능을 유지하려면 tuned 명령어를 통해 손쉽게 적용할 수 있습니다. 적용 후, 어떠한 차이점이 있는지 확인해야 합니다.
 - AWS EC2 인스턴스에서는 기본적으로 AWS, 온프레미스, 멀티클라우드 환경에서 대규모로 노드를 중앙에서 보고 관리하고 운영할 수 있도록 지원합니다. CloudWatch 에이전트의 구성 및 추가 지표 수집을 위해 선택하기 위한 요구사항을 충족하기 위해서는 AWS에서 제공하는 에이전트를 설치 구성하도록 합니다.
 <br/><br/>
