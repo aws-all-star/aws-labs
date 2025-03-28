@@ -89,7 +89,7 @@ AWS 서비스를 더욱 능숙하게 식별할 수 있도록 기초 지식을 �
   • AWS 아키텍처에는 VPC, 인터넷 게이트웨이, 두 개의 공용 서브넷, 경로 테이블, 공용 EC2 인스턴스, 스케일링 그룹, 애플리케이션 로드 밸런서, 보안 그룹, NAT 게이트웨이 등 구성되어야 합니다.
 <br/>
 ### [LAB 3](https://github.com/aws-all-star/aws-labs/tree/main/LAB3) - 애플리케이션 컨테이너화 및 Docker-Compose 구성
-  • Docker를 사용하여 API 및 MongoDB 마이크로서비스를 컨테이너화합니다. 
+  • Docker를 사용하여 API 및 MongoDB 마이크로서비스를 컨테이너화합니다. <br/>
   • 앱 컨테이너를 EC2 인스턴스에 배포하고 Docker Compose로 오케스트레이션합니다.
 <br/>
 ### [LAB 4](https://github.com/aws-all-star/aws-labs/tree/main/LAB4) - AWS EKS 클러스터에서 웹 어플리케이션 배포
