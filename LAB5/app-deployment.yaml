@@ -16,7 +16,7 @@ spec:
         app: app
     spec:
       containers:
-      - image: kimdonghyun0916/labapp:latest
+      - image: kimdonghyun0916/lab3-app:latest
         name: app
         ports:
           - containerPort: 3000
