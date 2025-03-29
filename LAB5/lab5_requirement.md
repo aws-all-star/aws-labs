@@ -49,13 +49,14 @@ kubectl port-forward service/monitoring-grafana 8080:80 -n monitoring
 ```
 <br/>
 
-Kube-Prometheus-Stack에는 클러스터를 모니터링할 수 있는 많은 대시보드가 있습니다. Grafana의 "대시보드" 섹션에서 액세스할 수 있습니다. 또한 클러스터 지표를 더 잘 시각화하기 위해 다음 대시보드를 가져올 것을 제안합니다: 15757, 15758, 15759 및 15760.
+6. Kube-Prometheus-Stack에는 클러스터를 모니터링할 수 있는 많은 대시보드가 있습니다. Grafana의 "대시보드" 섹션에서 액세스할 수 있습니다. 또한 클러스터 지표를 더 잘 시각화하기 위해 15757 대시보드를 가져올 것을 제안합니다. 이 외에도 사용자 환경에 맞게 선택하세요.
 
-이제, 로키를 설치하세요:<br/>
+7. 이제, 로키를 설치하세요:<br/>
 ```sh
 helm repo add grafana https://grafana.github.io/helm-charts
 helm repo update
 helm upgrade --install loki --namespace=monitoring grafana/loki-stack --set grafana.enabled=false --set loki.enabled=true --set loki.promtail.enabled=true
 ```
 <br/>
+
 URL http://loki:3100을 사용하여 Grafana에서 Loki를 데이터 소스로 추가합니다. 그런 다음 로그 시각화를 위해 대시보드 ID 12611을 가져옵니다.<br/>
