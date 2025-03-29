@@ -31,8 +31,11 @@ kubectl get services
 ```
 
 브라우저에 로드 밸런서 외부 IP(로드 밸런서 주소)를 붙여넣고 아래 원하는 경로를 추가하십시오.
-<br/><br/>
 
+1. 경로 "/" 선택하면, KBL-Pitcher-2024 문서를 모든 내용을 출력합니다.</br>
+2. 경로 "/teams" 선택하면, 모든 팀의 목록을 출력합니다.
+3. 경로 "/players/top/10" 선택하면, ERA(평균 자책점) 가장 낮은 순서의 10명 선수를 출력합니다.
+</br></br>
 
 ## 저작자
 - Kim, Dong Hyun (티스토리) [https://www.linkedin.com/in/kim-donghyun0916/](https://rhlinux.tistory.com)
