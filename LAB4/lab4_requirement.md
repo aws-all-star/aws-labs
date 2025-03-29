@@ -92,15 +92,7 @@ kubectl get svc
 <br/>
 
 **3단계: 클러스터 노드 구성**<br/>
-1. 노드 IAM 역할을 생성하고 필요한 Amazon EKS IAM 관리형 정책을 연결합니다. Amazon EKS 노드 kubelet 데몬은 사용자를 대신하여 AWS API를 호출합니다. 노드는 IAM 인스턴스 프로필 및 연결 정책을 통해 이 API 호출에 대한 권한을 수신합니다. 노드 IAM 역할을 생성합니다.<br/>
-```sh
-aws iam create-role \
-  --role-name myAmazonEKSNodeRole \
-  --assume-role-policy-document file://"node-role-trust-policy.json"
-```
-<br/>
-
-2. 필요한 Amazon EKS 관리형 IAM 정책을 역할에 연결합니다.
+1. 필요한 Amazon EKS 관리형 IAM 정책을 역할에 연결합니다.
 ```sh
 aws iam attach-role-policy \
   --policy-arn arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy \
@@ -113,32 +105,30 @@ aws iam attach-role-policy \
   --role-name myAmazonEKSNodeRole
 ```
 
-3. https://console.aws.amazon.com/eks/home#/clusters 에서 Amazon EKS 콘솔을 엽니다.<br/>
+2. https://console.aws.amazon.com/eks/home#/clusters 에서 Amazon EKS 콘솔을 엽니다.<br/>
 
-4. 1단계: Amazon EKS 클러스터 만들기에서 생성한 클러스터의 이름(예: `my-ktds`)을 선택합니다.<br/>
+3. 1단계: Amazon EKS 클러스터 만들기에서 생성한 클러스터의 이름(예: `my-ktds`)을 선택합니다.<br/>
 
-5. my-cluster 페이지에서 다음을 수행합니다.<br/>
+4. my-cluster 페이지에서 다음을 수행합니다.<br/>
 
-6. 컴퓨팅 탭을 선택합니다.<br/>
+5. 컴퓨팅 탭을 선택합니다.<br/>
 
-7. 노드 그룹 추가를 선택합니다.<br/>
+6. 노드 그룹 추가를 선택합니다.<br/>
 
-8. 노드 그룹 구성 페이지에서 다음을 수행합니다.<br/>
+7. 노드 그룹 구성 페이지에서 다음을 수행합니다.<br/>
 - 이름에 관리형 노드 그룹(예: `my-nodegroup`)의 고유한 이름을 입력합니다. 노드 그룹 이름은 63자를 초과할 수 없습니다. 문자나 숫자로 시작하되, 나머지 문자의 경우 하이픈과 밑줄을 포함할 수 있습니다.<br/>
 - 노드 IAM 역할 이름에서 이전 단계에서 생성한 myAmazonEKSNodeRole 역할을 선택합니다. 각 노드 그룹은 고유한 IAM 역할을 사용하는 것이 좋습니다.<br/>
 - 다음을 선택합니다.<br/>
 
-9. 컴퓨팅 및 크기 조정 구성 설정 페이지에서 `Amazon Linux 2 AMI`, `주문형 용량`, `t2.micro` 크기, `20GiB 디스크 크기`를 선택하고 다음을 클릭하십시오.<br/>
+8. 컴퓨팅 및 크기 조정 구성 설정 페이지에서 `Amazon Linux 2 AMI`, `주문형 용량`, `t2.small` 크기, `20GiB 디스크 크기`를 원하는 노드 수를 4개로, 최소 크기를 2개로, 최대 크기를 6개로 설정합니다.<br/>
 
-10. NodeGroup을 만들 때, t2.small을 인스턴스 유형으로 선택하고, 원하는 노드 수를 4개로, 최소 크기를 2개로, 최대 크기를 6개로 설정합니다.
+10. 네트워킹 지정 페이지에서 기본값을 수락하고 다음을 선택합니다.<br/>
 
-11. 네트워킹 지정 페이지에서 기본값을 수락하고 다음을 선택합니다.<br/>
+11. 검토 및 생성 페이지에서 관리형 노드 그룹 구성을 검토하고 생성을 선택합니다.<br/>
 
-12. 검토 및 생성 페이지에서 관리형 노드 그룹 구성을 검토하고 생성을 선택합니다.<br/>
+12. 몇 분 후 노드 그룹 구성 섹션의 상태가 생성 중에서 활성으로 바뀝니다. 상태가 활성이 되면 다음 단계를 진행합니다.<br/>
 
-13. 몇 분 후 노드 그룹 구성 섹션의 상태가 생성 중에서 활성으로 바뀝니다. 상태가 활성이 되면 다음 단계를 진행합니다.<br/>
-
-14. 아래 제공된 manifests 를 찾을 수 있습니다. 다음 명령을 실행하여 응용 프로그램을 배포합니다.<br/>
+13. 아래 제공된 manifests 를 찾을 수 있습니다. 다음 명령을 실행하여 응용 프로그램을 배포합니다.<br/>
 ```sh
 kubectl apply -f mongo-service.yaml
 kubectl apply -f mongo-deployment.yaml
