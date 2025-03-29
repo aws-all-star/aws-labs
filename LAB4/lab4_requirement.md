@@ -56,7 +56,7 @@ aws iam attach-role-policy \
 
 7. 네트워킹 지정 페이지에서 다음을 수행합니다.<br/>
 - VPC 드롭다운 목록에서 이전 단계에서 생성한 VPC의 ID를 선택합니다. vpc-00x0000x000x0x000 | my-eks-vpc-stack-VPC를 예로 들 수 있습니다.<br/>
-- 나머지 설정을 기본값으로 두고 다음을 선택합니다.<br/>
+- Subnet 드롭다운 목록에서 my-eks-vpc-stack-xxx 시작하는 서브넷을 모두 선택합니다. 그리고 보안그룹도 my-eks-vpc-xxx 시작하는 목록을 선택합니다. 나머지 설정을 기본값으로 두고 다음을 선택합니다.<br/>
 - 관찰성(Observability) 구성 페이지에서 다음을 선택합니다.<br/>
 
 8. 추가 기능 선택 페이지에서 다음을 선택합니다.<br/>
