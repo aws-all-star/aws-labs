@@ -2,19 +2,19 @@
   hosts: localhost
   gather_facts: no
   vars:
-    aws_region: us-east-1
-    subnet1_public_az: us-east-1a
-    subnet2_public_az: us-east-1b
+    aws_region: ap-northeast-2
+    subnet1_public_az: ap-northeast-2c
+    subnet2_public_az: ap-northeast-2d
 
   tasks:
     - name: Create VPC
       amazon.aws.ec2_vpc_net:
-        name: vpc_project7
+        name: vpc_lab6
         cidr_block: 10.0.0.0/16
         region: "{{ aws_region }}"
         tags:
-          name: vpc_project7
-          project: wecloud
+          name: vpc_lab6
+          project: labs
       register: vpc
 
     - name: Create Internet Gateway
@@ -22,8 +22,8 @@
         vpc_id: "{{ vpc.vpc.id }}"
         state: present
         tags:
-          name: igw_project7
-          project: wecloud
+          name: igw_lab6
+          project: labs
       register: igw
 
     - name: Create Public Subnet 1
@@ -35,8 +35,8 @@
         az: "{{ subnet1_public_az }}"
         region: "{{ aws_region }}"
         tags:
-          name: subnet1_public_project7
-          project: wecloud
+          name: subnet1_public_lab6
+          project: labs
       register: subnet1_public
 
     - name: Create Public Subnet 2
@@ -48,8 +48,8 @@
         az: "{{ subnet2_public_az }}"
         region: "{{ aws_region }}"
         tags:
-          name: subnet2_public_project7
-          project: wecloud
+          name: subnet2_public_lab6
+          project: labs
       register: subnet2_public
     
     - name: Create Public Route Table and Add Route to IGW
@@ -58,8 +58,8 @@
         vpc_id: "{{ vpc.vpc.id }}"
         region: "{{ aws_region }}"
         tags:
-          name: public_rt_project7
-          project: wecloud
+          name: public_rt_lab6
+          project: labs
         subnets:
           - "{{ subnet1_public.subnet.id }}"
           - "{{ subnet2_public.subnet.id }}"
@@ -77,24 +77,24 @@
         az: "{{ subnet1_public_az }}"
         region: "{{ aws_region }}"
         tags:
-          name: subnet_private_project7
+          name: subnet_private_lab6
           project: wecloud
       register: subnet_private
   
     - name: Create a New EC2 Key Pair, Returns Generated Private Key
       amazon.aws.ec2_key:
         force: true
-        name: key_project7
+        name: key_lab6
         region: "{{ aws_region }}"
         key_type: rsa
         tags:
-          name: key_project7
-          project: wecloud
+          name: key_lab6
+          project: labs
       register: key_pair
 
     - name: Create ALB Security Group
       amazon.aws.ec2_security_group:
-        name: alb_sg_project7
+        name: alb_sg_lab6
         description: "Application Load Balancer sg"
         vpc_id: "{{  vpc.vpc.id }}"
         region: "{{ aws_region }}"
@@ -106,13 +106,13 @@
             cidr_ip: 0.0.0.0/0
             rule_desc: allow all on port 80 and 443
         tags:
-          name: alb_sg_project7
-          project: wecloud
+          name: alb_sg_lab6
+          project: labs
       register: sg_alb
 
     - name: Create Application Security Group
       amazon.aws.ec2_security_group:
-        name: app_sg_project7
+        name: app_sg_lab6
         description: "Application SG"
         vpc_id: "{{  vpc.vpc.id }}"
         region: "{{ aws_region }}"
@@ -122,16 +122,16 @@
             - 80
             - 443
             - 3000
-            group_name: alb_sg_project7
+            group_name: alb_sg_lab6
             rule_desc: allow from alb sg on port 80,443,3000
         tags:
-          name: app_sg_project7
-          project: wecloud
+          name: app_sg_lab6
+          project: labs
       register: sg_app
 
     - name: Create Database Security Group
       amazon.aws.ec2_security_group:
-        name: db_sg_project7
+        name: db_sg_lab6
         description: "Database SG"
         vpc_id: "{{  vpc.vpc.id }}"
         region: "{{ aws_region }}"
@@ -139,11 +139,11 @@
           - proto: tcp
             ports:
             - 27017
-            group_name: app_sg_project7
+            group_name: app_sg_lab6
             rule_desc: allow from app sg on port 27017
         tags:
-          name: db_sg_project7
-          project: wecloud
+          name: db_sg_lab6
+          project: labs
       register: sg_db
 
     - name: Create NAT Gateway, allocate new EIP (automatic)
@@ -153,8 +153,8 @@
         wait: true
         region: "{{ aws_region }}"
         tags:
-          name: nat_gw_project7
-          project: wecloud
+          name: nat_gw_lab6
+          project: labs
       register: nat_gw
 
     - name: Create Private Route Table
@@ -163,8 +163,8 @@
         vpc_id: "{{ vpc.vpc.id }}"
         region: "{{ aws_region }}"
         tags:
-          name: private_rt_project7
-          project: wecloud
+          name: private_rt_lab6
+          project: labs
         subnets:
           - "{{ subnet_private.subnet.id }}"
         routes:
@@ -174,40 +174,40 @@
 
     - name: Create EC2 Instance for Database
       amazon.aws.ec2_instance:
-        name: db_ec2_project7
+        name: db_ec2_lab6
         instance_type: t2.micro
-        image_id: ami-0aa2b7722dc1b5612
-        key_name: key_project7
+        image_id: ami-0b39b65eacb043ba3
+        key_name: key_lab6
         region: "{{ aws_region }}"
         vpc_subnet_id: "{{ subnet_private.subnet.id }}"  
         network:
           private_ip_address: "10.0.10.10"  
-        security_group: db_sg_project7
+        security_group: db_sg_lab6
         user_data: "{{ lookup('file', 'userdata.sh') }}"
         tags:
-          name: db_ec2_project7
-          project: wecloud
+          name: db_ec2_lab6
+          project: labs
       register: db_instance
 
     - name: Create a target group with a default health check
       community.aws.elb_target_group:
-        name: target-group-project7
+        name: target-group-lab6
         protocol: http
         port: 3000
         vpc_id: "{{ vpc.vpc.id }}"
         region: "{{ aws_region }}"
         state: present
         tags:
-          name: target_group_project7
-          project: wecloud
+          name: target_group_lab6
+          project: labs
       register: target_group
 
     - name: Create an ALB and attach a listener
       amazon.aws.elb_application_lb:
-        name: load-balancer-project7
+        name: load-balancer-lab6
         region: "{{ aws_region }}"
         security_groups:
-          - alb_sg_project7
+          - alb_sg_lab6
         subnets:
           - "{{ subnet1_public.subnet.id }}"
           - "{{ subnet2_public.subnet.id }}"
@@ -216,34 +216,34 @@
             Port: 80
             DefaultActions:
               - Type: forward
-                TargetGroupName: target-group-project7
+                TargetGroupName: target-group-lab6
         state: present
         tags:
-          name: load_balancer_project7
-          project: wecloud
+          name: load_balancer_lab6
+          project: labs
       register: alb
 
     - name: Create an ec2 launch template
       community.aws.ec2_launch_template:
-        name: launch-template-project7
-        image_id: ami-0aa2b7722dc1b5612
-        key_name: key_project7
+        name: launch-template-lab6
+        image_id: ami-0b39b65eacb043ba3
+        key_name: key_lab6
         instance_type: t2.micro
         region: "{{ aws_region }}"
         security_group_ids: 
           - "{{ sg_app.group_id }}"
         tags:
-          name: launch_template_project7
-          project: wecloud  
+          name: launch_template_lab6
+          project: labs
         user_data: "{{ lookup('file', 'userdata_app.sh') | b64encode }}"
 
     - name: Create ASG with Launch Teamplate
       amazon.aws.autoscaling_group:
-        name: asg-project7
+        name: asg-lab6
         region: "{{ aws_region }}"
-        availability_zones: [ 'us-east-1a', 'us-east-1b' ]
+        availability_zones: [ 'ap-northeast-2c', 'ap-northeast-2d' ]
         launch_template:
-          launch_template_name: launch-template-project7
+          launch_template_name: launch-template-lab6
         min_size: 2
         max_size: 4
         desired_capacity: 2
@@ -251,8 +251,8 @@
           - "{{ target_group.target_group_arn }}"
         vpc_zone_identifier: [ "{{ subnet1_public.subnet.id }}", "{{ subnet2_public.subnet.id }}" ]
         tags:
-          - name: asg_project7
-            project: wecloud
+          - name: asg_lab6
+            project: labs
 
     - name: Create a scaling policy base on CPU Utilization
       community.aws.autoscaling_policy:
@@ -260,7 +260,7 @@
         region: "{{ aws_region }}"
         name: cpu-scaling-policy
         policy_type: TargetTrackingScaling
-        asg_name: asg-project7
+        asg_name: asg-lab6
         scaling_adjustment: 1
         cooldown: 300
         target_tracking_config:
