@@ -72,6 +72,20 @@ systemctl status docker
 ```
 <br/>
 
+시작에 앞서 docker hub에 이미지를 올리려면 https://hub.docker.com/ 에 가입해야 합니다. 이후에 터미널에서 docker login 명령어로 로그인을 하도록 합니다. 정상적으로 로그인이 되어야 이후 작업을 완료할 수 있습니다.
+
+9. Docker Image는 Username/Image Name:Tag 형태로 작성해주어야 합니다. Tag 에는 버전명이 들어가고 docker build -t Username/ImageName:Tag 명령어를 입력해 이미지를 빌드하도록 합니다.
+```sh
+$ docker build -t <kimdonghyun0916/lab3-mongodb:latest> .
+```
+<br/>
+
+10. docker push Username/ImageName:Tag 명령어로 이전에 로컬에 만든 이미지를 push 하도록 합니다.
+```sh
+$ docker push <kimdonghyun0916/lab3-mongodb:latest>
+```
+<br/>
+
 
 ## 3. 제출지침
 - EC2 인스턴스의 Public IP를 복사하여 아래 모델에 따라 웹 브라우저에 붙여넣고 원하는 출력에 따라 경로를 편집합니다. 3000포트로 접속할 수 있어야 합니다.
