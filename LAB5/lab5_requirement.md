@@ -16,20 +16,39 @@
 <br/><br/>
 
 # 시작하기
-1. 모니터링 네임스페이스를 만들고 클러스터에 Promethus와 Grafana를 설치하는 역할을 하는 쿠베-프로메테우스 스택을 설치하세요.<br/>
+1. Promethus 와 Grafana 를 위한 Helm Chart 저장소(repository)를 시스템에 추가합니다.<br/>
 ```sh
-kubectl create namespace monitoring
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo add grafana https://grafana.github.io/helm-charts
 helm repo update
-helm install monitoring prometheus-community/kube-prometheus-stack -n monitoring
 ```
 <br/>
 
-포트 포워딩을 사용하여 Grafana에 액세스하십시오: 아래 명령을 실행한 다음 웹 브라우저에서 http://127.0.0.1:8080/을 입력하십시오. 사용자는 관리자이고 비밀번호는 prom-operator입니다.<br/>
+2. Helm을 사용하여 EKS 클러스터에 Prometheus를 설치하세요. Kube-prometheus-stack 차트는 Alertmanager, node exporter 등과 같은 관련 구성 요소와 함께 Prometheus를 설치합니다.
+```sh
+helm install prometheus prometheus-community/kube-prometheus-stack \
+  --namespace monitoring --create-namespace```
+```
+<br/>
+
+3. 다음으로, Grafana를 설치하여 Prometheus가 수집한 지표를 시각화합니다.
+```sh
+helm install grafana grafana/grafana --namespace monitoring
+```
+<br/>
+
+4. 모니터링 네임스페이스에 포드를 나열하여 Prometheus와 Grafana가 모두 성공적으로 설치되었는지 확인하십시오.
+```sh
+kubectl get pods -n monitoring
+```
+<br/>
+
+5. 포트 포워딩을 사용하여 Grafana에 액세스하십시오: 아래 명령을 실행한 다음 웹 브라우저에서 http://127.0.0.1:8080/을 입력하십시오. 사용자는 관리자이고 비밀번호는 prom-operator입니다.<br/>
 ```sh
 kubectl port-forward service/monitoring-grafana 8080:80 -n monitoring
 ```
 <br/>
+
 Kube-Prometheus-Stack에는 클러스터를 모니터링할 수 있는 많은 대시보드가 있습니다. Grafana의 "대시보드" 섹션에서 액세스할 수 있습니다. 또한 클러스터 지표를 더 잘 시각화하기 위해 다음 대시보드를 가져올 것을 제안합니다: 15757, 15758, 15759 및 15760.
 
 이제, 로키를 설치하세요:<br/>
