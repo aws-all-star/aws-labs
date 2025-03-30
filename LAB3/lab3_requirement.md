@@ -26,8 +26,9 @@ dnf install dnf-utils
 ```
 <br/>
 
-3. Docker-CE는 Community Edition으로 소규모 프로젝트를 위해 제공되는 오픈된 도커엔진입니다. Containerd는 컨테이너를 실행하고 노드에서 이미지를 관리하는 데 사용되는 오픈소스 컨테이너 런타임입니다. Docker에서 개발되었으며, Kubernetes에서 지원되는 업계 표준 컨테이너 런타임입니다. dnf명령어를 통해 패키지를 설치합니다.
+3. Docker-CE는 Community Edition으로 소규모 프로젝트를 위해 제공되는 오픈된 도커엔진입니다. Containerd는 컨테이너를 실행하고 노드에서 이미지를 관리하는 데 사용되는 오픈소스 컨테이너 런타임입니다. Docker에서 개발되었으며, Kubernetes에서 지원되는 업계 표준 컨테이너 런타임입니다. dnf명령어를 통해 패키지를 설치합니다. 시작하기 전 docker 저장소를 추가해야 합니다.
 ```sh
+dnf config-manager --add-repo https://download.docker.com/linux/rhel/docker-ce.repo
 dnf install docker-ce docker-ce-cli containerd.io
 ```
 <br/>
@@ -64,6 +65,7 @@ docker -v
 8. docker 엔진을 실행 후, 정상적으로 기동되었는지 확인합니다.
 ```sh
 systemctl start docker
+systemctl enable docker
 ```
 <br/>
 
@@ -74,15 +76,9 @@ systemctl status docker
 
 시작에 앞서 docker hub에 이미지를 올리려면 https://hub.docker.com/ 에 가입해야 합니다. 이후에 터미널에서 docker login 명령어로 로그인을 하도록 합니다. 정상적으로 로그인이 되어야 이후 작업을 완료할 수 있습니다.
 
-9. Docker Image는 Username/Image Name:Tag 형태로 작성해주어야 합니다. Tag 에는 버전명이 들어가고 docker build -t Username/ImageName:Tag 명령어를 입력해 이미지를 빌드하도록 합니다.
+9. CD를 올바른 폴더(project_34)에 넣고 다음 명령을 사용하여 docker-compose 파일을 실행하십시오.
 ```sh
-$ docker build -t <kimdonghyun0916/lab3-mongodb:latest> .
-```
-<br/>
-
-10. docker push Username/ImageName:Tag 명령어로 이전에 로컬에 만든 이미지를 push 하도록 합니다.
-```sh
-$ docker push <kimdonghyun0916/lab3-mongodb:latest>
+docker-compose up
 ```
 <br/>
 
