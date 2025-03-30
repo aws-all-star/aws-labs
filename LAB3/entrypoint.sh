@@ -1,4 +1,7 @@
 #!/bin/bash
+#lab-3 entrypoint scripts
+#created by Donghyun, Kim
+#KT DS, Cloud Consulting Team, Team Manager
 
 #Start MongoDB
 docker-entrypoint.sh mongod &
