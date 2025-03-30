@@ -15,8 +15,9 @@ Amazon EKS는 업스트림 Kubernetes를 실행하며 Kubernetes 적합성 인�
 <img width="1000" alt="image" src="https://github.com/user-attachments/assets/3a40ca91-b1e1-4d35-a1d1-1f8fc7cbe5d0" />
 
 ## 전제 조건
-- Docker, Kubernetes, AWS EKS 및 Git에 대한 기본 지식
-- AWS Cloud 인프라에 대한 이해
+- Docker, Kubernetes 네이티브 기술 이해
+- Git에 대한 기본 지식
+- AWS EKS에 대한 이해
 <br/><br/>
 
 ## 목표 아키텍처
