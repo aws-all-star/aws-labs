@@ -138,6 +138,6 @@ kubectl apply -f app-deployment.yaml
 <br/><br/>
 
 # 제출 지침
-- EC2 인스턴스의 Public IP를 복사하여 사용자 브라우저에 입력하여 정상적인 값을 출력할 수 있어야 합니다.(firefox를 권고합니다.)
+- 터미널에서 kuberctl get svc 명령을 사용하여 로드 밸런서의 외부 IP를 가져오세요.
 - kuberctl 명령어를 통해 Kubernetes 상태를 확인할 수 있어야 합니다.
 <br/><br/>
