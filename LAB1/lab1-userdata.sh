@@ -1,4 +1,7 @@
 #!/bin/bash
+#lab-1 userdata scripts
+#created by Donghyun, Kim
+#KT DS, Cloud Consulting Team, Team Manager
 
 #Update and upgrade packages
 sudo dnf -y update
