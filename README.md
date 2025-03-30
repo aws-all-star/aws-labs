@@ -62,6 +62,7 @@ Default output format [None]:
 <br/>
 
 이외 필요한 도구를 설치하려면 아래 링크의 단계를 따르십시오. 설치 방법에 대한 자세한 내용은 다음 링크를 방문하십시오.
+- Terminal: https://tabby.sh
 - AWS CLI: https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
 - Git: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 - Kubectl: https://kubernetes.io/docs/tasks/tools/
