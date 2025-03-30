@@ -7,7 +7,7 @@
   4. [저작자](#4-저작자)
 <br/><br/>
 
-## 0. 시작에 앞서
+## 0. 시작에앞서
 이 LAB 과정에서는 AWS 서비스를 더욱 능숙하게 식별할 수 있도록 기초 지식을 쌓을 수 있도록 실습 환경을 제공하며, 이 과정을 수강하면 비즈니스 요구 사항에 따라 어떤 IT 솔루션을 사용할 것인지에 대해 정보를 기반으로 한 의사 결정을 하고 AWS에서 작업을 시작할 수 있습니다.<br/>
 AWS Cloud 교육의 기본적인 내용으로, AWS 사용을 시작하는 방법을 배우는데 관심이 있으신 분 혹은 AWS 서비스 사용에 관심이 있는 시스템 운영 관리자, 솔루션스 아키텍트 및 개발자 등 AWS 사용을 시작하기에 앞서 관심이 있으신 분들이라면 누구든지 수강하실 수 있는 교육입니다.
 또한 모든 LAB에서는 실습(Hand-On)기반 설계된 학습 과정을 통해 단순 이론적인 뿐만 아니라, AWS Cloud 전반적인 이해를 빠르게 할 수 있도록 합니다.
@@ -51,10 +51,6 @@ $ sudo ./aws/install
 aws --version
 ```
 
-AWS CLI 설치 방법에 대한 자세한 내용은 다음 링크를 방문하십시오.
-
-https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
-
 AWS 계정에 액세스하려면 터미널에서 다음 명령을 실행하십시오.
 ```sh
 $ aws configure
@@ -63,6 +59,14 @@ AWS Secret Access Key [None]:
 Default region name [None]: 
 Default output format [None]:
 ```
+<br/>
+
+이외 필요한 도구를 설치하려면 아래 링크의 단계를 따르십시오. 설치 방법에 대한 자세한 내용은 다음 링크를 방문하십시오.
+- AWS CLI: https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+- Git: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
+- Kubectl: https://kubernetes.io/docs/tasks/tools/
+- Docker: https://docs.docker.com/engine/install/
+- Helm: https://helm.sh/docs/intro/install/
 <br/>
 
 ## 2. 설치하기
@@ -99,7 +103,12 @@ AWS 서비스를 더욱 능숙하게 식별할 수 있도록 기초 지식을 �
 ### [LAB 5](https://github.com/aws-all-star/aws-labs/tree/main/LAB5) - 옵저버빌리티 시스템 환경 구축
   • 컨테이너화된 웹 애플리케이션을 클라우드 프로덕션 쿠버네티스(EKS) 클러스터에 배포합니다. <br/>
   • Prometheus, Loki 및 Grafana를 사용하여 클러스터 및 애플리케이션 메트릭 및 로그를 모니터링합니다.
+<br/>
+### [LAB 6](https://github.com/aws-all-star/aws-labs/tree/main/LAB6) - Ansible 및 Terraform을 활용한 인프라 프로비저닝
+  • 인프라 프로비저닝 자동화 도구(IaaS, 서비스형 인프라스트럭처)를 사용하여 AWS 인프라를 배포합니다.<br/>
+  • API 및 데이터베이스가 있는 웹 앱 아키텍처를 호스팅하는 EC2 서버(Ansible 사용), API 및 데이터베이스가 있는 웹 앱을 호스팅하는 AWS EKS 클러스터(Terraform 사용)을 활용하여 인프라를 구성합니다.
 <br/><br/>
+
 
 ## 4. 저작자
 - Kim, Dong Hyun (티스토리) [https://www.linkedin.com/in/kim-donghyun0916/](https://rhlinux.tistory.com)
