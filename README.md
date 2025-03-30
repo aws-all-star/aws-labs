@@ -67,6 +67,8 @@ Default output format [None]:
 - Kubectl: https://kubernetes.io/docs/tasks/tools/
 - Docker: https://docs.docker.com/engine/install/
 - Helm: https://helm.sh/docs/intro/install/
+- Ansible: https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html
+- Terraform: https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli
 <br/>
 
 ## 2. 설치하기
