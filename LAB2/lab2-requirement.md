@@ -11,7 +11,7 @@ Git을 설치하려면 이 링크로 이동하여 단계를 따르십시오: htt
 ```sh
 git clone https://github.com/aws-all-star/aws-labs.git
 ```
-<br/><br/>
+<br/>
 
 # 시작하기
 1. 리전(REGION)은 ap-northeast-2(Seoul) 에 있는 자원만 활용하고 가용 영역(Availability Zones) 은 'ap-northeast-2a' 와 'ap-northeast-2b' 존재하도록 합니다.
