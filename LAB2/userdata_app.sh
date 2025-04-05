@@ -31,7 +31,6 @@ sudo npm install -y -g npm@9.7.1
 npm install
 
 #Set the application variables
-#MUDAR IP DA MAQUINA
 export TESTDB_HOST="testdb"
 export DB_HOST="10.0.10.10"
 export DB_PORT="27017"
