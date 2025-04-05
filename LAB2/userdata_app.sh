@@ -7,7 +7,7 @@
 sudo dnf -y update
 
 #Download the app.js and package.json from the GitHub repo
-curl -o app.js https://raw.github.com/aws-all-star/aws-labs/main/LAB2/app.js
+curl -o app.js https://raw.githubusercontent.com/aws-all-star/aws-labs/refs/heads/main/LAB2/app.js
 curl -o package.json https://raw.github.com/aws-all-star/aws-labs/main/LAB2/package.json
 
 #Install dependencies
