@@ -26,7 +26,7 @@ AWS는 Linux OS인 Amazon Linux 2023(AL2023) 최신 버전도 제공합니다. A
 <br/><br/>
 
 ## 저작자
-- Kim, Dong Hyun (티스토리) [https://www.linkedin.com/in/kim-donghyun0916/](https://rhlinux.tistory.com)
+- Kim, Dong Hyun (티스토리) https://rhlinux.tistory.com
 - Kim, Dong Hyun (Credly) https://www.credly.com/users/kim-donghyun0916
 - Kim, Dong Hyun (Lindin) https://www.linkedin.com/in/kim-donghyun0916/
 <br/><br/>
