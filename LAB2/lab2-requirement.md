@@ -12,8 +12,8 @@ MongoDB의 문서 데이터 모델을 사용하면 정교한 검증 규칙, 유�
 1. 리전(REGION)은 ap-northeast-2(Seoul) 에 있는 자원만 활용하고 가용 영역(Availability Zones) 은 'ap-northeast-2a' 와 'ap-northeast-2b' 존재하도록 합니다.
 ```sh
 REGION="ap-northeast-2"
-SUBNET1_PUBLIC_AZ="ap-northeast-2a"
-SUBNET2_PUBLIC_AZ="ap-northeast-2b"
+SUBNET1_PUBLIC_AZ="ap-northeast-2c"
+SUBNET2_PUBLIC_AZ="ap-northeast-2d"
 ```
 <br/>
 
