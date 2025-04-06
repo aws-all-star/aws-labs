@@ -17,16 +17,16 @@ AWS Cloud 교육의 기본적인 내용으로, AWS 사용을 시작하는 방법
 <br/><br/>
 
 **이 과정의 수강 대상**
-- AWS 뿐만 아니라, Cloud 를 시작하는 방법을 배우는 데 관심이 있는 개인
-- AWS 인프라 관리자 또는 담당자
-- 솔루션스 아키텍트
-- Cloud 인프라 이해가 필요한 DevOps 개발자
+- AWS 뿐만 아니라, Cloud 를 시작하는 방법을 배우는 데 관심이 있는 개인/조직
+- 대규모 AWS 인프라를 관리하는 Admin
+- 솔루션스 아키텍트 성장하기 위한 엔지니어
+- Cloud 인프라 이해가 필요한 DevOps 초급 개발자
 <br/>
 
 **전제조건**
-- 분산 시스템에 대한 실무 지식
-- 일반적인 네트워킹 개념에 대한 지식
-- 다중 계층 아키텍처에 대한 실무 지식
+- 리눅스 시스템에 대한 실무 지식
+- 일반적인 네트워킹 개념에 대한 이해
+- 다중 계층 아키텍처에 대한 실무 경험
 - 클라우드 컴퓨팅 개념 이해
 <br/>
 
@@ -61,7 +61,7 @@ Default output format [None]:
 ```
 <br/>
 
-이외 필요한 도구를 설치하려면 아래 링크의 단계를 따르십시오. 설치 방법에 대한 자세한 내용은 다음 링크를 방문하십시오.
+본 과정은 다양한 실습환경에 필요한 도구들이 필요합니다. 학습 진행에 필요한 도구를 설치하려면 아래 링크의 단계를 따르십시오. 설치 방법에 대한 자세한 내용은 다음 링크를 방문하십시오.
 - Terminal: https://tabby.sh
 - AWS CLI: https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
 - Git: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
@@ -73,14 +73,13 @@ Default output format [None]:
 <br/>
 
 ## 2. 설치하기
-이 저장소를 복제합니다. 이 옵션을 사용하려면 먼저 터미널에 Git을 설치한 다음 저장소를 복제해야 합니다.<br/>
-Git을 설치하려면 이 링크로 이동하여 단계를 따르십시오: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
+이 저장소를 복제하여 사용할 수 있습니다. 이 옵션을 사용하려면 먼저 터미널에 Git을 설치한 다음 저장소를 복제해야 합니다.<br/>
+Git을 설치하려면 이 링크로 이동하여 단계를 따르십시오. 필요에 따라 강사에 지시를 따라야 합니다.
 
 ```sh
 git clone https://github.com/aws-all-star/aws-labs.git
 ```
-<br/><br/>
-
+<br/>
 
 ## 3. 시작하기
 AWS 서비스를 더욱 능숙하게 식별할 수 있도록 기초 지식을 제공하므로, 이 과정을 수강하면 비즈니스 요구 사항에 따라 어떤 IT 솔루션을 사용할 것인지에 대해 정보를 기반으로 한 의사 결정을 하고 AWS에서 작업을 시작할 수 있습니다.
