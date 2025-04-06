@@ -13,7 +13,6 @@ https://docs.aws.amazon.com/ko_kr/vm-import/latest/userguide/prerequisites.html
 <br/>
 
 필요한 도구를 설치하려면 아래 링크의 단계를 따르십시오.:<br/>
-- AWS CLI: https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
 - QEMU: https://www.qemu.org/download/
 <br/><br/>
 
@@ -22,7 +21,7 @@ https://docs.aws.amazon.com/ko_kr/vm-import/latest/userguide/prerequisites.html
 
 1. 강사에게 제공받은 QCOW2 이미지를 RAW 이미지로 변환합니다.
 ```sh
-$ qemu-img convert <rhel-guest-image-6.8-20160425.0.x86_64.qcow2> <rhel-guest-image-6.8-20160425.0.x86_64.raw>
+$ qemu-img convert <Rocky-9-EC2-Base-9.5-20241118.0.x86_64.qcow2> <Rocky-9-EC2-Base-9.5-20241118.0.x86_64.raw>
 ```
 <br/>
 
@@ -37,7 +36,7 @@ $ aws s3 cp <rhel-guest-image-6.8-20160425.0.x86_64.raw> <s3://my-ktds>
 ```
 <br/>
 
-3. AWS S3 권한 부여합니다.trust-policy, role-policy.json, bucket-policy.json 파일은 강사에게 제공받게 됩니다.
+3. AWS S3 권한 부여합니다.trust-policy, role-policy.json, bucket-policy.json 파일은 강사에게 제공받을 수 있습니다.
 ```sh
 aws iam create-role --role-name vmimport --assume-role-policy-document "file://trust-policy.json"
 aws iam put-role-policy --role-name vmimport --policy-name vmimport --policy-document "file://role-policy.json"
@@ -47,7 +46,7 @@ aws s3api put-bucket-policy --bucket my-rhel9-img --policy "file://bucket-policy
 
 4. AWS EC2 스냅샷 생성한 후 정상적으로 생성되면 정보를 확인합니다.
 ```sh
-$ aws ec2 import-snapshot --description <"Rocky Linux 9 Update 5 Cloud Image"> --disk-container "file://container.json"
+$ aws ec2 import-snapshot --description <"Rocky Linux 9 Update 5 Base Image"> --disk-container "file://container.json"
 ```
 <br/>
                           
@@ -58,7 +57,7 @@ $ aws ec2 describe-import-snapshot-tasks --import-task-ids <import-snap-b32277d4
 
 5. EC2 이미지 등록합니다.
 ```sh
-$ aws ec2 register-image --name <RHEL6.8-baseos-x86_64> --architecture x86_64 --virtualization-type hvm --ena-support --root-device-name /dev/xvda --block-device-mappings DeviceName=/dev/xvda,Ebs={SnapshotId=snap-05792dbe0b9b13f12}
+$ aws ec2 register-image --name <Rocky-EC2-Base-9.5-20241118.0.x86_64> --architecture x86_64 --virtualization-type hvm --ena-support --root-device-name /dev/xvda --block-device-mappings DeviceName=/dev/xvda,Ebs={SnapshotId=snap-05792dbe0b9b13f12}
 ```
 <br/><br/>
 
