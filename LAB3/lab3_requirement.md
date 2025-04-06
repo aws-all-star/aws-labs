@@ -83,8 +83,13 @@ docker-compose up
 ```
 <br/>
 
+아래 명령어를 통해 EC2 인스턴스의 Public IP 를 확인할 수 있고 웹 브라우저에 붙여넣고 원하는 출력에 따라 경로에 접근할 수 있습니다.
+aws ec2 describe-instances \               
+--query "Reservations[*].Instances[*].{PublicIP:PublicIpAddress,Type:InstanceType,Name:Tags[?Key=='Name']|[0].Value,Status:State.Name}"  \
+--filters "Name=instance-state-name,Values=running" "Name=tag:Name,Values='*'"  \
+--output tabl
 
 ## 3. 제출지침
-- EC2 인스턴스의 Public IP를 복사하여 아래 모델에 따라 웹 브라우저에 붙여넣고 원하는 출력에 따라 경로를 편집합니다. 3000포트로 접속할 수 있어야 합니다.
+- EC2 인스턴스의 Public IP를 복사하여 아래 모델에 따라 웹 브라우저에 붙여넣고 3000포트로 접속할 수 있어야 합니다.
 - docker 명령어를 통해 컨테이너 상태를 확인할 수 있어야 합니다.
 <br/><br/>
