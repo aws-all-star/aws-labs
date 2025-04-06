@@ -173,6 +173,6 @@ kubectl apply -f app-deployment.yaml
 <br/><br/>
 
 # 제출 지침
-- 터미널에서 kuberctl get svc 명령을 사용하여 로드 밸런서의 외부 IP를 가져오세요.
+- 터미널에서 `kuberctl get svc` 명령을 사용하여 로드 밸런서의 외부 IP를 가져오세요.
 - kuberctl 명령어를 통해 Kubernetes 상태를 확인할 수 있어야 합니다.
 <br/><br/>
