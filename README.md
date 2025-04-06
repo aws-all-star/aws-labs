@@ -60,6 +60,19 @@ Default region name [None]:
 Default output format [None]:
 ```
 <br/>
+AWS Command Line Interface(AWS CLI)는 명령줄 쉘에서 명령을 사용하여 AWS 서비스와 상호 작용할 수 있는 오픈 소스 도구입니다. AWS CLI는 최소한의 구성으로 브라우저 기반 AWS Management Console에서 제공하는 것과 동일한 기능을 구현하는 명령을 터미널 프로그램의 명령 프롬프트에서 실행할 수 있게 해줍니다.  <br/>
+AWS CLI 시작하기에서는 AWS CLI의 설치 및 구성 과정을 안내합니다. 이 단계를 거치고 나면 명령줄에서 AWS 서비스로 직접적으로 호출할 수 있게 됩니다.  명령줄에서 다음 명령을 실행하면 바로 다양한 수준의 도움말을 통해 자세한 정보를 얻을 수 있습니다.<br/>
+
+$ `aws help`
+<br/>
+
+서비스 운영에 대한 자세한 정보:<br/>
+$ `aws [AWS service] help`
+<br/>
+
+특정 서비스 운영에 대한 자세한 정보:<br/>
+$ `aws [AWS service] [operation] help`
+<br/>
 
 본 과정은 다양한 실습환경에 필요한 도구들이 필요합니다. 학습 진행에 필요한 도구를 설치하려면 아래 링크의 단계를 따르십시오. 설치 방법에 대한 자세한 내용은 다음 링크를 방문하십시오.
 - Terminal: https://tabby.sh
