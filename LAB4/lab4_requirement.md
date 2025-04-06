@@ -5,16 +5,51 @@
 
 AWS EKS 인프라 설정: CloudFormation 템플릿을 사용하여 작업자 노드에 대한 VPC 생성(개인 및 공용 서브넷 옵션 선택)
 https://docs.aws.amazon.com/eks/latest/userguide/creating-a-vpc.html
-<br/><br/>
-
+<br/>
 다음 단계를 위해 AWS 문서를 확인하여 더 자세한 설명을 확인할 수 있습니다:<br/>
 https://docs.aws.amazon.com/eks/latest/userguide/getting-started-console.html#eks-launch-workers
 <br/><br/>
+
+이 저장소를 복제하여 사용할 수 있습니다. 이 옵션을 사용하려면 먼저 터미널에 Git을 설치한 다음 저장소를 복제해야 합니다.<br/>
+Git을 설치하려면 이 링크로 이동하여 단계를 따르십시오. 필요에 따라 강사에 지시를 따라야 합니다.
+
+```sh
+git clone https://github.com/aws-all-star/aws-labs.git
+```
+<br/>
 
 필요한 도구를 설치하려면 아래 링크의 단계를 따르십시오.:<br/>
 - Git: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 - Kubectl: https://kubernetes.io/docs/tasks/tools/
 <br/><br/>
+
+시작에 앞서 docker hub에 이미지를 올리려면 https://hub.docker.com/ 에 가입해야 합니다. 이후에 터미널에서 docker login 명령어로 로그인을 하도록 합니다. 정상적으로 로그인이 되어야 이후 작업을 완료할 수 있습니다.<br/>
+가장 기본적인 시작점은 Dockerfil로 부터 시작됩니다. 강사로 부터 제공받은 dockerfile를 이용하여 이미지를 빌드하도록 합니다. 해당 과정은 LAB 4 을 진행하기 위해 꼭 필요한 순서입니다. 컨테이너 이미지 이름은 사용자 환경에 맞게 설정하십시요. 
+<br/>
+
+```sh
+$ docker build -f Dockerfile.app -t <컨테이너 이름> .
+```
+<br/>
+
+```sh
+$ docker build -f Dockerfile.mongodb -t <컨테이너 이름> .
+```
+<br/>
+
+정상적으로 생성되었다면, `docker images` 명령어로 확인할 수 있어야 합니다. 강사 지시에 따라 docker hub에 push 하도록 합니다. 이 절차를 수행하기 위해서는 이미지 태그 이름을 아래 명령어를 사용하여 설정 해줘야 합니다. docker hub에 repository가 생성되어야 합니다.
+<br/>
+
+```sh
+$ docker tag <컨테이너 이름>:<태그명> <kimdonghyun0916/dockerdb>:<latest>
+```
+<br/>
+
+결과적으로 docker 이미지가 개인의 hub에 push된 걸 확인할 수 있게 됩니다. 확인하려면 `docker search <kimdonghyun0916/dockerapp>` 명령어를 통해 확인할 수 있습니다. 이제 다음 LAB을 위해 정상적으로 완료하였습니다. LAB3 과정을 강사의 지시에 따라 마칠 수 있도록 합니다.
+```sh
+$ docker push <kimdonghyun0916/dockerapp>
+```
+<br/>
 
 # 시작하기
 
