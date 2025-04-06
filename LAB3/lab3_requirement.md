@@ -4,7 +4,10 @@
 이 저장소는 두 개의 Dockerfiles(Dockerfile.app 및 Dockerfile.mongodb), 하나의 docker-compose 파일(docker-compose.yml), 하나의 종속성 파일(package.json), 데이터베이스 콘텐츠 파일(KBL-Pitcher-2024.csv, KBL등록 선수 목록 및 통계), nodejs 애플리케이션 코드(app.js) 및 mongobd 컬렉션을 만들고 설정하기 위한 파일들로 구성되어 있습니다.
 ![이미지](https://github.com/user-attachments/assets/162645b3-e01f-4205-9c40-fa542fb98721)
 <br/>
-공개 GitHub 저장소의 URL저장소를 복제합니다.
+
+이 저장소를 복제하여 사용할 수 있습니다. 이 옵션을 사용하려면 먼저 터미널에 Git을 설치한 다음 저장소를 복제해야 합니다.<br/>
+Git을 설치하려면 이 링크로 이동하여 단계를 따르십시오. 필요에 따라 강사에 지시를 따라야 합니다.
+
 ```sh
 git clone https://github.com/aws-all-star/aws-labs.git
 ```
@@ -16,7 +19,7 @@ git clone https://github.com/aws-all-star/aws-labs.git
 ## 2. 시작하기
 1. 개인 터미널에서 SSH를 통해 EC2 인스턴스로 접근합니다. 인스턴스는 LAB1 에서 생성한 인스턴스 중 하나를 활용합니다.
 ```sh
-ssh -i <YOUR_KEY_PAIR> rocky@<YOUR_EC2_PUBLIC_IP>
+$ ssh -i <YOUR_KEY_PAIR> rocky@<YOUR_EC2_PUBLIC_IP>
 ```
 <br/>
 
@@ -74,9 +77,7 @@ systemctl status docker
 ```
 <br/>
 
-시작에 앞서 docker hub에 이미지를 올리려면 https://hub.docker.com/ 에 가입해야 합니다. 이후에 터미널에서 docker login 명령어로 로그인을 하도록 합니다. 정상적으로 로그인이 되어야 이후 작업을 완료할 수 있습니다.
-
-9. CD를 올바른 폴더(project_34)에 넣고 다음 명령을 사용하여 docker-compose 파일을 실행하십시오.
+9. LAB3 디렉토리로 이동 후, docker-compose 파일을 실행해야만 합니다.
 ```sh
 docker-compose up
 ```
