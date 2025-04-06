@@ -1,4 +1,7 @@
 #!/bin/bash
+#lab-6 userdata scripts
+#created by Donghyun, Kim
+#KT DS, Cloud Consulting Team, Team Manager
 
 #Update packages
 sudo dnf -y update
@@ -30,7 +33,7 @@ sudo dnf install -y nodejs
 sudo dnf install -y mongodb-org
 
 #Download the csv file from the GitHub repo
-curl -o KBL-Pitcher-2024.csv https://raw.github.com/aws-all-star/aws-labs/main/LAB2/KBL-Pitcher-2024.csv
+curl -o KBL-Pitcher-2024.csv https://raw.githubusercontent.com/aws-all-star/aws-labs/refs/heads/main/LAB2/KBL-Pitcher-2024.csv
 
 #Set the IP of the MongoDB host
 sudo sed -i 's/127.0.0.1/10.0.10.10,127.0.0.1/g' /etc/mongod.conf
@@ -39,7 +42,6 @@ sudo sed -i 's/127.0.0.1/10.0.10.10,127.0.0.1/g' /etc/mongod.conf
 sudo systemctl start mongod
 
 # Specify the MongoDB connection details
-# IP PRIVADO DA MAQUINA NO MONGO_HOST
 MONGO_HOST="10.0.10.10"
 MONGO_PORT="27017"
 MONGO_DB="lab2"
