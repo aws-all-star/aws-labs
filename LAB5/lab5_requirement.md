@@ -13,12 +13,85 @@
 - Helm: https://helm.sh/docs/intro/install/
 <br/><br/>
 
+```sh
+cat > grafana-loki-s3-policy.json <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "LokiStorage",
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket",
+                "s3:PutObject",
+                "s3:GetObject",
+                "s3:DeleteObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::{bucket_name}",
+                "arn:aws:s3:::{bucket_name}/*"
+            ]
+        }
+    ]
+}
+EOF
+```
+<br/>
+
+```sh
+$ aws iam create-policy --policy-name <사용자 지정 이름> --policy-document file://grafana-loki-s3-policy.json
+```
+<br/>
+
+```sh
+cat > trust-rs.json <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "Federated": "arn:aws:iam::{account}:oidc-provider/oidc.eks.{region}.amazonaws.com/id/{oidc}"
+            },
+            "Action": "sts:AssumeRoleWithWebIdentity",
+            "Condition": {
+                "StringEquals": {
+                    "oidc.eks.{region}.amazonaws.com/id/{oidc}:sub": "system:serviceaccount:{namespace}:{loki}",
+                    "oidc.eks.{region}.amazonaws.com/id/{oidc}:aud": "sts.amazonaws.com"
+                }
+            }
+        },
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "Federated": "arn:aws:iam::{account}:oidc-provider/oidc.eks.{region}.amazonaws.com/id/{oidc}"
+            },
+            "Action": "sts:AssumeRoleWithWebIdentity",
+            "Condition": {
+                "StringEquals": {
+                    "oidc.eks.{region}.amazonaws.com/id/{oidc}:sub": "system:serviceaccount:{namespace}:{loki-compactor}",
+                    "oidc.eks.{region}.amazonaws.com/id/{oidc}:aud": "sts.amazonaws.com"
+                }
+            }
+        }
+    ]
+}
+EOF
+```
+<br/>
+
+```sh
+aws iam create-role --role-name <사용자 지정 이름> --assume-role-policy-document file://trust-rs.json --description "<사용자 지정 이름>"
+```
+<br/>
+
 # 시작하기
 1. Promethus 와 Grafana 를 위한 Helm Chart 저장소(repository)를 시스템에 추가합니다.<br/>
 ```sh
+kubectl create namespace monitoring
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-helm repo add grafana https://grafana.github.io/helm-charts
 helm repo update
+helm install monitoring prometheus-community/kube-prometheus-stack -n monitoring
 ```
 <br/>
 
