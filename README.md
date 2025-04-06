@@ -126,7 +126,7 @@ AWS 서비스를 더욱 능숙하게 식별할 수 있도록 기초 지식을 �
 
 
 ## 4. 저작자
-- Kim, Dong Hyun (티스토리) [https://www.linkedin.com/in/kim-donghyun0916/](https://rhlinux.tistory.com)
+- Kim, Dong Hyun (Blog) https://rhlinux.tistory.com
 - Kim, Dong Hyun (Credly) https://www.credly.com/users/kim-donghyun0916
 - Kim, Dong Hyun (Lindin) https://www.linkedin.com/in/kim-donghyun0916/
 <br/><br/>
