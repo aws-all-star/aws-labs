@@ -103,22 +103,27 @@ AWS 서비스를 더욱 능숙하게 식별할 수 있도록 기초 지식을 �
   • AWS CLI 명령어를 활용하여 소프트웨어 라이브러리 최신으로 업데이트하고 최적의 Linux EC2 인스턴스로 AWS 인프라 프로비저닝을 자동화합니다.<br/>
   • SSH로 여러 서버에 원격으로 액세스, 구성 및 안전하게 관리합니다.
 <br/>
+
 ### [LAB 2](https://github.com/aws-all-star/aws-labs/tree/main/LAB2) - AWS API 서버 및 데이터베이스 구성
   • MongoDB 데이터베이스에 연결된 NodeJS API 마이크로서비스를 배포하여 HTTP 요청에 사용할 수 있는 API 엔드포인트를 노출합니다.<br/>
   • AWS 아키텍처에는 VPC, 인터넷 게이트웨이, 두 개의 공용 서브넷, 경로 테이블, 공용 EC2 인스턴스, 스케일링 그룹, 애플리케이션 로드 밸런서, 보안 그룹, NAT 게이트웨이 등 구성되어야 합니다.
 <br/>
+
 ### [LAB 3](https://github.com/aws-all-star/aws-labs/tree/main/LAB3) - 애플리케이션 컨테이너화 및 Docker-Compose 구성
   • Docker를 사용하여 API 및 MongoDB 마이크로서비스를 컨테이너화합니다. <br/>
   • 앱 컨테이너를 EC2 인스턴스에 배포하고 Docker Compose로 오케스트레이션합니다.
 <br/>
+
 ### [LAB 4](https://github.com/aws-all-star/aws-labs/tree/main/LAB4) - AWS EKS 클러스터에서 웹 어플리케이션 배포
   • 컨테이너화된 웹 애플리케이션을 클라우드 프로덕션 쿠버네티스(EKS) 클러스터에 배포합니다.<br/>
   • 클러스터는 공용 인터넷에서 사용자가 소비할 수 있었고, 컨테이너의 오케스트레이션은 쿠버네티스 스택을 사용하여 이루어졌다.
 <br/>
+
 ### [LAB 5](https://github.com/aws-all-star/aws-labs/tree/main/LAB5) - 옵저버빌리티 시스템 환경 구축
   • 컨테이너화된 웹 애플리케이션을 클라우드 프로덕션 쿠버네티스(EKS) 클러스터에 배포합니다. <br/>
   • Prometheus, Loki 및 Grafana를 사용하여 클러스터 및 애플리케이션 메트릭 및 로그를 모니터링합니다.
 <br/>
+
 ### [LAB 6](https://github.com/aws-all-star/aws-labs/tree/main/LAB6) - Ansible 및 Terraform을 활용한 인프라 프로비저닝
   • 인프라 프로비저닝 자동화 도구(IaaS, 서비스형 인프라스트럭처)를 사용하여 AWS 인프라를 배포합니다.<br/>
   • API 및 데이터베이스가 있는 웹 앱 아키텍처를 호스팅하는 EC2 서버(Ansible 사용), API 및 데이터베이스가 있는 웹 앱을 호스팅하는 AWS EKS 클러스터(Terraform 사용)을 활용하여 인프라를 구성합니다.
