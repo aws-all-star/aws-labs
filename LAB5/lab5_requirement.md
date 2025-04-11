@@ -1,89 +1,13 @@
 # 준비하기
-이 LAB에서는 Public 환경에서 사용자가 사용할 수 있는 4개의 Worker 노드 클라우드 프로덕션 쿠버네티스 클러스터(EKS)에 컨테이너화된 웹 앱을 배포합니다. <br/>
-컨테이너의 오케스트레이션은 쿠버네티스 스택을 사용하여 이루어지며, 클러스터는 관찰 가능성 시스템(로그를 위한 그라파나, 로키, 메트릭을 위한 프로메테우스)에 의해 적극적으로 모니터링됩니다.
-<br/>
-이 저장소는 두 개의 배포 YAML 파일(app-deployment.yaml, mongo-deployment.yaml)과 두 개의 서비스 YAML 파일(app-service.yaml, mongo-service.yaml)로 구성되어 있습니다. 배포 매니페스트는 Nodejs 애플리케이션과 mongoDB 데이터베이스를 다른 포드에 배포하는 역할을 하지만, 서비스 매니페스트는 네트워크를 통해 파드를 노출하고, 논리적 엔드포인트 세트를 정의하고, 해당 포드에 접근 가능한 방법에 대한 정책을 정의하는 역할을 합니다.<br/>
-<br/>
-이전 실습한 LAB 4의 README 파일의 단계에 따라 AWS EKS 클러스터를 설정하고 다음 매개변수를 개인화합니다.
-<br/>
+Grafana LGTM 스택은 모니터링, 관찰 가능성 및 시각화를 위해 설계된 포괄적인 오픈 소스 도구 세트입니다. 여기에는 몇 가지 주요 구성 요소가 포함되어 있으며, 각각은 애플리케이션 및 인프라 모니터링을 위한 완벽한 솔루션을 제공하는 특정 목적을 제공합니다. Grafana LGTM 스택을 설정하고 kubernetes clsuter에서 작업하는 데 관심이 있다면 이 저장소에 제공된 지침을 따르십시오.
 
-필요한 도구를 설치하려면 아래 링크의 단계를 따르십시오.
-- Kubectl: https://kubernetes.io/docs/tasks/tools/
-- Docker: https://docs.docker.com/engine/install/
-- Helm: https://helm.sh/docs/intro/install/
-<br/><br/>
+Loki는 Prometheus에서 영감을 받은 수평 확장 가능하고 고가용성 다중 테넌트 로그 집계 시스템입니다. 로그의 내용을 인덱싱하는 것이 아니라 각 로그 스트림에 대한 레이블 세트이기 때문에 매우 비용 효율적이고 조작하기 쉽도록 설계되었습니다.
+Promtail은 로컬 로그의 내용을 비공개 Grafana Loki 인스턴스 또는 Grafana Cloud로 보내는 에이전트입니다. 이는 일반적으로 모니터링해야 하는 애플리케이션이 있는 모든 컴퓨터에 배포됩니다.
+Tempo는 오픈 소스, 사용하기 쉽고, 대규모 분산 추적 백엔드입니다. Tempo는 비용 효율적이며, 작동하기 위해 개체 저장소만 필요하며, Grafana, Prometheus 및 Loki와 깊이 통합되어 있습니다. Tempo는 Jaeger, Zipkin 및 OpenTelemetry를 포함한 일반적인 오픈 소스 추적 프로토콜을 수집할 수 있습니다.
+Mimir를 사용하면 고가용성, 다중 테넌시, 내구성 있는 스토리지 및 장기간에 걸쳐 매우 빠른 쿼리 성능을 통해 지표를 10억 개의 활성 시리즈 이상으로 확장할 수 있습니다.
+Pyroscope는 Grafana Mimir, Grafana Loki 및 Grafana Tempo와 건축 설계를 조정하는 다중 테넌트 연속 프로파일링 집계 시스템입니다. 이 통합은 프로파일링 데이터와 기존 메트릭, 로그 및 추적의 응집력 있는 상관 관계를 가능하게 합니다.
 
-```sh
-cat > grafana-loki-s3-policy.json <<EOF
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "LokiStorage",
-            "Effect": "Allow",
-            "Action": [
-                "s3:ListBucket",
-                "s3:PutObject",
-                "s3:GetObject",
-                "s3:DeleteObject"
-            ],
-            "Resource": [
-                "arn:aws:s3:::{bucket_name}",
-                "arn:aws:s3:::{bucket_name}/*"
-            ]
-        }
-    ]
-}
-EOF
-```
-<br/>
 
-```sh
-$ aws iam create-policy --policy-name <사용자 지정 이름> --policy-document file://grafana-loki-s3-policy.json
-```
-<br/>
-
-```sh
-cat > trust-rs.json <<EOF
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Principal": {
-                "Federated": "arn:aws:iam::{account}:oidc-provider/oidc.eks.{region}.amazonaws.com/id/{oidc}"
-            },
-            "Action": "sts:AssumeRoleWithWebIdentity",
-            "Condition": {
-                "StringEquals": {
-                    "oidc.eks.{region}.amazonaws.com/id/{oidc}:sub": "system:serviceaccount:{namespace}:{loki}",
-                    "oidc.eks.{region}.amazonaws.com/id/{oidc}:aud": "sts.amazonaws.com"
-                }
-            }
-        },
-        {
-            "Effect": "Allow",
-            "Principal": {
-                "Federated": "arn:aws:iam::{account}:oidc-provider/oidc.eks.{region}.amazonaws.com/id/{oidc}"
-            },
-            "Action": "sts:AssumeRoleWithWebIdentity",
-            "Condition": {
-                "StringEquals": {
-                    "oidc.eks.{region}.amazonaws.com/id/{oidc}:sub": "system:serviceaccount:{namespace}:{loki-compactor}",
-                    "oidc.eks.{region}.amazonaws.com/id/{oidc}:aud": "sts.amazonaws.com"
-                }
-            }
-        }
-    ]
-}
-EOF
-```
-<br/>
-
-```sh
-aws iam create-role --role-name <사용자 지정 이름> --assume-role-policy-document file://trust-rs.json --description "<사용자 지정 이름>"
-```
-<br/>
 
 # 시작하기
 1. Promethus 와 Grafana 를 위한 Helm Chart 저장소(repository)를 시스템에 추가합니다.<br/>
