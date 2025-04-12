@@ -1,4 +1,8 @@
 #!/bin/bash
+#lab-6 benchmarking scripts
+#created by Donghyun, Kim
+#KT DS, Cloud Consulting Team, Team Manager
+#Usage: ./test.sh <YOUR_LOAD_BALANCER_DNS_NAME>
 
 # Set the base URL of your Node.js application
 BASE_URL="http://$1"
