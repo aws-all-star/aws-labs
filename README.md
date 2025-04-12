@@ -121,7 +121,7 @@ AWS 서비스를 더욱 능숙하게 식별할 수 있도록 기초 지식을 �
 <br/>
 
 ### [LAB 5](https://github.com/aws-all-star/aws-labs/tree/main/LAB5) - 옵저버빌리티 시스템 환경 구축
-  • 컨테이너화된 웹 애플리케이션을 클라우드 프로덕션 쿠버네티스(EKS) 클러스터에 배포합니다. <br/>
+  • 애플리케이션이 견딜 수 있는 부하를 확인하기 위해 테스트를 설정할 때는 먼저 초당 요청 수(req/s), 응답 시간(초) 또는 동시 사용자 수를 측정할지 결정합니다. <br/>
   • Prometheus, Loki 및 Grafana를 사용하여 클러스터 및 애플리케이션 메트릭 및 로그를 모니터링합니다.
 <br/>
 
@@ -134,6 +134,6 @@ AWS 서비스를 더욱 능숙하게 식별할 수 있도록 기초 지식을 �
 ## 4. 글쓴이
 - Kim, Dong Hyun (Blog) https://rhlinux.tistory.com
 - Kim, Dong Hyun (Credly) https://www.credly.com/users/kim-donghyun0916
-- Kim, Dong Hyun (Lindin) https://www.linkedin.com/in/kim-donghyun0916/
+- Kim, Dong Hyun (Linkdin) https://www.linkedin.com/in/kim-donghyun0916/
 <br/><br/>
 
