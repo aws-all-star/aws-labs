@@ -5,7 +5,7 @@ Ansible 과 HashiCorp Terraform은 모두 IT 환경을 자동화하기 위한 In
 
 Terraform과 Ansible Automation Platform은 모두 인기 있는 자동화 제품이자 DevOps 툴이지만, 기능은 매우 다릅니다. Terraform은 IT 자동화 분야의 많은 활용 사례 중 하나인 퍼블릭 클라우드 인프라 프로비저닝을 전문으로 하며, Ansible Automation Platform은 광범위한 자동화 활용 사례를 해결합니다. Ansible Automation Platform은 자동화에 대한 단일 접근 방식 대신 다양한 문제를 해결할 수 있는 다양한 접근 방식을 제공합니다. 고객이 두 가지 자동화 솔루션을 결합하여 가장 잘 해결할 수 있는 특정 문제가 발생하는 경우, Ansible Automation Platform은 Helm 및 Terraform과 마찬가지로 Amazon Web Services(AWS) CloudFormation, Microsoft Azure Resource Manager, Google Cloud Platform(GCP) Cloud Deployment Manager를 비롯한 주요 클라우드 공급업체의 다른 제품과 통합할 수 있습니다.
 Ansible과 Terraform은 모두 특정 정책에 따라 여러 자동화 워크플로우를 순서대로 호출할 수 있으므로 오케스트레이터 역할을 할 수 있습니다. Ansible에는 다른 자동화 툴(Terraform 포함)에 연결하고 이를 관리하는 모듈이 내장되어 있습니다. 
-결과적으로 Ansible을 모든 팀의 최상위 공통 언어로 사용하여 전체 IT 자산에 걸쳐 자동화 방식을 표준화할 수 있습니다.
+결과적으로 Ansible을 모든 팀의 최상위 공통 언어로 사용하여 전체 IT 자산에 걸쳐 자동화 방식을 표준화할 수 있습니다.<br/>
 ![이미지 2](https://github.com/user-attachments/assets/4a68d73c-85ea-4f8f-8c32-b522a6a48afc)
 
 ## 전제조건
