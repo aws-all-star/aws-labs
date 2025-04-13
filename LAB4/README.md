@@ -2,6 +2,8 @@
 **Amazon EKS 기능 개요**<br/>
 Amazon Elastic Kubernetes Service(Amazon EKS)는 AWS와 온프레미스에서 손쉽게 Kubernetes를 실행할 수 있는 관리형 Kubernetes 서비스입니다. Kubernetes는 컨테이너식 애플리케이션의 배포, 확장 및 관리를 자동화하기 위한 오픈 소스 시스템입니다. Amazon EKS는 Kubernetes 인증 서비스이므로 업스트림 Kubernetes에서 실행되는 기존 애플리케이션과 호환됩니다.
 Amazon EKS는 컨테이너 예약, 애플리케이션 가용성 관리, 클러스터 데이터 저장 및 다른 주요 태스크를 담당하는 Kubernetes 제어 영역의 가용성과 확장성을 관리합니다.
+<br/>
+<img width="1000" alt="image" src="https://github.com/user-attachments/assets/3a40ca91-b1e1-4d35-a1d1-1f8fc7cbe5d0" />
 
 Amazon EKS를 사용하면 Amazon Elastic Compute Cloud(Amazon EC2)와 AWS Fargate 모두에서 Kubernetes 애플리케이션을 실행할 수 있습니다. Amazon EKS를 사용하면 AWS 인프라의 모든 성능, 규모, 안정성 및 가용성뿐만 아니라 AWS 네트워킹 및 보안 서비스(로드 분산을 위한 Application Load Balancer(ALB), AWS Identity and Access Management(IAM)와 역할 기반 액세스 제어(RBAC) 통합, Pod 네트워킹을 위한 AWS Virtual Private Cloud(VPC) 지원 등)와의 통합에 따른 이점을 활용할 수 있습니다.
 
@@ -11,8 +13,7 @@ Amazon EKS Auto Mode는 AWS의 컴퓨팅, 스토리지, 네트워킹에 대한 K
 
 **Kubernetes 호환성 및 지원**<br/>
 Amazon EKS는 업스트림 Kubernetes를 실행하며 Kubernetes 적합성 인증을 받았습니다. 따라서 Kubernetes 커뮤니티의 모든 기존 플러그인과 도구를 사용할 수 있습니다. 온프레미스 데이터 센터에서 실행 중이든 퍼블릭 클라우드에서 실행 중이든 Amazon EKS에서 실행 중인 애플리케이션은 표준 Kubernetes 환경에서 실행 중인 애플리케이션과 완벽하게 호환됩니다. 즉, 코드를 리팩터링하지 않고 표준 Kubernetes 애플리케이션을 Amazon EKS로 쉽게 마이그레이션할 수 있습니다. Amazon EKS는 Amazon EKS에서 릴리스된 시점으로부터 14개월 동안 Kubernetes 마이너 버전에 대한 표준 지원과 추가 12개월 동안 Kubernetes 마이너 버전에 대한 추가 지원(버전당 총 26개월)을 통해 업스트림에서 지원되는 것보다 긴 Kubernetes 버전을 지원합니다. 자세한 정보는 EKS의 Kubernetes 버전 수명 주기 이해을 참조하세요.
-<br/>
-<img width="1000" alt="image" src="https://github.com/user-attachments/assets/3a40ca91-b1e1-4d35-a1d1-1f8fc7cbe5d0" />
+<br/><br/>
 
 ## 전제 조건
 - Docker, Kubernetes 네이티브 기술 이해
