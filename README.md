@@ -31,14 +31,28 @@ AWS Cloud 교육의 기본적인 내용으로, AWS 사용을 시작하는 방법
 <br/>
 
 ## 1. 준비하기
-시작에 앞서 AWS 계정(Account), 올바른 권한을 가진 IAM(Identity and Access Management) 사용자, 비밀 액세스 키(key pair)가 필요합니다(비밀 액세스 키로 파일을 다운로드하세요, 나중에 필요합니다). 
+본 LAB을 옳바르게 실행하기 위해 AWS 계정(Account), 올바른 권한을 가진 IAM(Identity and Access Management) 사용자, 비밀 액세스 키(key pair)가 필요합니다(비밀 액세스 키로 파일을 다운로드하세요, 나중에 필요합니다). 
 아래 예제는 'AdministratorAcess' 정책이 적용된 사용자를 사용했습니다. IAM 사용자 및 비밀 액세스 키에 대한 자세한 내용은 아래 사이트로 이동하십시오.:
 
 https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html
 https://docs.aws.amazon.com/powershell/latest/userguide/pstools-appendix-sign-up.html
 
-AWS 콘솔에서 사용자가 생성되면 컴퓨터에서 새 Linux 터미널을 열고 AWS CLI를 설치합니다. 
-AWS CLI를 설치하려면 다음 명령을 사용하십시오.
+AWS Command Line Interface(AWS CLI)는 명령줄 쉘에서 명령을 사용하여 AWS 서비스와 상호 작용할 수 있는 오픈 소스 도구입니다. AWS CLI는 최소한의 구성으로 브라우저 기반 AWS Management Console에서 제공하는 것과 동일한 기능을 구현하는 명령을 터미널 프로그램의 명령 프롬프트에서 실행할 수 있게 해줍니다.  
+AWS CLI 시작하기에서는 AWS CLI의 설치 및 구성 과정을 안내합니다.
+이 단계를 거치고 나면 명령줄에서 AWS 서비스로 직접적으로 호출할 수 있게 됩니다.   명령줄에서 다음 명령을 실행하면 바로 다양한 수준의 도움말을 통해 자세한 정보를 얻을 수 있습니다.<br/>
+<br/>
+$ `aws help`
+<br/>
+
+서비스 운영에 대한 자세한 정보:<br/>
+$ `aws [AWS service] help`
+<br/>
+
+특정 서비스 운영에 대한 자세한 정보:<br/>
+$ `aws [AWS service] [operation] help`
+<br/><br/>
+
+AWS 콘솔에서 사용자가 생성되면 컴퓨터에서 새 Linux 터미널을 열고 AWS CLI를 설치합니다. AWS CLI를 설치하려면 다음 명령을 사용하십시오.
 ```sh
 $ curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 $ unzip awscliv2.zip
@@ -60,21 +74,8 @@ Default region name [None]:
 Default output format [None]:
 ```
 <br/>
-AWS Command Line Interface(AWS CLI)는 명령줄 쉘에서 명령을 사용하여 AWS 서비스와 상호 작용할 수 있는 오픈 소스 도구입니다. AWS CLI는 최소한의 구성으로 브라우저 기반 AWS Management Console에서 제공하는 것과 동일한 기능을 구현하는 명령을 터미널 프로그램의 명령 프롬프트에서 실행할 수 있게 해줍니다.  <br/>
-AWS CLI 시작하기에서는 AWS CLI의 설치 및 구성 과정을 안내합니다. 이 단계를 거치고 나면 명령줄에서 AWS 서비스로 직접적으로 호출할 수 있게 됩니다.  명령줄에서 다음 명령을 실행하면 바로 다양한 수준의 도움말을 통해 자세한 정보를 얻을 수 있습니다.<br/>
 
-$ `aws help`
-<br/>
-
-서비스 운영에 대한 자세한 정보:<br/>
-$ `aws [AWS service] help`
-<br/>
-
-특정 서비스 운영에 대한 자세한 정보:<br/>
-$ `aws [AWS service] [operation] help`
-<br/>
-
-본 과정은 다양한 실습환경에 필요한 도구들이 필요합니다. 학습 진행에 필요한 도구를 설치하려면 아래 링크의 단계를 따르십시오. 설치 방법에 대한 자세한 내용은 다음 링크를 방문하십시오.
+이외에도 본 과정은 다양한 실습환경에 필요한 도구들이 필요합니다. 학습 진행에 필요한 도구를 설치하려면 아래 링크의 단계를 따르십시오. 설치 방법에 대한 자세한 내용은 다음 링크를 방문하십시오.
 - Terminal: https://tabby.sh
 - AWS CLI: https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
 - Git: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
@@ -128,6 +129,10 @@ AWS 서비스를 더욱 능숙하게 식별할 수 있도록 기초 지식을 �
 ### [LAB 6](https://github.com/aws-all-star/aws-labs/tree/main/LAB6) - Ansible 및 Terraform을 활용한 인프라 프로비저닝
   • 인프라 프로비저닝 자동화 도구(IaaS, 서비스형 인프라스트럭처)를 사용하여 AWS 인프라를 배포합니다.<br/>
   • API 및 데이터베이스가 있는 웹 앱 아키텍처를 호스팅하는 EC2 서버(Ansible 사용), API 및 데이터베이스가 있는 웹 앱을 호스팅하는 AWS EKS 클러스터(Terraform 사용)을 활용하여 인프라를 구성합니다.
+<br/>
+
+### [LAB 7](https://github.com/aws-all-star/aws-labs/tree/main/LAB7) - Github Action 기반 CI 및 Argo 기반 CD 구성
+  • GitHub Actions를 사용하여 CICD 파이프라인을 배포합니다. 파이프라인은 클라우드 프로덕션 쿠버네티스 클러스터(EKS)의 다중 컨테이너 설정에 배포되는 웹 애플리케이션의 체크아웃, 테스트, 빌드 및 배포 단계로 구성됩니다. 
 <br/><br/>
 
 
