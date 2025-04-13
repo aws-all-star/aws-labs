@@ -30,8 +30,4 @@ LAB2에서는 AWS CLI를 사용하여 AWS 클라우드 인프라를 배포하는
 3. 경로 "/players/top/10" 선택하면, ERA(평균 자책점) 가장 낮은 10명에 선수를 출력합니다.
 </br></br>
 
-## 저작자
-- Kim, Dong Hyun (티스토리) [https://www.linkedin.com/in/kim-donghyun0916/](https://rhlinux.tistory.com)
-- Kim, Dong Hyun (Credly) https://www.credly.com/users/kim-donghyun0916
-- Kim, Dong Hyun (Lindin) https://www.linkedin.com/in/kim-donghyun0916/
-<br/><br/>
+
