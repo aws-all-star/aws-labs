@@ -138,7 +138,9 @@ AWS 서비스를 더욱 능숙하게 식별할 수 있도록 기초 지식을 �
 
 ## 4. 글쓴이
 - Kim, Dong Hyun (Blog) https://rhlinux.tistory.com
+- Kim, Dong Hyun (Facebook) https://www.facebook.com/groups/clusterlabskorea/
 - Kim, Dong Hyun (Credly) https://www.credly.com/users/kim-donghyun0916
 - Kim, Dong Hyun (Linkdin) https://www.linkedin.com/in/kim-donghyun0916/
 <br/><br/>
+
 
