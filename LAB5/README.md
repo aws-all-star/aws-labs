@@ -20,12 +20,6 @@
 </br></br>
 
 ## 테스트 결과
-- Grafana UI에 접근할 수 있어야 합니다. 사용자 웹 브라우저에서 http://127.0.0.1:8080/을 입력하십시오. 사용자는 관리자이고 비밀번호는 prom-operator입니다.
+- Grafana UI에 접근할 수 있어야 합니다. 사용자 웹 브라우저에서 http://127.0.0.1:8080/을 입력하십시오.
 - 불필요한 비용을 피하기 위해 완료되면 모든 것을 삭제하는 것을 잊지 마십시요.
 </br></br>
-
-## 저작자
-- Kim, Dong Hyun (Blog) https://rhlinux.tistory.com
-- Kim, Dong Hyun (Credly) https://www.credly.com/users/kim-donghyun0916
-- Kim, Dong Hyun (Lindin) https://www.linkedin.com/in/kim-donghyun0916/
-<br/><br/>
