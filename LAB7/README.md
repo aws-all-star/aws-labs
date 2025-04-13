@@ -4,3 +4,13 @@ CI(Continuous integration 지속적 통합) 및 CD(continuous delivery 지속적
 <br/>
 ![이미지 4](https://github.com/user-attachments/assets/06ec35a8-d4c0-4fb6-ac47-a5002b2747f4)
 <br/>
+
+## 전제 조건
+- 모니터링과 옵저버빌리티에 대한 이해
+- 대규모 IT시스템 관리 운영 지식
+- 데이터 생성, 수집, 전송되는 방식 표준화(Open Telementry)
+<br/><br/>
+
+## 테스트 결과
+
+<br/><br/>
