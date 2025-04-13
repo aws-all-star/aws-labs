@@ -97,13 +97,13 @@ aws ec2 describe-instances \
 <br/>
 
 ```sh
-$ docker tag <컨테이너 이미지 ID명> <컨테이너 허브 레포지토리>:<태그명>
+$ docker build -t <Docker Hub Repository>/<Image> -f Dockerfile.app .
 ```
 <br/>
 
 결과적으로 docker 이미지가 개인의 hub에 push된 걸 확인할 수 있게 됩니다. 확인하려면 `docker search <컨테이너 허브 레포지토리>` 명령어를 통해 확인할 수 있습니다. 이제 다음 LAB을 위해 정상적으로 완료하였습니다. LAB3 과정을 강사의 지시에 따라 마칠 수 있도록 합니다.
 ```sh
-$ docker push <컨테이너 허브 레포지토리>:<태그명>
+$ docker push<Docker Hub Repository>/<Image> 
 ```
 <br/>
 
