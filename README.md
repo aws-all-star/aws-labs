@@ -132,7 +132,8 @@ AWS 서비스를 더욱 능숙하게 식별할 수 있도록 기초 지식을 �
 <br/>
 
 ### [LAB 7](https://github.com/aws-all-star/aws-labs/tree/main/LAB7) - Github Action 기반 CI 및 Argo 기반 CD 구성
-  • GitHub Actions를 사용하여 CICD 파이프라인을 배포합니다. 파이프라인은 클라우드 프로덕션 쿠버네티스 클러스터(EKS)의 다중 컨테이너 설정에 배포되는 웹 애플리케이션의 체크아웃, 테스트, 빌드 및 배포 단계로 구성됩니다. 
+  • GitHub Actions를 사용하여 CICD 파이프라인을 배포합니다.<br/>
+  • 파이프라인은 클라우드 프로덕션 쿠버네티스 클러스터(EKS)의 다중 컨테이너 설정에 배포되는 웹 애플리케이션의 체크아웃, 테스트, 빌드 및 배포 단계로 구성됩니다. 
 <br/><br/>
 
 
