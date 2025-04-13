@@ -25,9 +25,3 @@ AWS는 Linux OS인 Amazon Linux 2023(AL2023) 최신 버전도 제공합니다. A
 - 동일한 Public 서브넷과 VPC에서, ping 명령을 통해 서로 간 통신할 수 있어야 합니다 
 - 2개 인스턴스 모두 SSH로 원격으로 접근할 수 있어야 합니다.
 <br/><br/>
-
-## 저작자
-- Kim, Dong Hyun (Blog) https://rhlinux.tistory.com
-- Kim, Dong Hyun (Credly) https://www.credly.com/users/kim-donghyun0916
-- Kim, Dong Hyun (Lindin) https://www.linkedin.com/in/kim-donghyun0916/
-<br/><br/>
