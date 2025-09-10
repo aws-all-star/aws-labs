@@ -86,7 +86,7 @@ https://docs.aws.amazon.com/eks/latest/userguide/troubleshooting.html#unauthoriz
 
 1. 클러스터에 대해 kubeconfig 파일을 생성 또는 업데이트합니다. region-code를 클러스터를 생성한 AWS 리전으로 바꿉니다. my-cluster를 해당 클러스터의 이름으로 바꿉니다.
 ```sh
-$ aws eks update-kubeconfig --region ap-northeast-2 --name <my-ktds>
+aws eks update-kubeconfig --region ap-northeast-2 --name my-ktds
 ```
 기본적으로 config 파일이 ~/.kube에 생성되거나 새 클러스터의 구성이 ~/.kube의 기존 config 파일에 추가됩니다.
   - 마지막으로, kubectl cluster-info를 실행하여 연결이 성공했는지 확인하십시오.
