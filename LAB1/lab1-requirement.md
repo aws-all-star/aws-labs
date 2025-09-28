@@ -21,18 +21,18 @@ https://docs.aws.amazon.com/ko_kr/vm-import/latest/userguide/prerequisites.html
 
 1. 강사에게 제공받은 QCOW2 이미지를 RAW 이미지로 변환합니다.
 ```sh
-$ qemu-img convert <Rocky-9-EC2-Base-9.5-20241118.0.x86_64.qcow2> <Rocky-9-EC2-Base-9.5-20241118.0.x86_64.raw>
+qemu-img convert Rocky-9-EC2-Base-9.5-20241118.0.x86_64.qcow2 Rocky-9-EC2-Base-9.5-20241118.0.x86_64.raw
 ```
 <br/>
 
 2. my-ktds 라는 이름의 AWS S3 버킷 생성한 후, 변환된 RAW이미지를 s3 버킷으로 업로드합니다.
 ```sh
-$ aws s3api create-bucket --bucket <my-ktds> --region ap-northeast-2 --create-bucket-configuration LocationConstraint=ap-northeast-2
+aws s3api create-bucket --bucket my-ktds --region ap-northeast-2 --create-bucket-configuration LocationConstraint=ap-northeast-2
 ```
 <br/>
 
 ```sh
-$ aws s3 cp <rhel-guest-image-6.8-20160425.0.x86_64.raw> <s3://my-ktds>
+aws s3 cp <rhel-guest-image-6.8-20160425.0.x86_64.raw> <s3://my-ktds>
 ```
 <br/>
 
@@ -46,7 +46,7 @@ aws s3api put-bucket-policy --bucket my-rhel9-img --policy "file://bucket-policy
 
 4. AWS EC2 스냅샷 생성한 후 정상적으로 생성되면 정보를 확인합니다.
 ```sh
-$ aws ec2 import-snapshot --description <"Rocky Linux 9 Update 5 Base Image"> --disk-container "file://container.json"
+aws ec2 import-snapshot --description "Rocky Linux 9 Update 5 Base Image" --disk-container "file://container.json"
 ```
 <br/>
                           
