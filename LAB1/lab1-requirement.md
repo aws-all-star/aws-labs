@@ -61,7 +61,7 @@ $ aws ec2 register-image --name <Rocky-EC2-Base-9.5-20241118.0.x86_64> --archite
 ```
 <br/><br/>
 
-## 2. 시작하기
+# 2. 시작하기
 AWS CLI 도구를 활용하여 다음과 예시를 참고하여 클라우드 아키텍처를 생성하고 설정하는 명령어를 실행합니다.<br/>
 
 1. 리전(REGION)은 ap-northeast-2(Seoul) 에 있는 자원만 활용하고 가용 영역(Availability Zones) 은 'ap-northeast-2a' 반드시 존재해야 합니다.
@@ -210,7 +210,7 @@ aws ec2 describe-instances --query 'Reservations[*].Instances[*].[InstanceId, Pu
 ```
 <br/><br/>
 
-## 3. 제출 지침
+# 3. 제출 지침
 - 현재 사용자의 Linux 서버는 보안취약점에 노출되어 있습니다. 수강생은 Linux 운영체제를 최신 버전으로 업데이트해야 합니다. 최신 버전의 커널은 무엇입니까? (Z-Stream 버전 포함)
 - AWS 클라우드 환경에 최적화된 성능을 유지하려면 tuned 명령어를 통해 손쉽게 적용할 수 있습니다. 적용 후, 어떠한 차이점이 있는지 확인해야 합니다.
 - AWS EC2 인스턴스에서는 기본적으로 AWS, 온프레미스, 멀티클라우드 환경에서 대규모로 노드를 중앙에서 보고 관리하고 운영할 수 있도록 지원합니다. CloudWatch 에이전트의 구성 및 추가 지표 수집을 위해 선택하기 위한 요구사항을 충족하기 위해서는 AWS에서 제공하는 에이전트를 설치 구성하도록 합니다.
