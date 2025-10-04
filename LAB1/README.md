@@ -10,6 +10,10 @@ AWS는 세계 최초의 글로벌 클라우드 공급업체이자 가장 높은 
 AWS는 전 세계에 분산된 데이터센터 네트워크를 통해 워크로드 및 애플리케이션을 확장하는 데 필요한 컴퓨팅 용량을 이용할 수 있도록 온디맨드 방식의 보안 중심 가상 액세스 기능을 지원하여 오늘날의 시장 과제에 민첩하게 대응하도록 합니다.
 AWS는 Linux OS인 Amazon Linux 2023(AL2023) 최신 버전도 제공합니다. AWS 클라우드에서 애플리케이션을 실행하기 위한 OS로 AL2023을 선택하면 경우에 따라 AWS 무료 티어를 통해 일정 기간 무료로 OS를 이용할 수도 있습니다.
 <br/><br/>
+|구분|Amazon Linux|Rocky Linux|RHEL (Red Hat Enterprise Linux)|
+--------------------------------------------------------------
+|개발사/지원|AWS (Amazon Web Services)|Rocky Enterprise Software Foundation (커뮤니티, CentOS 창립자 Gregory Kurtzer 주도)|Red Hat (IBM 자회사)|
+
 
 ## 전제조건
 - Linux 서버에 대한 일반 지식
