@@ -75,7 +75,7 @@ Default output format [None]:
 ```
 <br/>
 
-이외에도 본 과정은 다양한 실습환경에 필요한 도구들이 필요합니다. 학습 진행에 필요한 도구를 설치하려면 아래 링크의 단계를 따르십시오. 설치 방법에 대한 자세한 내용은 다음 링크를 방문하십시오.
+이외에도 본 과정은 다양한 실습환경에 필요한 도구들이 필요합니다 개인의 학습 환경에 맞게 진행에 필요한 도구를 설치하려면 아래 링크의 단계를 따르십시오. 설치 방법에 대한 자세한 내용은 다음 링크를 방문하십시오.
 - Terminal: https://tabby.sh
 - AWS CLI: https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
 - Git: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
