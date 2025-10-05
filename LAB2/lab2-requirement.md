@@ -326,7 +326,7 @@ aws autoscaling put-scaling-policy --policy-name cpu-scaling-policy \
 <br/><br/>
 
 
-# 제출 지침
+# 3. 제출 지침
 - 2024년도 ERA(평균 자책점) 가장 낮은 투수 선수는 누구인가요?
 - TOP 20위 중, 가장 승리 수(W) 높은 투수는 누구인가요?
 <br/><br/>
