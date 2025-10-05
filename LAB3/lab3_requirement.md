@@ -1,4 +1,4 @@
-## 1. 준비하기
+# 1. 준비하기
 이 LAB에서는 AWS에 컨테이너화된 웹 애플리케이션을 배포합니다. 이 애플리케이션은 사용자가 HTTP 요청을 보내고 응답을 받을 수 있도록 엔드포인트를 노출하는 MongoDB 데이터베이스와 API 서버로 구성되어 있습니다. Node.js 애플리케이션과 mongodb 데이터베이스는 분리되어 컨테이너화되어 AWS의 EC2 인스턴스에서 Docker-compose를 사용하여 배포되었습니다. 따라서 엔드포인트는 EC2 인스턴스의 공용 IP를 사용하여 액세스되었습니다.
 
 이 저장소는 두 개의 Dockerfiles(Dockerfile.app 및 Dockerfile.mongodb), 하나의 docker-compose 파일(docker-compose.yml), 하나의 종속성 파일(package.json), 데이터베이스 콘텐츠 파일(KBL-Pitcher-2024.csv, KBL등록 선수 목록 및 통계), nodejs 애플리케이션 코드(app.js) 및 mongobd 컬렉션을 만들고 설정하기 위한 파일들로 구성되어 있습니다.
@@ -16,7 +16,7 @@ git clone https://github.com/aws-all-star/aws-labs.git
 - Docker: https://docs.docker.com/engine/install/
 <br/><br/>
 
-## 2. 시작하기
+# 2. 시작하기
 1. 개인 터미널에서 SSH를 통해 EC2 인스턴스로 접근합니다. 인스턴스는 LAB1 에서 생성한 인스턴스 중 하나를 활용합니다.
 ```sh
 $ ssh -i <YOUR_KEY_PAIR> rocky@<YOUR_EC2_PUBLIC_IP>
@@ -107,7 +107,7 @@ $ docker push <Docker Hub Repository>/<Image>
 ```
 <br/><br/>
 
-## 3. 제출지침
+# 3. 제출지침
 - EC2 인스턴스의 Public IP를 복사하여 아래 모델에 따라 웹 브라우저에 붙여넣고 3000포트로 접속할 수 있어야 합니다.
 - docker 명령어를 통해 컨테이너 상태를 확인할 수 있어야 합니다.
 <br/><br/>
