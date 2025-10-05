@@ -9,7 +9,7 @@ Amazon CloudWatch는 AWS 리소스와 애플리케이션의 메트릭, 로그, �
 CloudWatch를 구성하기 위해서는 먼저 모니터링할 리소스와 수집할 지표의 범위를 정의하는 준비가 필요합니다. 일반적으로 EC2 인스턴스를 예로 들면, 기본 제공되는 메트릭만 사용할지, 아니면 메모리 사용량·디스크 사용률 같은 OS 레벨 지표와 애플리케이션 로그까지 포함할지를 먼저 결정해야 합니다. 이를 위해 사전에 IAM 역할과 권한을 준비하는 것이 중요합니다. CloudWatch에 메트릭과 로그를 전송하기 위해서는 EC2 인스턴스 또는 애플리케이션이 CloudWatch에 데이터를 보낼 수 있는 권한을 가져야 하므로, CloudWatchAgentServerPolicy 같은 IAM 정책을 포함한 역할을 생성하고 인스턴스에 연결합니다.
 <br/><br/>
 
-a) 환경 변수 지정 (반드시 본인 환경에 맞게 수정하도록 합니다.)
+**a) 환경 변수 지정 (반드시 본인 환경에 맞게 수정하도록 합니다.)**
 ```sh
 REGION=ap-northeast-2                   # 리전
 INSTANCE_ID=<i-xxxxxxxxxx>              # 대상 EC2 인스턴스 ID
@@ -20,7 +20,7 @@ DASH_NAME=ec2-observability-$INSTANCE_ID
 ```
 <br/>
 
-b) EC2가 CloudWatch/SSM에 쓰기 위한 권한을 부여할 수 있도록 IAM 역할 & 인스턴스 프로파일 생성/연결합니다.
+**b) EC2가 CloudWatch/SSM에 쓰기 위한 권한을 부여할 수 있도록 IAM 역할 & 인스턴스 프로파일 생성/연결합니다.**
 ```sh
 cat > trust.json <<'EOF'
 {
@@ -33,27 +33,27 @@ EOF
 ```
 <br/>
 
-c) EC2 인스턴스가 CloudWatch에 접근할 수 있도록 사용할 역할을 생성하도록 설정합니다.
+**c) EC2 인스턴스가 CloudWatch에 접근할 수 있도록 사용할 역할을 생성하도록 설정합니다.**
 ```sh
 aws iam create-role --role-name $ROLE_NAME --assume-role-policy-document file://trust.json
 ```
 <br/>
 
-d) 앞에서 만든 IAM 역할($ROLE_NAME)에 필요한 권한 정책(Policy) 두 개를 연결(attach)하는 명령어로 EC2 인스턴스가 CloudWatch와 SSM을 사용할 수 있게 IAM 권한을 부여합니다.
+**d) 앞에서 만든 IAM 역할($ROLE_NAME)에 필요한 권한 정책(Policy) 두 개를 연결(attach)하는 명령어로 EC2 인스턴스가 CloudWatch와 SSM을 사용할 수 있게 IAM 권한을 부여합니다.**
 ```sh
 aws iam attach-role-policy --role-name $ROLE_NAME --policy-arn arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy
 aws iam attach-role-policy --role-name $ROLE_NAME --policy-arn arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
 ```
 <br/>
 
-e) EC2 인스턴스가 사용할 IAM 인스턴스 프로파일(Instance Profile) 을 만들고, 그 안에 앞에서 만든 역할(Role) 을 연결하도록 합니다.
+**e) EC2 인스턴스가 사용할 IAM 인스턴스 프로파일(Instance Profile) 을 만들고, 그 안에 앞에서 만든 역할(Role) 을 연결하도록 합니다.**
 ```sh
 aws iam create-instance-profile --instance-profile-name $PROFILE_NAME
 aws iam add-role-to-instance-profile --instance-profile-name $PROFILE_NAME --role-name $ROLE_NAME
 ```
 <br/>
 
-f) EC2 인스턴스에 프로파일 연결합니다.
+**f) EC2 인스턴스에 프로파일 연결합니다.**
 ```sh
 aws ec2 associate-iam-instance-profile --region $REGION --iam-instance-profile Name=$PROFILE_NAME --instance-id $INSTANCE_ID
 ```
@@ -63,7 +63,7 @@ aws ec2 associate-iam-instance-profile --region $REGION --iam-instance-profile N
 CloudWatch Agent 수집 설정(메모리/디스크/네트워크 포함) 작성 & SSM 파라미터로 저장합니다. 단, 메모리/디스크 사용률은 기본 EC2 메트릭에 없고, CloudWatch Agent가 필요합니다.
 <br/>
 
-a) 설정 JSON 만들기
+**a) 설정 JSON 만들기**
 ```sh
 cat > cwagent-config.json <<'EOF'
 {
@@ -97,7 +97,7 @@ EOF
 ```
 <br/>
 
-b) SSM Parameter Store에 업로드
+**b) SSM Parameter Store에 업로드**
 ```sh
 aws ssm put-parameter --region $REGION --name $PARAM_NAME --type String --overwrite --value "$(cat cwagent-config.json)"
 ```
@@ -105,8 +105,8 @@ aws ssm put-parameter --region $REGION --name $PARAM_NAME --type String --overwr
 
 
 # 3. CloudWatch Agent 설치 & 설정 적용(SSM Run Command 사용)
+**a) AWS Systems Manager(SSM) 를 통해 지정한 EC2 인스턴스($INSTANCE_ID)에 CloudWatch Agent를 원격으로 설치합니다.**
 ```sh
-a) CloudWatch Agent 설치
 aws ssm send-command \
   --region $REGION \
   --document-name "AWS-ConfigureAWSPackage" \
@@ -116,7 +116,7 @@ aws ssm send-command \
 ```
 <br/>
 
-b) 에이전트 설정 적용 & 시작
+**b) SSM을 이용해 EC2에 저장된 설정 파일로 CloudWatch Agent를 구성하고 실행하도록 합니다.**
 ```sh
 aws ssm send-command \
   --region $REGION \
@@ -128,7 +128,6 @@ aws ssm send-command \
 <br/>
 
 # 4. 메트릭 수집 확인 (CLI로 네임스페이스 조회)
-
 
 
 
