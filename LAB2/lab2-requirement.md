@@ -1,4 +1,4 @@
-# 준비하기
+# 1. 준비하기
 이 LAB에서는 MongoDB 데이터베이스에 연결된 Nodejs API 마이크로서비스를 배포합니다. 이 API는 사용자가 HTTP 요청을 보내고 JSON 페이로드로 응답을 받을 수 있는 노출된 엔드포인트를 가질 것입니다.
 
 <img width="850" alt="image" src=https://github.com/user-attachments/assets/823b26fe-263d-4c38-bb38-891f20c2bad7><br/>
@@ -8,7 +8,7 @@ MongoDB의 문서 데이터 모델을 사용하면 정교한 검증 규칙, 유�
 지리적으로 분산된 데이터 센터 내 및 데이터 센터 간에 확장할 수 있어 높은 수준의 가용성과 확장성을 제공합니다. 배포가 증가함에 따라 데이터베이스는 다운타임 없이 애플리케이션을 변경하지 않고도 쉽게 확장할 수 있습니다.<br/><br/>
 
 
-# 시작하기
+# 2. 시작하기
 1. 리전(REGION)은 ap-northeast-2(Seoul) 에 있는 자원만 활용하고 가용 영역(Availability Zones) 은 'ap-northeast-2a' 와 'ap-northeast-2b' 존재하도록 합니다.
 ```sh
 REGION="ap-northeast-2"
