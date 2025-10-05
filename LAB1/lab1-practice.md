@@ -105,21 +105,38 @@ aws ssm put-parameter --region $REGION --name $PARAM_NAME --type String --overwr
 
 
 ## 3. CloudWatch Agent 설치 & 설정 적용
-**a) dnf 명령어를 통해 Rocky Linux 9버전에 맞는 CloudWatch Agent를 원격으로 설치합니다.**
+인스턴스가 SSM 관리 상태가 될 수 있도록 해당 인스턴스에 ssh접속하여 수동으로 설치하도록 합니다.
 ```sh
-wget -P /tmp/ https://amazoncloudwatch-agent.s3.amazonaws.com/centos/amd64/latest/amazon-cloudwatch-agent.rpm
+sudo dnf install -y https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm
+systemctl start amazon-ssm-agent
+systemctl enable amazon-ssm-agent
+```
+<br/>
+
+**a) 버전에 맞는 CloudWatch Agent를 원격으로 설치합니다.**
+```sh
+aws ssm send-command \
+  --region $REGION \
+  --document-name "AWS-ConfigureAWSPackage" \
+  --targets "Key=instanceids,Values=$INSTANCE_ID" \
+  --parameters '{"action":["Install"],"installationType":["Uninstall and reinstall"],"name":["AmazonCloudWatchAgent"]}' \
+  --comment "Install CloudWatch Agent"
 ```
 <br/>
 
 **b) CloudWatch Agent를 구성하고 실행하도록 합니다.**
 ```sh
-systemctl start amazon-cloudwatch-agent
-systemctl enable amazon-cloudwatch-agent
+aws ssm send-command \
+  --region $REGION \
+  --document-name "AmazonCloudWatch-ManageAgent" \
+  --targets "Key=instanceids,Values=$INSTANCE_ID" \
+  --parameters "{\"action\":[\"configure\"],\"mode\":[\"ec2\"],\"optionalConfigurationSource\":[\"ssm\"],\"optionalConfigurationLocation\":[\"$PARAM_NAME\"],\"optionalRestart\":[\"yes\"]}" \
+  --comment "Configure & start CloudWatch Agent"
 ```
 <br/>
 
 ## 4. 메트릭 수집 확인 (CLI로 네임스페이스 조회)
-**a) CloudWatch에 저장된 EC2 인스턴스($INSTANCE_ID)의 메트릭 목록을 조회하도록 합니다.**
+**a) CloudWatch에 저장된 EC2 인스턴스의 메트릭 목록을 조회하도록 합니다.**
 ```sh
 aws cloudwatch list-metrics --region $REGION --namespace "AWS/EC2" --dimensions Name=InstanceId,Value=$INSTANCE_ID | head
 ```
@@ -225,7 +242,7 @@ TOPIC_ARN=$(aws sns list-topics --region $REGION --query 'Topics[?contains(Topic
 
 **이메일 구독(선택): 받은 메일에서 Confirm 필요**
 ```sh
-$ aws sns subscribe --topic-arn $TOPIC_ARN --protocol email --notification-endpoint <you@example.com> --region $REGION**
+aws sns subscribe --topic-arn $TOPIC_ARN --protocol email --notification-endpoint <you@example.com> --region $REGION
 ```
 <br/>
 
