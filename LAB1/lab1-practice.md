@@ -278,7 +278,7 @@ aws cloudwatch put-metric-alarm \
 <br/>
 
 
-# 목표
+# 연습 목표
 - 대시보드/알람은 즉시 생성되지만, 첫 메트릭 전송까지 1~2분 정도 후 그래프에 나타납니다.
 - 디스크 경로가 / 외에 /data 등이라면 대시보드/알람의 path 값을 맞게 수정하세요.
 - Rocky 9에서 SSM Agent가 없다면(참고용, CLI 아님): sudo dnf install -y amazon-ssm-agent && sudo systemctl enable --now amazon-ssm-agent
