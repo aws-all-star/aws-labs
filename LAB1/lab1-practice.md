@@ -104,26 +104,17 @@ aws ssm put-parameter --region $REGION --name $PARAM_NAME --type String --overwr
 <br/>
 
 
-## 3. CloudWatch Agent 설치 & 설정 적용(SSM Run Command 사용)
-**a) AWS Systems Manager(SSM) 를 통해 지정한 EC2 인스턴스($INSTANCE_ID)에 CloudWatch Agent를 원격으로 설치합니다.**
+## 3. CloudWatch Agent 설치 & 설정 적용
+**a) dnf 명령어를 통해 Rocky Linux 9버전에 맞는 CloudWatch Agent를 원격으로 설치합니다.**
 ```sh
-aws ssm send-command \
-  --region $REGION \
-  --document-name "AWS-ConfigureAWSPackage" \
-  --targets "Key=instanceids,Values=$INSTANCE_ID" \
-  --parameters '{"action":["Install"],"installationType":["Uninstall and reinstall"],"name":["AmazonCloudWatchAgent"]}' \
-  --comment "Install CloudWatch Agent"
+wget -P /tmp/ https://amazoncloudwatch-agent.s3.amazonaws.com/centos/amd64/latest/amazon-cloudwatch-agent.rpm
 ```
 <br/>
 
-**b) SSM을 이용해 EC2에 저장된 설정 파일로 CloudWatch Agent를 구성하고 실행하도록 합니다.**
+**b) CloudWatch Agent를 구성하고 실행하도록 합니다.**
 ```sh
-aws ssm send-command \
-  --region $REGION \
-  --document-name "AmazonCloudWatch-ManageAgent" \
-  --targets "Key=instanceids,Values=$INSTANCE_ID" \
-  --parameters "{\"action\":[\"configure\"],\"mode\":[\"ec2\"],\"optionalConfigurationSource\":[\"ssm\"],\"optionalConfigurationLocation\":[\"$PARAM_NAME\"],\"optionalRestart\":[\"yes\"]}" \
-  --comment "Configure & start CloudWatch Agent"
+systemctl start amazon-cloudwatch-agent
+systemctl enable amazon-cloudwatch-agent
 ```
 <br/>
 
