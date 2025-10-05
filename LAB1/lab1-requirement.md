@@ -1,7 +1,7 @@
 # 1. 준비하기
 VM Import/Export를 사용해 손쉽게 기존 환경의 가상 머신 이미지를 Amazon EC2 인스턴스로 가져오고 다시 온프레미스 환경으로 내보낼 수 있습니다. VM Import/Export를 사용하면 IT 보안, 구성 관리, 규정 준수 요구 사항을 충족하기 위해 구축한 가상 머신을 Amazon EC2로 가져와 인스턴스로 즉시 사용할 수 있어 가상 머신에 대한 기존 투자를 활용할 수 있습니다. 또한 가져온 인스턴스를 다시 온프레미스 가상화 인프라로 다시 내보낼 수 있으므로 IT 인프라 전반에 워크로드를 배포할 수 있습니다.
 
-<img width="700" alt="image" src="https://github.com/user-attachments/assets/16277ed4-50f6-48b5-918c-33845a486c5e" />
+<img width="850" alt="image" src="https://github.com/user-attachments/assets/16277ed4-50f6-48b5-918c-33845a486c5e" />
 
 이미지를 가져오려면, AWS CLI, 다른 개발자 도구 또는 콘솔 기반 Migration Hub Orchestrator 템플릿을 사용하여 기존 온프레미스 또는 가상화 그리고 이기종 클라우드 환경에서 가상 머신 이미지를 가져옵니다. VMware 또는 Openstack 가상화 플랫폼을 사용하는 경우에는 AWS Management Portal을 통해 VM을 가져올 수도 있습니다. 가져오기 프로세스의 일부로서, VM Import에서 VM을 Amazon EC2 인스턴스를 실행하는 데 사용할 수 있는 Amazon EC2 AMI로 변환합니다. VM을 가져오면, Auto Scaling, Elastic Load Balancing, CloudWatch 등의 서비스를 통한 Amazon의 탄력성, 확장성 및 모니터링 기능을 활용해 가져온 이미지를 지원할 수 있습니다.
 
