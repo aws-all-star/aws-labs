@@ -17,7 +17,7 @@ git clone https://github.com/aws-all-star/aws-labs.git
 <br/><br/>
 
 # 2. 시작하기
-1. 개인 터미널에서 SSH를 통해 EC2 인스턴스로 접근합니다. 인스턴스는 LAB1 에서 생성한 인스턴스 중 하나를 활용합니다.
+1. 개인 터미널에서 SSH를 통해 EC2 인스턴스로 접근합니다. 인스턴스는 LAB1 에서 생성한 server1 이름을 가진 인스턴스를 활용합니다.
 ```sh
 $ ssh -i <YOUR_KEY_PAIR> rocky@<YOUR_EC2_PUBLIC_IP>
 ```
