@@ -107,7 +107,7 @@ aws ssm put-parameter --region $REGION --name $PARAM_NAME --type String --overwr
 ## 3. CloudWatch Agent 설치 & 설정 적용
 **a) dnf 명령어를 통해 Rocky Linux 9버전에 맞는 CloudWatch Agent를 원격으로 설치합니다.**
 ```sh
-wget -P /tmp/https://amazoncloudwatch-agent.s3.amazonaws.com/centos/amd64/latest/amazon-cloudwatch-agent.rpm
+wget -P /tmp/ https://amazoncloudwatch-agent.s3.amazonaws.com/centos/amd64/latest/amazon-cloudwatch-agent.rpm
 ```
 <br/>
 
