@@ -12,7 +12,10 @@ VM Import/Export를 사용해 손쉽게 기존 환경의 가상 머신 이미지
 https://docs.aws.amazon.com/ko_kr/vm-import/latest/userguide/prerequisites.html
 <br/>
 아래 Rocky Linux 공식 사이트에서 qcow2 이미지를 다운받습니다.
+<br/>
+
 https://dl.rockylinux.org/vault/rocky/9.5/images/x86_64/
+<br/>
 
 필요한 도구를 설치하려면 아래 링크의 단계를 따르십시오.:<br/>
 - QEMU: https://www.qemu.org/download/
