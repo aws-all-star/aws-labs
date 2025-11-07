@@ -45,7 +45,7 @@ aws s3 cp <rhel-guest-image-6.8-20160425.0.x86_64.raw> <s3://my-ktds>
 ```sh
 aws iam create-role --role-name vmimport --assume-role-policy-document "file://trust-policy.json"
 aws iam put-role-policy --role-name vmimport --policy-name vmimport --policy-document "file://role-policy.json"
-aws s3api put-bucket-policy --bucket <my-rhel9-img> --policy "file://bucket-policy.json"
+aws s3api put-bucket-policy --bucket <my-ktds> --policy "file://bucket-policy.json"
 ```
 <br/>
 
