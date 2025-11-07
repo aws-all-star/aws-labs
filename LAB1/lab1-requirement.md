@@ -11,8 +11,8 @@ VM Import/Export를 사용해 손쉽게 기존 환경의 가상 머신 이미지
 다만, VM Import/Export로 가져오는 리소스에 대한 요구 사항을 사전에 파악하고 지원하는 이미지 형식 또는 운영체제인지를 확인해야 합니다.<br/>
 https://docs.aws.amazon.com/ko_kr/vm-import/latest/userguide/prerequisites.html
 <br/>
+
 아래 Rocky Linux 공식 사이트에서 qcow2 이미지를 다운받습니다.
-<br/>
 
 https://dl.rockylinux.org/vault/rocky/9.5/images/x86_64/
 <br/>
