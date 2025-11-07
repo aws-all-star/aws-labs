@@ -1,0 +1,8 @@
+{
+    "Description": "Rocky Linux 9 Update 5 KVM Guest Image",
+    "Format": "raw",
+    "UserBucket": {
+        "S3Bucket": "my-ktds",
+        "S3Key": "rocky-9-EC2-Base-9.5.x86_64.raw"
+    }
+}
