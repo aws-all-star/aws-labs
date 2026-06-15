@@ -102,11 +102,91 @@ aws iam get-role --role-name myAmazonEKSClusterRole
 ```
 <br/>
 
-4. https://console.aws.amazon.com/eks/home#/clusters 에서 Amazon EKS 콘솔을 엽니다. 콘솔의 오른쪽 상단에 표시된 AWS 리전이 클러스터를 생성하려는 AWS 리전인지 확인합니다. 수강생은 ap-northeast-2 사용해야 합니다.<br/>
+4. AWS CLI의 eks create-cluster는 EKS 컨트롤 플레인을 생성하고, --resources-vpc-config로 Subnet/Security Group을 지정합니다. AWS 공식 CLI 문서에서도 create-cluster와 VPC 설정 파라미터를 제공합니다.<br/>
+기본 변수 설정합니다.
+```sh
+export AWS_REGION=us-east-1
+export CLUSTER_NAME=my-ktds
+export EKS_ROLE_NAME=myAmazonEKSClusterRole
+```
+<br/>
+EKS Cluster IAM Role ARN 확인합니다.
+```sh
+export EKS_ROLE_ARN=$(aws iam get-role \
+  --role-name ${EKS_ROLE_NAME} \
+  --query 'Role.Arn' \
+  --output text)
 
-5. 클러스터 생성을 선택합니다. 먼저 왼쪽 검색 창에서 클러스터를 선택합니다.<br/>
+echo $EKS_ROLE_ARN
+```
+<br/>
+CloudFormation으로 만든 VPC ID 조회합니다. 이전에 만든 스택 이름이 my-eks-vpc-stack이라고 가정합니다.
+```sh
+export VPC_ID=$(aws cloudformation describe-stacks \
+  --region ${AWS_REGION} \
+  --stack-name my-eks-vpc-stack \
+  --query "Stacks[0].Outputs[?OutputKey=='VpcId'].OutputValue" \
+  --output text)
 
-6. 클러스터 구성 페이지에서 다음을 수행합니다.<br/>
+echo $VPC_ID
+```
+<br/>
+
+my-eks-vpc-stack에서 생성된 Subnet들을 자동으로 가져옵니다. EKS 클러스터 생성 시 최소 2개 이상의 서로 다른 AZ 서브넷이 필요합니다. AWS 문서에서도 클러스터 생성 시 서브넷/VPC 요구사항을 충족해야 하며, AZ 용량 이슈가 있을 경우 지원되는 AZ의 서브넷으로 다시 생성해야 한다고 안내합니다.
+```sh
+export SUBNET_IDS=$(aws ec2 describe-subnets \
+  --region ${AWS_REGION} \
+  --filters "Name=vpc-id,Values=${VPC_ID}" \
+  --query "Subnets[].SubnetId" \
+  --output text | tr '\t' ',')
+
+echo $SUBNET_IDS
+```
+<br/>
+
+CloudFormation으로 생성된 VPC의 기본 보안 그룹을 사용하는 방식입니다.
+```sh
+export SECURITY_GROUP_ID=$(aws ec2 describe-security-groups \
+  --region ${AWS_REGION} \
+  --filters "Name=vpc-id,Values=${VPC_ID}" "Name=group-name,Values=default" \
+  --query "SecurityGroups[0].GroupId" \
+  --output text)
+
+echo $SECURITY_GROUP_ID
+```
+<br/>
+
+my-eks-vpc-stack으로 시작하는 보안 그룹을 선택해야 한다면 아래 명령어로 확인하세요.
+```sh
+aws ec2 describe-security-groups \
+  --region ${AWS_REGION} \
+  --filters "Name=vpc-id,Values=${VPC_ID}" \
+  --query "SecurityGroups[*].[GroupId,GroupName,Description]" \
+  --output table
+```
+<br/>
+
+6. 클러스터 생성을 선택합니다.<br/>
+EKS Auto Mode는 자동으로 컴퓨트, 네트워킹, 스토리지 관리를 구성하는 옵션인데, 여기서는 Auto Mode 관련 파라미터를 넣지 않았기 때문에 일반 EKS 클러스터 생성 흐름입니다. AWS는 Auto Mode 클러스터 생성을 위한 별도 CLI 절차를 문서화하고 있습니다.
+```sh
+aws eks create-cluster \
+  --region ${AWS_REGION} \
+  --name ${CLUSTER_NAME} \
+  --role-arn ${EKS_ROLE_ARN} \
+  --resources-vpc-config subnetIds=${SUBNET_IDS},securityGroupIds=${SECURITY_GROUP_ID},endpointPublicAccess=true,endpointPrivateAccess=false
+```
+<br/>
+클러스터 상태 확인합니다. CREATING이면 생성 중이며 ACTIVE가 나오면 다음 단계로 진행하면 됩니다.
+```sh
+aws eks describe-cluster \
+  --region ${AWS_REGION} \
+  --name ${CLUSTER_NAME} \
+  --query "cluster.status" \
+  --output text
+```
+<br/>
+
+7. 클러스터 구성 페이지에서 다음을 수행합니다.<br/>
 - 사용자 지정 구성(Custom Configuration) 을 선택하고 EKS 자율 모드(EKS Auto Mode) 사용을 비활성화하세요.<br/>
 - 클러스터 이름을 입력하세요(예: `my-ktds`). 이름에는 영숫자(대소문자 구분)와 하이픈만 사용할 수 있습니다. 영숫자로 시작해야 하며 100자 이하여야 합니다. 이름은 클러스터를 생성하는 AWS 리전과 AWS 계정 내에서 고유해야 합니다.<br/>
 - 클러스터 서비스 역할(Cluster IAM role)에서 myAmazonEKSClusterRole을 선택합니다.<br/>
