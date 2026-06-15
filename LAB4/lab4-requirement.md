@@ -168,6 +168,7 @@ aws ec2 describe-security-groups \
 
 6. 클러스터 생성을 선택합니다.<br/>
 EKS Auto Mode는 자동으로 컴퓨트, 네트워킹, 스토리지 관리를 구성하는 옵션인데, 여기서는 Auto Mode 관련 파라미터를 넣지 않았기 때문에 일반 EKS 클러스터 생성 흐름입니다. AWS는 Auto Mode 클러스터 생성을 위한 별도 CLI 절차를 문서화하고 있습니다.
+
 ```sh
 aws eks create-cluster \
   --region ${AWS_REGION} \
@@ -176,6 +177,7 @@ aws eks create-cluster \
   --resources-vpc-config subnetIds=${SUBNET_IDS},securityGroupIds=${SECURITY_GROUP_ID},endpointPublicAccess=true,endpointPrivateAccess=false
 ```
 <br/>
+
 클러스터 상태 확인합니다. CREATING이면 생성 중이며 ACTIVE가 나오면 다음 단계로 진행하면 됩니다.
 ```sh
 aws eks describe-cluster \
