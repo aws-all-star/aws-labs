@@ -61,6 +61,8 @@ aws iam create-role \
 <br/>
 
 3. 필요한 Amazon EKS 관리형 IAM 정책을 역할에 연결합니다.<br/>
+EKS Cluster용 IAM Role 생성하기 위해 먼저 trust policy 파일을 만듭니다
+<br/>
 ```sh
 cat > eks-cluster-role-trust-policy.json <<EOF
 {
@@ -78,6 +80,7 @@ cat > eks-cluster-role-trust-policy.json <<EOF
 EOF
 ```
 <br/>
+그리고 Role을 생성합니다.
 
 ```sh
 aws iam create-role \
@@ -90,6 +93,13 @@ aws iam create-role \
 aws iam attach-role-policy \
   --policy-arn arn:aws:iam::aws:policy/AmazonEKSClusterPolicy \
   --role-name myAmazonEKSClusterRole
+```
+<br/>
+Role이 있는지 확인합니다.
+<br/>
+
+```sh
+aws iam get-role --role-name myAmazonEKSClusterRole
 ```
 <br/>
 
