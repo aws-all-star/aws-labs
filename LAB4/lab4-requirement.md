@@ -188,25 +188,6 @@ aws eks describe-cluster \
 ```
 <br/>
 
-7. 클러스터 구성 페이지에서 다음을 수행합니다.<br/>
-- 사용자 지정 구성(Custom Configuration) 을 선택하고 EKS 자율 모드(EKS Auto Mode) 사용을 비활성화하세요.<br/>
-- 클러스터 이름을 입력하세요(예: `my-ktds`). 이름에는 영숫자(대소문자 구분)와 하이픈만 사용할 수 있습니다. 영숫자로 시작해야 하며 100자 이하여야 합니다. 이름은 클러스터를 생성하는 AWS 리전과 AWS 계정 내에서 고유해야 합니다.<br/>
-- 클러스터 서비스 역할(Cluster IAM role)에서 myAmazonEKSClusterRole을 선택합니다.<br/>
-- 나머지 설정을 기본값으로 두고 다음을 선택합니다.<br/>
-
-7. 네트워킹 지정 페이지에서 다음을 수행합니다.<br/>
-- VPC 드롭다운 목록에서 이전 단계에서 생성한 VPC의 ID를 선택합니다. vpc-00x0000x000x0x000 | my-eks-vpc-stack-VPC를 예로 들 수 있습니다.<br/>
-- Subnet 드롭다운 목록에서 my-eks-vpc-stack-xxx 시작하는 서브넷을 모두 선택합니다. 그리고 보안그룹도 my-eks-vpc-xxx 시작하는 목록을 선택합니다. 나머지 설정을 기본값으로 두고 다음을 선택합니다.<br/>
-- 관찰성(Observability) 구성 페이지에서 다음을 선택합니다.<br/>
-
-8. 추가 기능 선택 페이지에서 다음을 선택합니다.<br/>
-
-9. 추가 기능에 대한 자세한 내용은 Amazon EKS 추가 기능 섹션을 참조하세요.<br/>
-
-10. 선택한 추가 기능 설정 구성 페이지에서 다음을 선택합니다.<br/>
-
-11. 검토 및 생성 페이지에서 생성을 선택합니다. 클러스터 이름 오른쪽에 있는 클러스터 상태는 클러스터 프로비저닝 프로세스가 완료될 때까지 몇 분 동안 생성 중Creating으로 표시됩니다. 상태가 활성이 되면 다음 단계를 진행합니다.<br/>
-
 오류가 발생하면 여기에서 답을 찾을 수 있습니다.<br/>
 https://docs.aws.amazon.com/eks/latest/userguide/troubleshooting.html#unauthorized
 <br/><br/>
