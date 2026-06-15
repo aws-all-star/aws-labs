@@ -62,10 +62,34 @@ aws iam create-role \
 
 3. 필요한 Amazon EKS 관리형 IAM 정책을 역할에 연결합니다.<br/>
 ```sh
+cat > eks-cluster-role-trust-policy.json <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "eks.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+EOF
+```
+<br/>
+
+```sh
+aws iam create-role \
+  --role-name myAmazonEKSClusterRole \
+  --assume-role-policy-document file://eks-cluster-role-trust-policy.json
+
+```sh
 aws iam attach-role-policy \
   --policy-arn arn:aws:iam::aws:policy/AmazonEKSClusterPolicy \
   --role-name myAmazonEKSClusterRole
 ```
+<br/>
 
 4. https://console.aws.amazon.com/eks/home#/clusters 에서 Amazon EKS 콘솔을 엽니다. 콘솔의 오른쪽 상단에 표시된 AWS 리전이 클러스터를 생성하려는 AWS 리전인지 확인합니다. 수강생은 ap-northeast-2 사용해야 합니다.<br/>
 
