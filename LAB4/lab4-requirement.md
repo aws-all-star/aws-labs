@@ -214,17 +214,62 @@ kubectl get svc
 
 **3단계: 클러스터 노드 구성**<br/>
 1. 필요한 Amazon EKS 관리형 IAM 정책을 역할에 연결합니다.
+EKS Worker Node는 EC2 인스턴스이므로 Trust Policy의 Service Principal은 ec2.amazonaws.com입니다.
+```sh
+cat > eks-node-role-trust-policy.json <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "ec2.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+EOF
+```
+<br/>
+
+```sh
+aws iam create-role \
+  --role-name ${NODE_ROLE_NAME} \
+  --assume-role-policy-document file://eks-node-role-trust-policy.json
+```
+<br/>
+
 ```sh
 aws iam attach-role-policy \
   --policy-arn arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy \
-  --role-name myAmazonEKSNodeRole
+  --role-name ${NODE_ROLE_NAME}
+```
+<br/>
+
+```sh
 aws iam attach-role-policy \
   --policy-arn arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly \
-  --role-name myAmazonEKSNodeRole
+  --role-name ${NODE_ROLE_NAME}
+```
+<br/>
+
+```sh
 aws iam attach-role-policy \
   --policy-arn arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy \
-  --role-name myAmazonEKSNodeRole
+  --role-name ${NODE_ROLE_NAME}
 ```
+<br/>
+EKS 노드 IAM Role에는 AmazonEKSWorkerNodePolicy, AmazonEC2ContainerRegistryReadOnly 정책이 필요하며, 실습/기본 구성에서는 AmazonEKS_CNI_Policy도 노드 역할에 연결하는 방식이 많이 사용됩니다. 다만 AWS는 최신 권장 방식으로 CNI 권한을 노드 역할이 아니라 aws-node 서비스 계정의 IRSA 역할에 부여하는 방식을 권장합니다. 실습 문서 흐름을 그대로 따를 경우 위 3개를 연결하면 됩니다.
+```sh
+
+```
+<br/>
+
+```sh
+
+```
+<br/>
 
 2. https://console.aws.amazon.com/eks/home#/clusters 에서 Amazon EKS 콘솔을 엽니다.<br/>
 
