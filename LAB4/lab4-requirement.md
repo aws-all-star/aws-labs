@@ -83,6 +83,8 @@ EOF
 aws iam create-role \
   --role-name myAmazonEKSClusterRole \
   --assume-role-policy-document file://eks-cluster-role-trust-policy.json
+```
+<br/>
 
 ```sh
 aws iam attach-role-policy \
