@@ -38,6 +38,22 @@ aws cloudformation create-stack \
 2. 클러스터 IAM 역할 생성 및 관리 정책 연결
 클러스터 IAM 역할을 생성하고 필요한 Amazon EKS IAM 관리형 정책을 연결합니다. Amazon EKS에서 관리하는 Kubernetes 클러스터는 사용자 대신 다른 AWS 서비스를 호출하여 서비스에 사용하는 리소스를 관리합니다.
 ```sh
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "ec2.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+```
+<br/>
+
+```sh
 aws iam create-role \
   --role-name myAmazonEKSNodeRole \
   --assume-role-policy-document file://"node-role-trust-policy.json"
