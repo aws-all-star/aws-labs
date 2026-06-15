@@ -14,7 +14,7 @@ AWS는 Linux OS인 Amazon Linux 2023(AL2023) 최신 버전도 제공합니다. A
 |구분|Amazon Linux|Rocky Linux|RHEL (Red Hat Enterprise Linux)|
 |---|------------|-----------|-------------------------------|
 |개발사/지원|AWS (Amazon Web Services)|Rocky Enterprise Software Foundation (커뮤니티, CentOS 창립자 Gregory Kurtzer 주도)|Red Hat (IBM 자회사)|
-|출시 목적|RHEL과 완벽한 1:1 바이너리 호환 (CentOS 대체)|엔터프라이즈급 상용 배포판|
+|출시 목적|N/A|RHEL과 완벽한 1:1 바이너리 호환 (CentOS 대체)|엔터프라이즈급 상용 배포판|
 |기반|RHEL 계열을 AWS에 맞게 최적화 (Amazon Linux 2는 RHEL7/8 기반, AL2023은 Fedora 기반 upstream)|RHEL 재빌드 (버그 픽스, 보안 패치 동일)|자체 개발/유지 (업스트림 Fedora → 다운스트림 RHEL)|
 |라이선스/비용|무료, AWS에서만 공식 지원|무료, 오픈소스 (커뮤니티 지원, 일부 상용 지원 제공 가능)|유료 구독 모델 (지원·업데이트·인증 포함)|
 |지원 주체|AWS가 직접 관리, AWS Support 통합|커뮤니티 기반 (기업용 상용 서포트 선택 가능)|Red Hat 공식 지원 (SLA, 인증, 보안 패치 보장)|
