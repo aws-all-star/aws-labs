@@ -60,9 +60,8 @@ aws iam create-role \
 ```
 <br/>
 
-3. 필요한 Amazon EKS 관리형 IAM 정책을 역할에 연결합니다.<br/>
+3. 필요한 Amazon EKS 관리형 IAM 정책을 역할에 연결합니다.
 EKS Cluster용 IAM Role 생성하기 위해 먼저 trust policy 파일을 만듭니다
-<br/>
 ```sh
 cat > eks-cluster-role-trust-policy.json <<EOF
 {
